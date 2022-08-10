@@ -1,34 +1,34 @@
 package brasileirao;
 
+import java.util.ArrayList;
+
 public class Time {
-	private static int idGeral;
+	private static int idGeral = 0;
 	private int idTime;
 	private String nome;
-	private int numJog;
+	private ArrayList<Jogador> jogadores;
 	private int vitorias;
 	private int empates;
 	private int derrotas;
 	private int golsPara;
 	private int golsContra;
 	private int classificacao;
+
 	
-	public Time(int idTime, String nome, int numJog, int vitorias, int empates, int derrotas, int golsPara, int golsContra, int classificacao) {
+	public Time(String nome) {
 		this.idTime = Time.idGeral++;
 		this.nome = nome;
-		this.numJog = numJog;
-		this.vitorias = vitorias;
-		this.empates = empates;
-		this.derrotas = derrotas;
-		this.golsPara = golsPara;
-		this.golsContra = golsContra;
-		this.classificacao = classificacao;
+		this.vitorias = 0;
+		this.empates = 0;
+		this.derrotas = 0;
+		this.golsPara = 0;
+		this.golsContra = 0;
+		this.classificacao = 0;
+		this.jogadores = new ArrayList<>();
 	}
 	
 	public String getNome() {
 		return this.nome;
-	}
-	public int getNumJog() {
-		return this.numJog;
 	}
 	public int getVitorias() {
 		return this.vitorias;
@@ -50,6 +50,16 @@ public class Time {
 	}
 	public int getClassificacao() {
 		return this.classificacao;
+	}
+	
+	public void cadastrarJogador(Jogador jogador) {
+		this.jogadores.add(jogador);
+	}
+	
+	public void apresentarJogadores() {
+		for (int a = 0; a < jogadores.size(); a++) {
+			System.out.println(this.jogadores.get(a).getNome());
+		}
 	}
 
 }

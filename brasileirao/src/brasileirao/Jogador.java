@@ -4,17 +4,14 @@ public class Jogador extends Funcionario{
 	private String posicao;
 	private int gols;
 	
-	public Jogador(String nome, int idTime, String posicao, int gols) {
-		super(nome, idTime);
+	public Jogador(String nome, String posicao) {
+		super(nome);
 		this.posicao = posicao;
-		this.gols = gols;
+		this.gols = 0;
 	}
 	
 	public int getIdFunc() {
 		return super.getIdFunc();
-	}
-	public int getIdTime() {
-		return super.getIdTime();
 	}
 	public String getNome() {
 		return super.getNome();

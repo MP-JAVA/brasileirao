@@ -7,7 +7,7 @@ public abstract class Funcionario {
 	private int idTime;
 	private String nome;
 	
-	public Funcionario(String nome, int idTime) {
+	public Funcionario(String nome) {
 		this.nome = nome;
 		this.idTime = idTime;
 		this.idFunc = Funcionario.idGeral++;

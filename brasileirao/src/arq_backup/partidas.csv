@@ -1,0 +1,380 @@
+0;Atlético-MG;2;0;Internacional
+1;Fluminense;0;0;Santos
+2;São Paulo;4;0;Athletico-PR
+3;Palmeiras;2;3;Ceará
+4;Botafogo;1;3;Corinthians
+5;Juventude;2;2;Bragantino
+6;Fortaleza;0;1;Cuiabá
+7;Atlético-GO;1;1;Flamengo
+8;Avaí;1;0;América-MG
+9;Coritiba;3;0;Goiás
+10;América-MG;4;1;Juventude
+11;Flamengo;3;1;São Paulo
+12;Bragantino;4;0;Atlético-GO
+13;Corinthians;3;0;Avaí
+14;Santos;2;1;Coritiba
+15;Internacional;2;1;Fortaleza
+16;Ceará;1;3;Botafogo
+17;Goiás;1;1;Palmeiras
+18;Cuiabá;0;1;Fluminense
+19;Athletico-PR;0;1;Atlético-MG
+20;Atlético-MG;2;2;Coritiba
+21;Fluminense;0;1;Internacional
+22;Bragantino;1;1;São Paulo
+23;Palmeiras;3;0;Corinthians
+24;Santos;3;0;América-MG
+25;Juventude;0;1;Cuiabá
+26;Fortaleza;0;1;Ceará
+27;Atlético-GO;1;1;Botafogo
+28;Avaí;3;2;Goiás
+29;Athletico-PR;1;0;Flamengo
+30;América-MG;1;0;Athletico-PR
+31;Flamengo;0;0;Palmeiras
+32;São Paulo;2;1;Santos
+33;Corinthians;1;0;Fortaleza
+34;Botafogo;1;1;Juventude
+35;Internacional;0;0;Avaí
+36;Ceará;0;1;Bragantino
+37;Goiás;2;2;Atlético-MG
+38;Cuiabá;1;1;Atlético-GO
+39;Coritiba;3;2;Fluminense
+40;Atlético-MG;1;2;América-MG
+41;Flamengo;0;1;Botafogo
+42;Bragantino;0;1;Corinthians
+43;Palmeiras;1;1;Fluminense
+44;Santos;4;1;Cuiabá
+45;Juventude;1;1;Internacional
+46;Fortaleza;1;1;São Paulo
+47;Atlético-GO;0;1;Goiás
+48;Avaí;2;1;Coritiba
+49;Athletico-PR;1;0;Ceará
+50;Atlético-MG;2;0;Atlético-GO
+51;Fluminense;2;1;Athletico-PR
+52;São Paulo;2;1;Cuiabá
+53;Palmeiras;2;0;Bragantino
+54;Botafogo;3;1;Fortaleza
+55;Internacional;2;2;Corinthians
+56;Ceará;2;2;Flamengo
+57;Goiás;1;0;Santos
+58;Avaí;1;2;Juventude
+59;Coritiba;1;0;América-MG
+60;América-MG;1;1;Botafogo
+61;Flamengo;1;0;Goiás
+62;Bragantino;1;1;Atlético-MG
+63;Corinthians;1;1;São Paulo
+64;Santos;0;0;Ceará
+65;Juventude;0;3;Palmeiras
+66;Fortaleza;0;1;Fluminense
+67;Atlético-GO;2;0;Coritiba
+68;Cuiabá;1;1;Internacional
+69;Athletico-PR;2;1;Avaí
+70;Atlético-MG;2;1;Avaí
+71;Fluminense;1;2;Flamengo
+72;São Paulo;2;2;Ceará
+73;Corinthians;1;1;América-MG
+74;Santos;0;1;Palmeiras
+75;Internacional;1;1;Atlético-GO
+76;Fortaleza;1;1;Juventude
+77;Goiás;1;1;Bragantino
+78;Cuiabá;0;1;Athletico-PR
+79;Coritiba;1;0;Botafogo
+80;América-MG;2;1;Cuiabá
+81;Flamengo;1;2;Fortaleza
+82;Bragantino;0;2;Internacional
+83;Palmeiras;0;0;Atlético-MG
+84;Botafogo;1;2;Goiás
+85;Juventude;1;0;Fluminense
+86;Ceará;1;1;Coritiba
+87;Atlético-GO;0;1;Corinthians
+88;Avaí;1;1;São Paulo
+89;Athletico-PR;2;2;Santos
+90;América-MG;0;2;Ceará
+91;Fluminense;5;3;Atlético-MG
+92;Bragantino;1;0;Flamengo
+93;Palmeiras;4;0;Botafogo
+94;Santos;1;1;Internacional
+95;Juventude;1;3;Athletico-PR
+96;Fortaleza;1;1;Goiás
+97;Atlético-GO;2;1;Avaí
+98;Cuiabá;1;0;Corinthians
+99;Coritiba;1;1;São Paulo
+100;Atlético-MG;1;1;Santos
+101;Fluminense;0;2;Atlético-GO
+102;São Paulo;1;0;América-MG
+103;Corinthians;2;0;Juventude
+104;Botafogo;0;1;Avaí
+105;Internacional;3;1;Flamengo
+106;Fortaleza;0;0;Athletico-PR
+107;Goiás;1;1;Ceará
+108;Cuiabá;1;1;Bragantino
+109;Coritiba;0;2;Palmeiras
+110;América-MG;0;0;Fluminense
+111;Flamengo;2;0;Cuiabá
+112;Bragantino;4;2;Coritiba
+113;Palmeiras;4;2;Atlético-GO
+114;Botafogo;1;0;São Paulo
+115;Juventude;1;2;Santos
+116;Ceará;0;0;Atlético-MG
+117;Goiás;1;2;Internacional
+118;Avaí;3;2;Fortaleza
+119;Athletico-PR;1;1;Corinthians
+120;Atlético-MG;2;0;Flamengo
+121;Fluminense;2;0;Avaí
+122;São Paulo;1;2;Palmeiras
+123;Corinthians;1;0;Goiás
+124;Santos;2;2;Bragantino
+125;Internacional;2;3;Botafogo
+126;Fortaleza;1;0;América-MG
+127;Atlético-GO;3;1;Juventude
+128;Cuiabá;0;0;Ceará
+129;Coritiba;0;1;Athletico-PR
+130;Atlético-MG;3;2;Fortaleza
+131;Flamengo;3;0;América-MG
+132;São Paulo;0;0;Juventude
+133;Corinthians;0;0;Santos
+134;Botafogo;0;1;Fluminense
+135;Internacional;3;0;Coritiba
+136;Ceará;1;1;Atlético-GO
+137;Goiás;1;0;Cuiabá
+138;Avaí;2;2;Palmeiras
+139;Athletico-PR;4;2;Bragantino
+140;América-MG;1;0;Goiás
+141;Fluminense;4;0;Corinthians
+142;Bragantino;0;1;Botafogo
+143;Palmeiras;0;2;Athletico-PR
+144;Santos;1;2;Flamengo
+145;Juventude;1;2;Atlético-MG
+146;Ceará;1;1;Internacional
+147;Atlético-GO;1;2;São Paulo
+148;Avaí;1;2;Cuiabá
+149;Coritiba;2;1;Fortaleza
+150;Atlético-MG;0;0;São Paulo
+151;Fluminense;2;1;Ceará
+152;Bragantino;4;0;Avaí
+153;Corinthians;1;0;Flamengo
+154;Santos;1;0;Atlético-GO
+155;Internacional;1;0;América-MG
+156;Fortaleza;0;0;Palmeiras
+157;Goiás;2;1;Athletico-PR
+158;Cuiabá;2;0;Botafogo
+159;Coritiba;2;2;Juventude
+160;América-MG;0;3;Bragantino
+161;Flamengo;2;0;Coritiba
+162;São Paulo;2;2;Fluminense
+163;Palmeiras;1;0;Cuiabá
+164;Botafogo;0;1;Atlético-MG
+165;Juventude;0;0;Goiás
+166;Ceará;3;1;Corinthians
+167;Atlético-GO;0;1;Fortaleza
+168;Avaí;1;0;Santos
+169;Athletico-PR;0;0;Internacional
+170;América-MG;0;1;Palmeiras
+171;Flamengo;4;0;Juventude
+172;Bragantino;2;1;Fortaleza
+173;Corinthians;3;1;Coritiba
+174;Santos;2;0;Botafogo
+175;Internacional;3;3;São Paulo
+176;Ceará;1;0;Avaí
+177;Goiás;2;3;Fluminense
+178;Cuiabá;1;1;Atlético-MG
+179;Athletico-PR;4;1;Atlético-GO
+180;Atlético-MG;1;2;Corinthians
+181;Fluminense;2;1;Bragantino
+182;São Paulo;3;3;Goiás
+183;Palmeiras;2;1;Internacional
+184;Botafogo;2;0;Athletico-PR
+185;Juventude;1;0;Ceará
+186;Fortaleza;0;0;Santos
+187;Atlético-GO;0;1;América-MG
+188;Avaí;1;2;Flamengo
+189;Coritiba;1;0;Cuiabá
+190;América-MG;3;1;Avaí
+191;Flamengo;4;1;Atlético-GO
+192;Bragantino;1;0;Juventude
+193;Corinthians;1;0;Botafogo
+194;Santos;2;2;Fluminense
+195;Internacional;3;0;Atlético-MG
+196;Ceará;1;2;Palmeiras
+197;Goiás;1;0;Coritiba
+198;Cuiabá;0;1;Fortaleza
+199;Athletico-PR;1;0;São Paulo
+200;Atlético-MG;2;3;Athletico-PR
+201;Fluminense;1;0;Cuiabá
+202;São Paulo;0;1;Flamengo
+203;Palmeiras;3;0;Goiás
+204;Botafogo;1;1;Ceará
+205;Juventude;0;1;América-MG
+206;Fortaleza;3;0;Internacional
+207;Atlético-GO;2;1;Bragantino
+208;Avaí;1;1;Corinthians
+209;Coritiba;1;2;Santos
+210;América-MG;;;Santos
+211;Flamengo;;;Athletico-PR
+212;São Paulo;;;Bragantino
+213;Corinthians;;;Palmeiras
+214;Botafogo;;;Atlético-GO
+215;Internacional;;;Fluminense
+216;Ceará;;;Fortaleza
+217;Goiás;;;Avaí
+218;Cuiabá;;;Juventude
+219;Coritiba;;;Atlético-MG
+220;Atlético-MG;;;Goiás
+221;Fluminense;;;Coritiba
+222;Bragantino;;;Ceará
+223;Palmeiras;;;Flamengo
+224;Santos;;;São Paulo
+225;Juventude;;;Botafogo
+226;Fortaleza;;;Corinthians
+227;Atlético-GO;;;Cuiabá
+228;Avaí;;;Internacional
+229;Athletico-PR;;;América-MG
+230;América-MG;;;Atlético-MG
+231;Fluminense;;;Palmeiras
+232;São Paulo;;;Fortaleza
+233;Corinthians;;;Bragantino
+234;Botafogo;;;Flamengo
+235;Internacional;;;Juventude
+236;Ceará;;;Athletico-PR
+237;Goiás;;;Atlético-GO
+238;Cuiabá;;;Santos
+239;Coritiba;;;Avaí
+240;América-MG;;;Coritiba
+241;Flamengo;;;Ceará
+242;Bragantino;;;Palmeiras
+243;Corinthians;;;Internacional
+244;Santos;;;Goiás
+245;Juventude;;;Avaí
+246;Fortaleza;;;Botafogo
+247;Atlético-GO;;;Atlético-MG
+248;Cuiabá;;;São Paulo
+249;Athletico-PR;;;Fluminense
+250;Atlético-MG;;;Bragantino
+251;Fluminense;;;Fortaleza
+252;São Paulo;;;Corinthians
+253;Palmeiras;;;Juventude
+254;Botafogo;;;América-MG
+255;Internacional;;;Cuiabá
+256;Ceará;;;Santos
+257;Goiás;;;Flamengo
+258;Avaí;;;Athletico-PR
+259;Coritiba;;;Atlético-GO
+260;América-MG;;;Corinthians
+261;Flamengo;;;Fluminense
+262;Bragantino;;;Goiás
+263;Palmeiras;;;Santos
+264;Botafogo;;;Coritiba
+265;Juventude;;;Fortaleza
+266;Ceará;;;São Paulo
+267;Atlético-GO;;;Internacional
+268;Avaí;;;Atlético-MG
+269;Athletico-PR;;;Cuiabá
+270;Atlético-MG;;;Palmeiras
+271;Fluminense;;;Juventude
+272;São Paulo;;;Avaí
+273;Corinthians;;;Atlético-GO
+274;Santos;;;Athletico-PR
+275;Internacional;;;Bragantino
+276;Fortaleza;;;Flamengo
+277;Goiás;;;Botafogo
+278;Cuiabá;;;América-MG
+279;Coritiba;;;Ceará
+280;Atlético-MG;;;Fluminense
+281;Flamengo;;;Bragantino
+282;São Paulo;;;Coritiba
+283;Corinthians;;;Cuiabá
+284;Botafogo;;;Palmeiras
+285;Internacional;;;Santos
+286;Ceará;;;América-MG
+287;Goiás;;;Fortaleza
+288;Avaí;;;Atlético-GO
+289;Athletico-PR;;;Juventude
+290;América-MG;;;São Paulo
+291;Flamengo;;;Internacional
+292;Bragantino;;;Cuiabá
+293;Palmeiras;;;Coritiba
+294;Santos;;;Atlético-MG
+295;Juventude;;;Corinthians
+296;Ceará;;;Goiás
+297;Atlético-GO;;;Fluminense
+298;Avaí;;;Botafogo
+299;Athletico-PR;;;Fortaleza
+300;Atlético-MG;;;Ceará
+301;Fluminense;;;América-MG
+302;São Paulo;;;Botafogo
+303;Corinthians;;;Athletico-PR
+304;Santos;;;Juventude
+305;Internacional;;;Goiás
+306;Fortaleza;;;Avaí
+307;Atlético-GO;;;Palmeiras
+308;Cuiabá;;;Flamengo
+309;Coritiba;;;Bragantino
+310;América-MG;;;Fortaleza
+311;Flamengo;;;Atlético-MG
+312;Bragantino;;;Santos
+313;Palmeiras;;;São Paulo
+314;Botafogo;;;Internacional
+315;Juventude;;;Atlético-GO
+316;Ceará;;;Cuiabá
+317;Goiás;;;Corinthians
+318;Avaí;;;Fluminense
+319;Athletico-PR;;;Coritiba
+320;América-MG;;;Flamengo
+321;Fluminense;;;Botafogo
+322;Bragantino;;;Athletico-PR
+323;Palmeiras;;;Avaí
+324;Santos;;;Corinthians
+325;Juventude;;;São Paulo
+326;Fortaleza;;;Atlético-MG
+327;Atlético-GO;;;Ceará
+328;Cuiabá;;;Goiás
+329;Coritiba;;;Internacional
+330;Atlético-MG;;;Juventude
+331;Flamengo;;;Santos
+332;São Paulo;;;Atlético-GO
+333;Corinthians;;;Fluminense
+334;Botafogo;;;Bragantino
+335;Internacional;;;Ceará
+336;Fortaleza;;;Coritiba
+337;Goiás;;;América-MG
+338;Cuiabá;;;Avaí
+339;Athletico-PR;;;Palmeiras
+340;América-MG;;;Internacional
+341;Flamengo;;;Corinthians
+342;São Paulo;;;Atlético-MG
+343;Palmeiras;;;Fortaleza
+344;Botafogo;;;Cuiabá
+345;Juventude;;;Coritiba
+346;Ceará;;;Fluminense
+347;Atlético-GO;;;Santos
+348;Avaí;;;Bragantino
+349;Athletico-PR;;;Goiás
+350;Atlético-MG;;;Botafogo
+351;Fluminense;;;São Paulo
+352;Bragantino;;;América-MG
+353;Corinthians;;;Ceará
+354;Santos;;;Avaí
+355;Internacional;;;Athletico-PR
+356;Fortaleza;;;Atlético-GO
+357;Goiás;;;Juventude
+358;Cuiabá;;;Palmeiras
+359;Coritiba;;;Flamengo
+360;Atlético-MG;;;Cuiabá
+361;Fluminense;;;Goiás
+362;São Paulo;;;Internacional
+363;Palmeiras;;;América-MG
+364;Botafogo;;;Santos
+365;Juventude;;;Flamengo
+366;Fortaleza;;;Bragantino
+367;Atlético-GO;;;Athletico-PR
+368;Avaí;;;Ceará
+369;Coritiba;;;Corinthians
+370;América-MG;;;Atlético-GO
+371;Flamengo;;;Avaí
+372;Bragantino;;;Fluminense
+373;Corinthians;;;Atlético-MG
+374;Santos;;;Fortaleza
+375;Internacional;;;Palmeiras
+376;Ceará;;;Juventude
+377;Goiás;;;São Paulo
+378;Cuiabá;;;Coritiba
+379;Athletico-PR;;;Botafogo

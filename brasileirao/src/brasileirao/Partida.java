@@ -6,34 +6,36 @@ public class Partida {
 	
 	private static int idGeral;
 	private int idPartida;
-	private Time timeMandante;
-	private Time timeVisitante;
-	private int[] placar;
+	private String timeMandante;
+	private String timeVisitante;
+	private int golsMandante;
+	private int golsVisitante;
 	private ArrayList<Jogador> marcadores;
 
 
-	public Partida(Time timeMandante, Time timeVisitante) {
+	public Partida(String timeMandante, String timeVisitante) {
 		this.idPartida = Partida.idGeral++;
 		this.timeMandante = timeMandante;
 		this.timeVisitante = timeVisitante;
-		this.placar = new int[2];
+		this.golsMandante = golsMandante;
+		this.golsVisitante = golsVisitante;
 		this.marcadores = new ArrayList<>();
 	}
 	
 	public int getIdPartida() {
 		return this.idPartida;
 	}
-	public Time getTimeMandante() {
+	public String getTimeMandante() {
 		return this.timeMandante;
 	}
-	public Time getTimeVisitante() {
+	public String getTimeVisitante() {
 		return this.timeVisitante;
 	}
 	public int getGolsMandante() {
-		return this.placar[0];
+		return this.golsMandante;
 	}
 	public int getGolsVisitante() {
-		return this.placar[1];
+		return this.golsVisitante;
 	}
 	public void cadastrarMarcador(Jogador jogador, int gols) { //Temos que desenvolver uma lógica para o retorno.
 		for (int a = 0; a < gols; a++) {

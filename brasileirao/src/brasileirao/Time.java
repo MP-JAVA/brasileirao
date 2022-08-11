@@ -3,7 +3,7 @@ package brasileirao;
 import java.util.ArrayList;
 
 public class Time {
-	private static int idGeral = 0;
+	private static int idGeral = 1;
 	private int idTime;
 	private String nome;
 	private ArrayList<Jogador> jogadores;
@@ -58,7 +58,8 @@ public class Time {
 	
 	public void apresentarJogadores() {
 		for (int a = 0; a < jogadores.size(); a++) {
-			System.out.println(this.jogadores.get(a).getNome());
+			System.out.printf("%d - %s", this.jogadores.get(a).getIdFunc(), this.jogadores.get(a).getNome());
+			System.out.println();
 		}
 	}
 

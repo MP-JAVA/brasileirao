@@ -11,6 +11,12 @@ public class Main {
 	
 		brasileirao.apresentarTime();
 		
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		//brasileirao.apresentarPartida();
+		
 
 	}
 	

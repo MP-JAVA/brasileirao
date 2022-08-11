@@ -23,23 +23,12 @@ public class Campeonato {
 			this.jogadores = new ArrayList<>();
 		}
 		
-		/* private void cadastrarTime(String nome) {
-			Time time = new Time(nome);
-			this.times.add(time);
-			for (int a = (time.getIdTime()*11); a < ((time.getIdTime()+1)*11); a++) {
-				time.cadastrarJogador(this.jogadores.get(a));
-			}
-		} */ //forma antiga do método (apagar se achar desnecessário voltar atrás)
 		
 		private void cadastrarTime(String nome) {
 			Time time = new Time(nome);
 			this.times.add(time);
 		}
 		
-		/* public void cadastrarJogador(String nome, String posicao) {
-			Jogador jogador = new Jogador(nome, posicao);
-			this.jogadores.add(jogador);
-		} */ //forma antiga do método (apagar se achar desnecessário voltar atrás)
 		
 		public void cadastrarJogador(String nome, String posicao, String id) {
 			Jogador jogador = new Jogador(nome, posicao);
@@ -48,13 +37,27 @@ public class Campeonato {
 			this.times.get(idTime - 1).cadastrarJogador(jogador);
 		}
 		
+		private void cadastrarPartida(String timeMandante, String timeVisitante) {
+			Partida partida = new Partida(timeMandante, timeVisitante);
+			this.tabelaDePartidas.add(partida);
+		}
+		
 		public void apresentarTime() {
 			for (int b = 0; b < this.times.size(); b++) {
-				System.out.println(this.times.get(b).getNome());
+				System.out.printf("%d - %s", this.times.get(b).getIdTime(), this.times.get(b).getNome());
+				System.out.println();
 				this.times.get(b).apresentarJogadores();
 				System.out.println();
 			}
 		}
+		
+		public void apresentarPartida() {
+			for (int b = 0; b < this.tabelaDePartidas.size(); b++) {
+				System.out.printf("%d - %s x %s", this.tabelaDePartidas.get(b).getIdPartida() + 1, this.tabelaDePartidas.get(b).getTimeMandante(), this.tabelaDePartidas.get(b).getTimeVisitante());
+				System.out.println();
+			}
+		}
+		
 		
 		public void carregarDadosElencos(String caminho) {
 			File arquivo = new File(caminho);
@@ -94,9 +97,8 @@ public class Campeonato {
 						String linha = leitor.readLine();
 						while (linha != null) {
 							String dados[] = linha.split(";");
-							System.out.println(dados[1]);
-							//this.cadastrarPartida(); //Elaborar esse método e depois passar os parâmetros aqui.
-							//linha = leitor.readLine(); //Apagar esse print de teste
+							this.cadastrarPartida(dados[1], dados[4]);
+							linha = leitor.readLine();
 						}
 						
 					} catch(IOException ioex) {		

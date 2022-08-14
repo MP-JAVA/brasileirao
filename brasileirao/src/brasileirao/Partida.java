@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Partida {
 	
-	private static int idGeral;
+	private static int idGeral = 1;
 	private int idPartida;
 	private String timeMandante;
 	private String timeVisitante;
@@ -22,21 +22,62 @@ public class Partida {
 		this.marcadores = new ArrayList<>();
 	}
 	
+	public static int getIdGeral() {
+		return idGeral;
+	}
+
+	public static void setIdGeral(int idGeral) {
+		Partida.idGeral = idGeral;
+	}
+
 	public int getIdPartida() {
-		return this.idPartida;
+		return idPartida;
 	}
+
+	public void setIdPartida(int idPartida) {
+		this.idPartida = idPartida;
+	}
+
 	public String getTimeMandante() {
-		return this.timeMandante;
+		return timeMandante;
 	}
+
+	public void setTimeMandante(String timeMandante) {
+		this.timeMandante = timeMandante;
+	}
+
 	public String getTimeVisitante() {
-		return this.timeVisitante;
+		return timeVisitante;
 	}
+
+	public void setTimeVisitante(String timeVisitante) {
+		this.timeVisitante = timeVisitante;
+	}
+
 	public int getGolsMandante() {
-		return this.golsMandante;
+		return golsMandante;
 	}
+
+	public void setGolsMandante(int golsMandante) {
+		this.golsMandante = golsMandante;
+	}
+
 	public int getGolsVisitante() {
-		return this.golsVisitante;
+		return golsVisitante;
 	}
+
+	public void setGolsVisitante(int golsVisitante) {
+		this.golsVisitante = golsVisitante;
+	}
+
+	public ArrayList<Jogador> getMarcadores() {
+		return marcadores;
+	}
+
+	public void setMarcadores(ArrayList<Jogador> marcadores) {
+		this.marcadores = marcadores;
+	}
+
 	public void cadastrarMarcador(Jogador jogador, int gols) { //Temos que desenvolver uma lógica para o retorno.
 		for (int a = 0; a < gols; a++) {
 			this.marcadores.add(jogador);

@@ -1,5 +1,7 @@
 package brasileirao;
 
+import java.util.ArrayList;
+
 public class Main {
 	
 	public static void main (String args[]) {
@@ -8,15 +10,24 @@ public class Main {
 		String caminhoElencos = "C:\\Users\\Leo\\git\\brasileirao\\brasileirao\\src\\arquivos\\cadastro.csv";
 		String caminhoPartidas = "C:\\Users\\Leo\\git\\brasileirao\\brasileirao\\src\\arquivos\\partidas.csv";
 		brasileirao.carregarDados(caminhoElencos, caminhoPartidas);
+		
 	
-		brasileirao.apresentarTime();
+		// brasileirao.apresentarTime();
 		
 		System.out.println();
 		System.out.println();
 		System.out.println();
 		
-		//brasileirao.apresentarPartida();
+		brasileirao.apresentarPartidas();	
 		
+		
+		brasileirao.carregarResultado(brasileirao.digitarResultado());
+		
+		brasileirao.apresentarPartidas();
+		
+		
+		
+
 
 	}
 	

@@ -1,9 +1,9 @@
 package brasileiraoView;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -11,32 +11,31 @@ public class BrasileiraoMenu {
 
 	public static void main(String[] args) {
 
-		// JFrame = a GUI window to add components to
+		JFrame f = new JFrame(); // criando instância do Jframe
+		JButton classificacao, partida;
+		JLabel menu = new JLabel("Menu");
 
-		ImageIcon image = new ImageIcon("logo.png");
+		classificacao = new JButton("Classificação");
+		partida = new JButton("Partida");
+		classificacao.setBounds(50, 400, 150, 40);
+		partida.setBounds(50, 450, 150, 40);
 
-		JLabel label = new JLabel();
-		label.setIcon(image);
-		label.setText("Menu");
-		label.setHorizontalTextPosition(JLabel.CENTER);
-		label.setVerticalTextPosition(JLabel.TOP);
-		label.setVerticalAlignment(JLabel.TOP);
-		label.setHorizontalAlignment(JLabel.CENTER);
-		label.setForeground(new Color(0, 0, 0));
-		label.setFont(new Font("fira code", Font.BOLD, 40));
+		menu.setBounds(350, 50, 100, 30);
+		menu.setFont(new Font("fira code", Font.BOLD, 40)); // Estilização da fonte
 
-		JFrame frame = new JFrame(); // Creates a frame
-		frame.setTitle("Brasileirão"); // sets title of frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.setSize(1000, 800); // sets the x-dimension, and y-dimension of frame
-		frame.setVisible(true); // make frame visible
-		frame.add(label);
+		// adcionando o botão no JFrame
+		f.add(classificacao);
+		f.add(partida);
+		f.add(menu);
+
+		f.setSize(800, 600); // definindo a largura e altura
+		f.setTitle("Brasileirão");
+		f.setLayout(null);
+		f.setVisible(true); // deixa a janela visivel
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setResizable(false); // não deixa você expandir a janela
 
 		ImageIcon image2 = new ImageIcon("bola.png"); // create ImageIcon
-		frame.setIconImage(image2.getImage());
-		frame.getContentPane().setBackground(new Color(47, 79, 79)); // change color of background
-
+		f.setIconImage(image2.getImage());
 	}
-
 }

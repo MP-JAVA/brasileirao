@@ -37,5 +37,6 @@ public class BrasileiraoMenu {
 
 		ImageIcon image2 = new ImageIcon("bola.png"); // create ImageIcon
 		f.setIconImage(image2.getImage());
+
 	}
 }

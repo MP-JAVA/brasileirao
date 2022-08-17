@@ -12,19 +12,11 @@ public class Main {
 		brasileirao.carregarDados(caminhoElencos, caminhoPartidas);
 		
 	
-		// brasileirao.apresentarTime();
+		//brasileirao.apresentarTime();
 		
-		System.out.println();
-		System.out.println();
-		System.out.println();
+
 		
-		brasileirao.apresentarPartidas();	
-		
-		
-		brasileirao.carregarResultado(brasileirao.digitarResultado());
-		
-		brasileirao.apresentarPartidas();
-		
+		//brasileirao.apresentarPartidas();
 		
 		
 

@@ -6,6 +6,7 @@ public class Partida {
 	
 	private static int idGeral = 1;
 	private int idPartida;
+	private String status;
 	private String timeMandante;
 	private String timeVisitante;
 	private int golsMandante;
@@ -15,6 +16,7 @@ public class Partida {
 
 	public Partida(String timeMandante, String timeVisitante) {
 		this.idPartida = Partida.idGeral++;
+		this.status = "PENDENTE";
 		this.timeMandante = timeMandante;
 		this.timeVisitante = timeVisitante;
 		this.golsMandante = golsMandante;
@@ -36,6 +38,14 @@ public class Partida {
 
 	public void setIdPartida(int idPartida) {
 		this.idPartida = idPartida;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getTimeMandante() {

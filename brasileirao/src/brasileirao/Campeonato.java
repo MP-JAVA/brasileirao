@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -112,6 +113,19 @@ public class Campeonato {
 			return new int[] {id, gMandante, gVisitante};
 		}
 		
+		public ArrayList<Integer> digitarMarcadores(int gols) {
+			ArrayList<Integer> idMarcadores = new ArrayList<Integer>();
+			
+			for (int a = 0; a < gols; a++) {
+				System.out.printf("Digite o id. do jogador que marcou o gol número %d: ", a);
+				Scanner ler = new Scanner(System.in);
+				int idMarcador = ler.nextInt();
+				idMarcadores.add(idMarcador);
+			}
+			return idMarcadores;
+		}
+		
+		//No carregarResultado, eu devo fazer receber uma lista de marcadores também, vinda do método acima
 		public void carregarResultado(int[] dadosPartida) {
 			int id, gMandante, gVisitante;
 			
@@ -164,9 +178,16 @@ public class Campeonato {
 					try {
 						leitor = new BufferedReader(new FileReader(caminho));
 						String linha = leitor.readLine();
+						int contador = 0;
 						while (linha != null) {
 							String dados[] = linha.split(";");
 							this.cadastrarPartida(dados[1], dados[4]);
+							if (dados[5].equals("R")) {
+								this.tabelaDePartidas.get(contador).setStatus("REALIZADA");
+							}
+							int [] dadosPartida = {Integer.parseInt(dados[0]), Integer.parseInt(dados[2]), Integer.parseInt(dados[3])};
+							carregarResultado(dadosPartida);
+							contador++;
 							linha = leitor.readLine();
 						}
 						
@@ -193,7 +214,10 @@ public class Campeonato {
 		
 		public void apresentarPartidas() {
 			for (int b = 0; b < this.tabelaDePartidas.size(); b++) {
-				System.out.printf("%d - %s %d x %d %s", this.tabelaDePartidas.get(b).getIdPartida(), this.tabelaDePartidas.get(b).getTimeMandante(), this.tabelaDePartidas.get(b).getGolsMandante(), this.tabelaDePartidas.get(b).getGolsVisitante(), this.tabelaDePartidas.get(b).getTimeVisitante());
+				System.out.printf("%d - %s  -  %s %d x %d %s", 
+				this.tabelaDePartidas.get(b).getIdPartida(), this.tabelaDePartidas.get(b).getStatus(), 
+				this.tabelaDePartidas.get(b).getTimeMandante(), this.tabelaDePartidas.get(b).getGolsMandante(), 
+				this.tabelaDePartidas.get(b).getGolsVisitante(), this.tabelaDePartidas.get(b).getTimeVisitante());
 				System.out.println();
 			}
 		}

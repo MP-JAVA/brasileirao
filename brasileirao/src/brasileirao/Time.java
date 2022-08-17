@@ -3,7 +3,7 @@ package brasileirao;
 import java.util.ArrayList;
 
 public class Time {
-	private static int idGeral = 1;
+	private static int idGeral = 0;
 	private int idTime;
 	private String nome;
 	private ArrayList<Jogador> jogadores;

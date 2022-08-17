@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Partida {
 	
-	private static int idGeral = 1;
+	private static int idGeral = 0;
 	private int idPartida;
 	private String status;
 	private String timeMandante;

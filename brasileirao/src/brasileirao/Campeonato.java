@@ -87,7 +87,7 @@ public class Campeonato {
 			Jogador jogador = new Jogador(nome, posicao);
 			this.jogadores.add(jogador);
 			int idTime = Integer.parseInt(id);
-			this.times.get(idTime - 1).cadastrarJogador(jogador);
+			this.times.get(idTime).cadastrarJogador(jogador);
 		}
 		
 		private void cadastrarPartida(String timeMandante, String timeVisitante) {
@@ -113,19 +113,6 @@ public class Campeonato {
 			return new int[] {id, gMandante, gVisitante};
 		}
 		
-		public ArrayList<Integer> digitarMarcadores(int gols) {
-			ArrayList<Integer> idMarcadores = new ArrayList<Integer>();
-			
-			for (int a = 0; a < gols; a++) {
-				System.out.printf("Digite o id. do jogador que marcou o gol número %d: ", a);
-				Scanner ler = new Scanner(System.in);
-				int idMarcador = ler.nextInt();
-				idMarcadores.add(idMarcador);
-			}
-			return idMarcadores;
-		}
-		
-		//No carregarResultado, eu devo fazer receber uma lista de marcadores também, vinda do método acima
 		public void carregarResultado(int[] dadosPartida) {
 			int id, gMandante, gVisitante;
 			
@@ -142,6 +129,58 @@ public class Campeonato {
 			}
 		}
 		
+		public void cadastrarResultado() {
+			carregarResultado(digitarResultado());
+		}
+		
+		public ArrayList<Integer> digitarMarcadores() {
+			System.out.println("Digite o id. da partida: ");
+			Scanner ler1 = new Scanner(System.in);
+			int idPartida = ler1.nextInt();
+			ArrayList<Integer> idMarcadores = new ArrayList<Integer>();
+			idMarcadores.add(idPartida);
+			int gols = (this.tabelaDePartidas.get(idPartida).getGolsMandante() + this.tabelaDePartidas.get(idPartida).getGolsVisitante());
+			for (int a = 0; a < gols; a++) {
+				System.out.printf("Digite o id. do jogador que marcou o gol número %d: ", a+1);
+				Scanner ler = new Scanner(System.in);
+				int idMarcador = ler.nextInt();
+				idMarcadores.add(idMarcador);
+			}
+			return idMarcadores;
+		}
+		
+		public void carregarMarcadores(ArrayList<Integer> idMarcadores) {
+			int qtdadeMarcadores = (idMarcadores.size() - 1);
+			
+			if (qtdadeMarcadores > 0) {
+				int idPartida = idMarcadores.get(0);
+				
+				for (int b = 0; b < this.tabelaDePartidas.size(); b++) {
+					
+					if(this.tabelaDePartidas.get(b).getIdPartida() == idPartida) {
+						for (int a = 1; a <= qtdadeMarcadores; a++) {
+							Jogador jogadorA =  this.jogadores.get(idMarcadores.get(a));					
+							this.tabelaDePartidas.get(idPartida).getMarcadores().add(jogadorA);
+							
+						}
+					}
+				}
+			}
+		}
+		
+		public void cadastrarMarcadores() {
+			carregarMarcadores(digitarMarcadores());
+		}
+		
+	/*	public void cadastroCompletoDePartida() {
+			int [] dadosPartida = digitarResultado();
+			carregarResultado(dadosPartida);
+			carregarMarcadores(digitarMarcadores(dadosPartida[0]));
+		} */
+		//O método está pronto. Só falta eu conseguir fazer com que digitarMarcadores possa receber um parâmetro
+		//opcional, que seria o idPartida. Se não for informado, lemos dentro do método.
+		
+
 		public void carregarDadosElencos(String caminho) {
 			File arquivo = new File(caminho);
 			if (arquivo.exists()) {
@@ -184,6 +223,17 @@ public class Campeonato {
 							this.cadastrarPartida(dados[1], dados[4]);
 							if (dados[5].equals("R")) {
 								this.tabelaDePartidas.get(contador).setStatus("REALIZADA");
+								
+								ArrayList<Integer> idMarcadores = new ArrayList<Integer>();
+								idMarcadores.add(contador);
+								for (int a = 6; a <= 15; a++) {
+									if (Integer.parseInt(dados[a]) == 1000) {
+										break;
+									}
+									idMarcadores.add(Integer.parseInt(dados[a]));
+								}
+								
+								carregarMarcadores(idMarcadores);
 							}
 							int [] dadosPartida = {Integer.parseInt(dados[0]), Integer.parseInt(dados[2]), Integer.parseInt(dados[3])};
 							carregarResultado(dadosPartida);
@@ -219,6 +269,20 @@ public class Campeonato {
 				this.tabelaDePartidas.get(b).getTimeMandante(), this.tabelaDePartidas.get(b).getGolsMandante(), 
 				this.tabelaDePartidas.get(b).getGolsVisitante(), this.tabelaDePartidas.get(b).getTimeVisitante());
 				System.out.println();
+				
+				int qtdadeGols = (this.tabelaDePartidas.get(b).getGolsMandante() + this.tabelaDePartidas.get(b).getGolsVisitante());
+				if (qtdadeGols > 0) {
+					if (this.tabelaDePartidas.get(b).getMarcadores().isEmpty()) {
+						System.out.println("Os marcadores ainda não foram cadastrados!");
+					} else {
+						System.out.println("Os gols foram marcados pelos seguintes jogadores:");
+						for (int a = 0; a < qtdadeGols; a++ ) {
+							System.out.println((a+1) + " - " + this.tabelaDePartidas.get(b).getMarcadores().get(a).getNome());	
+						}
+					}
+				} else if (this.tabelaDePartidas.get(b).getStatus().equals("REALIZADA")){
+					System.out.println("Não foram marcados gols na partida!");
+				}
 			}
 		}
 }

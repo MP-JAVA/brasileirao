@@ -16,9 +16,9 @@ public class Main {
 		
 
 		
-		//brasileirao.apresentarPartidas();
+		brasileirao.apresentarPartidas();
 		
-		
+
 
 
 	}

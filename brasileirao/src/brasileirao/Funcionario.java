@@ -2,7 +2,7 @@ package brasileirao;
 
 public abstract class Funcionario {
 
-	private static int idGeral = 1;
+	private static int idGeral = 0;
 	private int idFunc;
 	private int idTime;
 	private String nome;

@@ -120,14 +120,52 @@ public class Campeonato {
 			gMandante = dadosPartida[1];
 			gVisitante = dadosPartida[2];
 			
+			String nomeMandante = this.tabelaDePartidas.get(id).getTimeMandante();
+			String nomeVisitante = this.tabelaDePartidas.get(id).getTimeVisitante();
 			
+			int idMandante = 0;
+			int idVisitante = 0;
+
 			for (int b = 0; b < this.tabelaDePartidas.size(); b++) {
 				if(this.tabelaDePartidas.get(b).getIdPartida() == id) {
 					this.tabelaDePartidas.get(b).setGolsMandante(gMandante);
 					this.tabelaDePartidas.get(b).setGolsVisitante(gVisitante);
+					
+					for (int a = 0; a < this.times.size(); a++) {
+						if (this.times.get(a).getNome().equals(nomeMandante)) {
+							idMandante = a;
+							this.times.get(idMandante).somaGolsPara(gMandante);
+							this.times.get(idMandante).somaGolsContra(gVisitante);
+							if (gMandante > gVisitante) {
+								this.times.get(idMandante).somaVitorias(a);
+							} else if (gMandante < gVisitante) {
+								this.times.get(idMandante).somaDerrotas(a);
+							} else {
+								this.times.get(idMandante).somaEmpates(a);
+							}	
+						}
+					}	
+						
+						for (int c = 0; c < this.times.size(); c++) {
+							if (this.times.get(c).getNome().equals(nomeVisitante)) {
+								idVisitante = c;
+								this.times.get(idVisitante).somaGolsPara(gVisitante);
+								this.times.get(idVisitante).somaGolsContra(gMandante);
+								if (gMandante < gVisitante) {
+									this.times.get(idVisitante).somaVitorias(c);
+								} else if (gMandante > gVisitante) {
+									this.times.get(idVisitante).somaDerrotas(c);
+								} else {
+									this.times.get(idVisitante).somaEmpates(c);
+								}	
+							}
+						}
+						
+						
+
+					}
 				}
 			}
-		}
 		
 		public void cadastrarResultado() {
 			carregarResultado(digitarResultado());
@@ -255,9 +293,9 @@ public class Campeonato {
 		
 		public void apresentarTime() {
 			for (int b = 0; b < this.times.size(); b++) {
-				System.out.printf("%d - %s", this.times.get(b).getIdTime(), this.times.get(b).getNome());
+				System.out.printf("%d - %s - %d vitórias", this.times.get(b).getIdTime(), this.times.get(b).getNome(), this.times.get(b).getVitorias());
 				System.out.println();
-				this.times.get(b).apresentarJogadores();
+				//this.times.get(b).apresentarJogadores();
 				System.out.println();
 			}
 		}

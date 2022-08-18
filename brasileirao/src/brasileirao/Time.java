@@ -27,31 +27,116 @@ public class Time {
 		this.jogadores = new ArrayList<>();
 	}
 	
-	public String getNome() {
-		return this.nome;
-	}
-	public int getVitorias() {
-		return this.vitorias;
-	}
-	public int getEmpates() {
-		return this.empates;
-	}
-	public int getDerrotas() {
-		return this.derrotas;
-	}
-	public int getGolsPara() {
-		return this.golsPara;
-	}
-	public int getGolsContra() {
-		return this.golsContra;
-	}
-	public int getIdTime() {
-		return this.idTime;
-	}
-	public int getClassificacao() {
-		return this.classificacao;
-	}
+
 	
+	public int getIdTime() {
+		return idTime;
+	}
+
+
+
+	public void setIdTime(int idTime) {
+		this.idTime = idTime;
+	}
+
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+
+	public ArrayList<Jogador> getJogadores() {
+		return jogadores;
+	}
+
+
+
+	public void setJogadores(ArrayList<Jogador> jogadores) {
+		this.jogadores = jogadores;
+	}
+
+
+
+	public int getVitorias() {
+		return vitorias;
+	}
+
+
+
+	public void somaVitorias(int vitorias) {
+		this.vitorias++;
+	}
+
+
+
+	public int getEmpates() {
+		return empates;
+	}
+
+
+
+	public void somaEmpates(int empates) {
+		this.empates++;
+	}
+
+
+
+	public int getDerrotas() {
+		return derrotas;
+	}
+
+
+
+	public void somaDerrotas(int derrotas) {
+		this.derrotas++;
+	}
+
+
+
+	public int getGolsPara() {
+		return golsPara;
+	}
+
+
+
+	public void somaGolsPara(int golsPara) {
+		this.golsPara += golsPara;
+	}
+
+
+
+	public int getGolsContra() {
+		return golsContra;
+	}
+
+
+
+	public void somaGolsContra(int golsContra) {
+		this.golsContra = golsContra;
+	}
+
+
+
+	public int getClassificacao() {
+		return classificacao;
+	}
+
+
+
+	public void setClassificacao(int classificacao) {
+		this.classificacao = classificacao;
+	}
+
+
+
 	public void cadastrarJogador(Jogador jogador) {
 		this.jogadores.add(jogador);
 	}

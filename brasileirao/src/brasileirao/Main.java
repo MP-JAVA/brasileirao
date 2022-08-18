@@ -12,15 +12,15 @@ public class Main {
 		brasileirao.carregarDados(caminhoElencos, caminhoPartidas);
 		
 	
-		//brasileirao.apresentarTime();
+		brasileirao.apresentarTime();
 		
 
 		
-		brasileirao.apresentarPartidas();
+		//brasileirao.apresentarPartidas();
+		
 		
 
-
-
+		
 	}
 	
 	

@@ -12,40 +12,18 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class Campeonato {
-		private ArrayList<Time> classificacao;
-		private ArrayList<Jogador> artilharia;
 		private ArrayList<Partida> tabelaDePartidas;
 		private ArrayList<Time> times;
 		private ArrayList<Treinador> treinadores;
 		private ArrayList<Jogador> jogadores;
 
 		public Campeonato() {
-			this.classificacao = new ArrayList<>();
-			this.artilharia = new ArrayList<>();
 			this.tabelaDePartidas = new ArrayList<>();
 			this.times = new ArrayList<>();
 			this.treinadores = new ArrayList<>();
 			this.jogadores = new ArrayList<>();
 		}
 		
-		
-		
-		
-		public ArrayList<Time> getClassificacao() {
-			return classificacao;
-		}
-
-		public void setClassificacao(ArrayList<Time> classificacao) {
-			this.classificacao = classificacao;
-		}
-
-		public ArrayList<Jogador> getArtilharia() {
-			return artilharia;
-		}
-
-		public void setArtilharia(ArrayList<Jogador> artilharia) {
-			this.artilharia = artilharia;
-		}
 
 		public ArrayList<Partida> getTabelaDePartidas() {
 			return tabelaDePartidas;
@@ -301,7 +279,7 @@ public class Campeonato {
 			for (int b = 0; b < this.times.size(); b++) {
 				System.out.printf("%d - %s - %d vitórias", this.times.get(b).getIdTime(), this.times.get(b).getNome(), this.times.get(b).getVitorias());
 				System.out.println();
-				//this.times.get(b).apresentarJogadores();
+				this.times.get(b).apresentarJogadores();
 				System.out.println();
 			}
 		}
@@ -335,15 +313,27 @@ public class Campeonato {
 
 			
 			Collections.sort(this.getTimes(), new ComparatorClassificacao());
-
 			
+			System.out.printf("%s %15s %5s %5s %5s %5s %5s %5s %5s %5s %s", "|", "---------------", "-----", "-----", "-----", "-----", "-----", "-----", "-----","-------", "|");
+			System.out.println();
+			System.out.printf("%s %-15s %5s %5s %5s %5s %5s %5s %5s %5s %3s", 
+			"|", "Time", "P", "V", "E", "D", "GP", "GC", "SG", "%", "|");
+			System.out.println();
+			System.out.printf("%s %15s %5s %5s %5s %5s %5s %5s %5s %5s %s", "|", "---------------", "-----", "-----", "-----", "-----", "-----", "-----", "-----","-------", "|");
+			System.out.println();
 			for (int a = 0; a < this.times.size(); a++) {
-				System.out.printf("%s - %d - %d  - %d - %d - %d - %d - %d", times.get(a).getNome(), 
+				
+				float percentual = (float) times.get(a).getPontos() / ((times.get(a).getVitorias() + times.get(a).getEmpates() + times.get(a).getDerrotas())*3)*100;
+				
+				System.out.printf("%s %-15s %5d %5d %5d %5d %5d %5d %5d %7.1f %s", "|", times.get(a).getNome(), 
 				times.get(a).getPontos(), times.get(a).getVitorias(), times.get(a).getEmpates(), 
 				times.get(a).getDerrotas(), times.get(a).getGolsPara(), times.get(a).getGolsContra(), 
-				(times.get(a).getGolsPara() - times.get(a).getGolsContra()));
+				(times.get(a).getGolsPara() - times.get(a).getGolsContra()),
+				percentual, "|");
 				System.out.println();
 			}
+			System.out.printf("%s %15s %5s %5s %5s %5s %5s %5s %5s %5s %s", "|", "---------------", "-----", "-----", "-----", "-----", "-----", "-----", "-----","-------", "|");
+			System.out.println();
 			
 		}
 		
@@ -352,11 +342,22 @@ public class Campeonato {
 			
 			Collections.sort(this.getJogadores());
 
+			System.out.printf("%s %-20s %-20s %5s %s ", "|", "--------------------", "--------------------", "-----", "|");
+			System.out.println();
+			System.out.printf("%s %-20s %-20s %5s %s ", "|", "Jogador", "Time", "Gols", "|");
+			System.out.println();
+			System.out.printf("%s %-20s %-20s %5s %s ", "|", "--------------------", "--------------------", "-----", "|");
+			System.out.println();
 			
 			for (int a = 0; a < this.jogadores.size(); a++) {
-				System.out.printf("%s - %d ", jogadores.get(a).getNome(), jogadores.get(a).getGols());
-				System.out.println();
+				if (jogadores.get(a).getGols() > 0) {
+					System.out.printf("%s %-20s %-20s %5d %s", "|", jogadores.get(a).getNome(), jogadores.get(a).getTime(), jogadores.get(a).getGols(), "|");
+					System.out.println();
+				}
+
 			}
+			System.out.printf("%s %-20s %-20s %5s %s ", "|", "--------------------", "--------------------", "-----", "|");
+			System.out.println();
 			
 		}
 		

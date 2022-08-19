@@ -1,6 +1,6 @@
 package brasileirao;
 
-public class Jogador extends Funcionario{
+public class Jogador extends Funcionario implements Comparable<Jogador>{
 	private String posicao;
 	private int gols;
 	
@@ -16,11 +16,27 @@ public class Jogador extends Funcionario{
 	public String getNome() {
 		return super.getNome();
 	}
-	
+
 	public String getPosicao() {
-		return this.posicao;
+		return posicao;
 	}
+
+	public void setPosicao(String posicao) {
+		this.posicao = posicao;
+	}
+
 	public int getGols() {
-		return this.gols;
+		return gols;
 	}
+
+	public void somaGols() {
+		this.gols++;
+	}
+
+	@Override
+	public int compareTo(Jogador a) {
+		return (a.getGols() - this.gols);
+	}
+	
+
 }

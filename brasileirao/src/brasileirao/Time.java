@@ -7,6 +7,7 @@ public class Time {
 	private int idTime;
 	private String nome;
 	private ArrayList<Jogador> jogadores;
+	private int pontos;	
 	private int vitorias;
 	private int empates;
 	private int derrotas;
@@ -18,6 +19,7 @@ public class Time {
 	public Time(String nome) {
 		this.idTime = Time.idGeral++;
 		this.nome = nome;
+		this.pontos = 0;
 		this.vitorias = 0;
 		this.empates = 0;
 		this.derrotas = 0;
@@ -63,6 +65,15 @@ public class Time {
 		this.jogadores = jogadores;
 	}
 
+	public int getPontos() {
+		return pontos;
+	}
+
+
+
+	public void setPontos(int pontos) {
+		this.pontos = pontos;
+	}
 
 
 	public int getVitorias() {
@@ -73,6 +84,7 @@ public class Time {
 
 	public void somaVitorias(int vitorias) {
 		this.vitorias++;
+		this.pontos = (this.pontos + 3);
 	}
 
 
@@ -85,6 +97,7 @@ public class Time {
 
 	public void somaEmpates(int empates) {
 		this.empates++;
+		this.pontos = (this.pontos +1);
 	}
 
 
@@ -120,7 +133,7 @@ public class Time {
 
 
 	public void somaGolsContra(int golsContra) {
-		this.golsContra = golsContra;
+		this.golsContra += golsContra;
 	}
 
 
@@ -147,6 +160,11 @@ public class Time {
 			System.out.println();
 		}
 	}
+
+
+
+
+
 
 }
 

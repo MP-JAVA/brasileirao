@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Campeonato {
@@ -128,44 +130,46 @@ public class Campeonato {
 
 			for (int b = 0; b < this.tabelaDePartidas.size(); b++) {
 				if(this.tabelaDePartidas.get(b).getIdPartida() == id) {
-					this.tabelaDePartidas.get(b).setGolsMandante(gMandante);
-					this.tabelaDePartidas.get(b).setGolsVisitante(gVisitante);
-					
-					for (int a = 0; a < this.times.size(); a++) {
-						if (this.times.get(a).getNome().equals(nomeMandante)) {
-							idMandante = a;
-							this.times.get(idMandante).somaGolsPara(gMandante);
-							this.times.get(idMandante).somaGolsContra(gVisitante);
-							if (gMandante > gVisitante) {
-								this.times.get(idMandante).somaVitorias(a);
-							} else if (gMandante < gVisitante) {
-								this.times.get(idMandante).somaDerrotas(a);
-							} else {
-								this.times.get(idMandante).somaEmpates(a);
-							}	
-						}
-					}	
+					if (this.tabelaDePartidas.get(b).getStatus().equals("REALIZADA")) {
+						this.tabelaDePartidas.get(b).setGolsMandante(gMandante);
+						this.tabelaDePartidas.get(b).setGolsVisitante(gVisitante);
 						
-						for (int c = 0; c < this.times.size(); c++) {
-							if (this.times.get(c).getNome().equals(nomeVisitante)) {
-								idVisitante = c;
-								this.times.get(idVisitante).somaGolsPara(gVisitante);
-								this.times.get(idVisitante).somaGolsContra(gMandante);
-								if (gMandante < gVisitante) {
-									this.times.get(idVisitante).somaVitorias(c);
-								} else if (gMandante > gVisitante) {
-									this.times.get(idVisitante).somaDerrotas(c);
-								} else {
-									this.times.get(idVisitante).somaEmpates(c);
+						
+						for (int a = 0; a < this.times.size(); a++) {
+							if (this.times.get(a).getNome().equals(nomeMandante)) {
+								idMandante = a;
+								this.times.get(idMandante).somaGolsPara(gMandante);
+								this.times.get(idMandante).somaGolsContra(gVisitante);
+								if (gMandante > gVisitante) {
+									this.times.get(idMandante).somaVitorias(a);
+								} else if (gMandante < gVisitante) {
+									this.times.get(idMandante).somaDerrotas(a);
+								} else if (gMandante == gVisitante) {
+									this.times.get(idMandante).somaEmpates(a);
 								}	
 							}
-						}
+						}	
+							
+							for (int c = 0; c < this.times.size(); c++) {
+								if (this.times.get(c).getNome().equals(nomeVisitante)) {
+									idVisitante = c;
+									this.times.get(idVisitante).somaGolsPara(gVisitante);
+									this.times.get(idVisitante).somaGolsContra(gMandante);
+									if (gMandante < gVisitante) {
+										this.times.get(idVisitante).somaVitorias(c);
+									} else if (gMandante > gVisitante) {
+										this.times.get(idVisitante).somaDerrotas(c);
+									} else if (gMandante == gVisitante) {
+										this.times.get(idVisitante).somaEmpates(c);
+									}	
+								}
+							}
 						
-						
-
 					}
+
 				}
 			}
+		}
 		
 		public void cadastrarResultado() {
 			carregarResultado(digitarResultado());
@@ -196,11 +200,12 @@ public class Campeonato {
 				for (int b = 0; b < this.tabelaDePartidas.size(); b++) {
 					
 					if(this.tabelaDePartidas.get(b).getIdPartida() == idPartida) {
-						for (int a = 1; a <= qtdadeMarcadores; a++) {
-							Jogador jogadorA =  this.jogadores.get(idMarcadores.get(a));					
-							this.tabelaDePartidas.get(idPartida).getMarcadores().add(jogadorA);
+						for (int a = 1; a <= qtdadeMarcadores; a++) {				
+							this.tabelaDePartidas.get(idPartida).getMarcadores().add(this.jogadores.get(idMarcadores.get(a)));
+							this.jogadores.get(idMarcadores.get(a)).somaGols();
 							
 						}
+						
 					}
 				}
 			}
@@ -272,6 +277,7 @@ public class Campeonato {
 								}
 								
 								carregarMarcadores(idMarcadores);
+								
 							}
 							int [] dadosPartida = {Integer.parseInt(dados[0]), Integer.parseInt(dados[2]), Integer.parseInt(dados[3])};
 							carregarResultado(dadosPartida);
@@ -323,4 +329,35 @@ public class Campeonato {
 				}
 			}
 		}
+		
+		
+		public void ordenarCLassificacao() {
+
+			
+			Collections.sort(this.getTimes(), new ComparatorClassificacao());
+
+			
+			for (int a = 0; a < this.times.size(); a++) {
+				System.out.printf("%s - %d - %d  - %d - %d - %d - %d - %d", times.get(a).getNome(), 
+				times.get(a).getPontos(), times.get(a).getVitorias(), times.get(a).getEmpates(), 
+				times.get(a).getDerrotas(), times.get(a).getGolsPara(), times.get(a).getGolsContra(), 
+				(times.get(a).getGolsPara() - times.get(a).getGolsContra()));
+				System.out.println();
+			}
+			
+		}
+		
+		public void ordenarArtilharia() {
+
+			
+			Collections.sort(this.getJogadores());
+
+			
+			for (int a = 0; a < this.jogadores.size(); a++) {
+				System.out.printf("%s - %d ", jogadores.get(a).getNome(), jogadores.get(a).getGols());
+				System.out.println();
+			}
+			
+		}
+		
 }

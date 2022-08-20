@@ -9,7 +9,7 @@ public class Jogador extends Funcionario implements Comparable<Jogador>{
 		super(nome);
 		this.posicao = posicao;
 		this.gols = 0;
-		this.time = setTime();
+		this.time = time;
 	}
 	
 	public int getIdFunc() {
@@ -44,49 +44,47 @@ public class Jogador extends Funcionario implements Comparable<Jogador>{
 		return time;
 	}
 
-	public String setTime() {
+	public void setTime() {
 		if (this.getIdTime() == 0) {
-			return "Atlético-MG";
+			this.time = "Atlético-MG";
 		} else if (this.getIdTime() == 1) {
-			return "Fluminense";
+			this.time = "Fluminense";
 		} else if (this.getIdTime() == 2) {
-			return "São Paulo";
+			this.time = "São Paulo";
 		} else if (this.getIdTime() == 3) {
-			return "Palmeiras";
+			this.time = "Palmeiras";
 		} else if (this.getIdTime() == 4) {
-			return "Botafogo";
+			this.time = "Botafogo";
 		} else if (this.getIdTime() == 5) {
-			return "Juventude";
+			this.time = "Juventude";
 		} else if (this.getIdTime() == 6) {
-			return "Fortaleza";
+			this.time = "Fortaleza";
 		} else if (this.getIdTime() == 7) {
-			return "Atlético-GO";
+			this.time = "Atlético-GO";
 		} else if (this.getIdTime() == 8) {
-			return "Avaí";
+			this.time = "Avaí";
 		} else if (this.getIdTime() == 9) {
-			return "Coritiba";
+			this.time = "Coritiba";
 		} else if (this.getIdTime() == 10) {
-			return "Internacional";
+			this.time = "Internacional";
 		} else if (this.getIdTime() == 11) {
-			return "Santos";
+			this.time = "Santos";
 		} else if (this.getIdTime() == 12) {
-			return "Athletico-PR";
+			this.time = "Athletico-PR";
 		} else if (this.getIdTime() == 13) {
-			return "Ceará";
+			this.time = "Ceará";
 		} else if (this.getIdTime() == 14) {
-			return "Corinthians";
+			this.time = "Corinthians";
 		} else if (this.getIdTime() == 15) {
-			return "Bragantino";
+			this.time = "Bragantino";
 		} else if (this.getIdTime() == 16) {
-			return "Cuiabá";
+			this.time = "Cuiabá";
 		} else if (this.getIdTime() == 17) {
-			return "Flamengo";
+			this.time = "Flamengo";
 		} else if (this.getIdTime() == 18) {
-			return "América-MG";
+			this.time = "América-MG";
 		} else if (this.getIdTime() == 19) {
-			return "Goiás";
-		} else {
-			return "Erro";
+			this.time = "Goiás";
 		}
 	}
 	

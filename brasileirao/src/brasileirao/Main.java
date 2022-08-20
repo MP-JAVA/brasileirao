@@ -13,14 +13,18 @@ public class Main {
 		brasileirao.carregarDados(caminhoElencos, caminhoPartidas);
 		
 	
-		brasileirao.apresentarTime();
+		//brasileirao.apresentarTime(17);
+		
+		
 		
 
 		
-		brasileirao.apresentarPartidas();
+		//brasileirao.apresentarPartidas();
 		
-		brasileirao.ordenarCLassificacao();
-		brasileirao.ordenarArtilharia();
+		//brasileirao.imprimirCLassificacao();
+		//brasileirao.imprimirArtilharia();
+		
+
 		
 
 		

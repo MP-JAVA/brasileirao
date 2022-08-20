@@ -155,8 +155,10 @@ public class Time {
 	}
 	
 	public void apresentarJogadores() {
+		System.out.printf("%-4s %-18s %s", "Id", "jogador", "Gols");
+		System.out.println();
 		for (int a = 0; a < jogadores.size(); a++) {
-			System.out.printf("%d - %s", this.jogadores.get(a).getIdFunc(), this.jogadores.get(a).getNome());
+			System.out.printf("%-4d %-20s %-15s", this.jogadores.get(a).getIdFunc(), this.jogadores.get(a).getNome(), this.jogadores.get(a).getGols());
 			System.out.println();
 		}
 	}

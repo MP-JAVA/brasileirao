@@ -12,14 +12,38 @@ public abstract class Funcionario {
 		this.idTime = idTime;
 		this.idFunc = Funcionario.idGeral++;
 	}
-	
+
+	public static int getIdGeral() {
+		return idGeral;
+	}
+
+	public static void setIdGeral(int idGeral) {
+		Funcionario.idGeral = idGeral;
+	}
+
 	public int getIdFunc() {
-		return this.idFunc;
+		return idFunc;
 	}
+
+	public void setIdFunc(int idFunc) {
+		this.idFunc = idFunc;
+	}
+
 	public int getIdTime() {
-		return this.idTime;
+		return idTime;
 	}
+
+	public void setIdTime(int idTime) {
+		this.idTime = idTime;
+	}
+
 	public String getNome() {
-		return this.nome;
+		return nome;
 	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+
 }

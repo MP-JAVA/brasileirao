@@ -14,17 +14,13 @@ import java.util.Scanner;
 public class Campeonato {
 		private ArrayList<Partida> tabelaDePartidas;
 		private ArrayList<Time> times;
-		private ArrayList<Treinador> treinadores;
-		private ArrayList<Jogador> jogadores;
 
 		public Campeonato() {
 			this.tabelaDePartidas = new ArrayList<>();
 			this.times = new ArrayList<>();
-			this.treinadores = new ArrayList<>();
-			this.jogadores = new ArrayList<>();
 		}
 		
-
+// Getters and Setters ----------------------------------------------------------------------------------------
 		public ArrayList<Partida> getTabelaDePartidas() {
 			return tabelaDePartidas;
 		}
@@ -41,22 +37,81 @@ public class Campeonato {
 			this.times = times;
 		}
 
-		public ArrayList<Treinador> getTreinadores() {
-			return treinadores;
+// Carregamento de dados dos arquivos --------------------------------------------------------------------------
+		public void carregarDadosElencos(String caminho) {
+			File arquivo = new File(caminho);
+			if (arquivo.exists()) {
+				if (arquivo.isFile() && (arquivo.length()>0)) {
+					BufferedReader leitor = null;
+					try {
+						leitor = new BufferedReader(new FileReader(caminho));
+						String linha;
+						linha = leitor.readLine();
+						linha = leitor.readLine();
+						int contador = 11;
+						while (linha != null) {
+							String dados[] = linha.split(";");
+							if (contador % 11 == 0) {
+								this.cadastrarTime(dados[1]);
+							}
+							this.cadastrarJogador(dados[6], dados[5], dados[0]);
+							
+							contador++;
+							linha = leitor.readLine();
+						}
+						
+					} catch(IOException ioex) {		
+					}
+				}
+			}	
+		}
+		
+		public void carregarPartidas(String caminho) {
+			File arquivo = new File(caminho);
+			if (arquivo.exists()) {
+				if (arquivo.isFile() && (arquivo.length()>0)) {
+					BufferedReader leitor = null;
+					try {
+						leitor = new BufferedReader(new FileReader(caminho));
+						String linha = leitor.readLine();
+						int contador = 0;
+						while (linha != null) {
+							String dados[] = linha.split(";");
+							this.cadastrarPartida(dados[1], dados[4]);
+							if (dados[5].equals("R")) {
+								this.tabelaDePartidas.get(contador).setStatus("REALIZADA");
+								
+								ArrayList<Integer> idMarcadores = new ArrayList<Integer>();
+								idMarcadores.add(contador);
+								for (int a = 6; a <= 15; a++) {
+									if (Integer.parseInt(dados[a]) == 1000) {
+										break;
+									}
+									idMarcadores.add(Integer.parseInt(dados[a]));
+								}
+								
+								carregarMarcadores(idMarcadores);
+								
+							}
+							int [] dadosPartida = {Integer.parseInt(dados[0]), Integer.parseInt(dados[2]), Integer.parseInt(dados[3])};
+							carregarResultado(dadosPartida);
+							contador++;
+							linha = leitor.readLine();
+						}
+						
+					} catch(IOException ioex) {		
+					}
+				}
+			}			}
+		
+		
+		public void carregarDados(String caminhoElenco, String caminhoPartidas) {
+			this.carregarDadosElencos(caminhoElenco);
+			this.carregarPartidas(caminhoPartidas);
 		}
 
-		public void setTreinadores(ArrayList<Treinador> treinadores) {
-			this.treinadores = treinadores;
-		}
-
-		public ArrayList<Jogador> getJogadores() {
-			return jogadores;
-		}
-
-		public void setJogadores(ArrayList<Jogador> jogadores) {
-			this.jogadores = jogadores;
-		}
-
+// métodos de organização do programa --------------------------------------------------------------------------
+		
 		private void cadastrarTime(String nome) {
 			Time time = new Time(nome);
 			this.times.add(time);
@@ -65,8 +120,10 @@ public class Campeonato {
 		
 		public void cadastrarJogador(String nome, String posicao, String id) {
 			Jogador jogador = new Jogador(nome, posicao);
-			this.jogadores.add(jogador);
 			int idTime = Integer.parseInt(id);
+			jogador.setIdTime(idTime);
+			jogador.setTime();
+			
 			this.times.get(idTime).cadastrarJogador(jogador);
 		}
 		
@@ -175,12 +232,23 @@ public class Campeonato {
 			if (qtdadeMarcadores > 0) {
 				int idPartida = idMarcadores.get(0);
 				
-				for (int b = 0; b < this.tabelaDePartidas.size(); b++) {
+				for (int d = 0; d < this.tabelaDePartidas.size(); d++) {
 					
-					if(this.tabelaDePartidas.get(b).getIdPartida() == idPartida) {
-						for (int a = 1; a <= qtdadeMarcadores; a++) {				
-							this.tabelaDePartidas.get(idPartida).getMarcadores().add(this.jogadores.get(idMarcadores.get(a)));
-							this.jogadores.get(idMarcadores.get(a)).somaGols();
+					if(this.tabelaDePartidas.get(d).getIdPartida() == idPartida) {
+						for (int a = 1; a <= qtdadeMarcadores; a++) {
+							
+							int idMarcador = idMarcadores.get(a);
+							int idTime = this.buscarIdTime(idMarcadores.get(a));
+							
+							for (int b = 0; b < this.times.size(); b++) {
+								for (int c = 0; c < this.times.get(b).getJogadores().size(); c++) {
+									if (idMarcador == this.times.get(b).getJogadores().get(c).getIdFunc()) {
+										this.tabelaDePartidas.get(idPartida).getMarcadores().add(this.times.get(b).getJogadores().get(c));
+										this.times.get(b).getJogadores().get(c).somaGols();
+									}
+								}
+							}
+							
 							
 						}
 						
@@ -193,123 +261,59 @@ public class Campeonato {
 			carregarMarcadores(digitarMarcadores());
 		}
 		
-	/*	public void cadastroCompletoDePartida() {
-			int [] dadosPartida = digitarResultado();
-			carregarResultado(dadosPartida);
-			carregarMarcadores(digitarMarcadores(dadosPartida[0]));
-		} */
-		//O método está pronto. Só falta eu conseguir fazer com que digitarMarcadores possa receber um parâmetro
-		//opcional, que seria o idPartida. Se não for informado, lemos dentro do método.
 		
-
-		public void carregarDadosElencos(String caminho) {
-			File arquivo = new File(caminho);
-			if (arquivo.exists()) {
-				if (arquivo.isFile() && (arquivo.length()>0)) {
-					BufferedReader leitor = null;
-					try {
-						leitor = new BufferedReader(new FileReader(caminho));
-						String linha;
-						linha = leitor.readLine();
-						linha = leitor.readLine();
-						int contador = 11;
-						while (linha != null) {
-							String dados[] = linha.split(";");
-							if (contador % 11 == 0) {
-								this.cadastrarTime(dados[1]);
-							}
-							this.cadastrarJogador(dados[6], dados[5], dados[0]);
-							
-							contador++;
-							linha = leitor.readLine();
-						}
-						
-					} catch(IOException ioex) {		
+		public int buscarIdTime(int idJog) {
+			int idTime = 0;
+			for (int a = 0; a < this.times.size(); a++) {
+				for (int b = 0; b < this.times.get(a).getJogadores().size(); b++) {
+					if (idJog == this.times.get(a).getJogadores().get(b).getIdFunc()) {
+						idTime = this.times.get(a).getJogadores().get(b).getIdTime();
 					}
 				}
-			}	
-		}
-		
-		public void carregarPartidas(String caminho) {
-			File arquivo = new File(caminho);
-			if (arquivo.exists()) {
-				if (arquivo.isFile() && (arquivo.length()>0)) {
-					BufferedReader leitor = null;
-					try {
-						leitor = new BufferedReader(new FileReader(caminho));
-						String linha = leitor.readLine();
-						int contador = 0;
-						while (linha != null) {
-							String dados[] = linha.split(";");
-							this.cadastrarPartida(dados[1], dados[4]);
-							if (dados[5].equals("R")) {
-								this.tabelaDePartidas.get(contador).setStatus("REALIZADA");
-								
-								ArrayList<Integer> idMarcadores = new ArrayList<Integer>();
-								idMarcadores.add(contador);
-								for (int a = 6; a <= 15; a++) {
-									if (Integer.parseInt(dados[a]) == 1000) {
-										break;
-									}
-									idMarcadores.add(Integer.parseInt(dados[a]));
-								}
-								
-								carregarMarcadores(idMarcadores);
-								
-							}
-							int [] dadosPartida = {Integer.parseInt(dados[0]), Integer.parseInt(dados[2]), Integer.parseInt(dados[3])};
-							carregarResultado(dadosPartida);
-							contador++;
-							linha = leitor.readLine();
-						}
-						
-					} catch(IOException ioex) {		
-					}
-				}
-			}			}
-		
-		
-		public void carregarDados(String caminhoElenco, String caminhoPartidas) {
-			this.carregarDadosElencos(caminhoElenco);
-			this.carregarPartidas(caminhoPartidas);
-		}
-		
-		
-		public void apresentarTime() {
-			for (int b = 0; b < this.times.size(); b++) {
-				System.out.printf("%d - %s - %d vitórias", this.times.get(b).getIdTime(), this.times.get(b).getNome(), this.times.get(b).getVitorias());
-				System.out.println();
-				this.times.get(b).apresentarJogadores();
-				System.out.println();
 			}
+			return idTime;
+		}
+
+		
+		
+//Funcionalidades do programa
+		
+		public void apresentarTime(int idTime) {
+			System.out.printf("Time: %-15s (id: %d)", this.times.get(idTime).getNome(), idTime);
+			System.out.println();
+			this.times.get(idTime).apresentarJogadores();
+			System.out.println();
 		}
 		
 		public void apresentarPartidas() {
 			for (int b = 0; b < this.tabelaDePartidas.size(); b++) {
-				System.out.printf("%d - %s  -  %s %d x %d %s", 
+				System.out.printf("%3d - %-10s %-13s %2d x %2d %13s", 
 				this.tabelaDePartidas.get(b).getIdPartida(), this.tabelaDePartidas.get(b).getStatus(), 
 				this.tabelaDePartidas.get(b).getTimeMandante(), this.tabelaDePartidas.get(b).getGolsMandante(), 
 				this.tabelaDePartidas.get(b).getGolsVisitante(), this.tabelaDePartidas.get(b).getTimeVisitante());
-				System.out.println();
 				
 				int qtdadeGols = (this.tabelaDePartidas.get(b).getGolsMandante() + this.tabelaDePartidas.get(b).getGolsVisitante());
 				if (qtdadeGols > 0) {
 					if (this.tabelaDePartidas.get(b).getMarcadores().isEmpty()) {
-						System.out.println("Os marcadores ainda não foram cadastrados!");
+						System.out.printf("%45s", "Os marcadores ainda não foram cadastrados!");
+
 					} else {
-						System.out.println("Os gols foram marcados pelos seguintes jogadores:");
+						System.out.printf("%10s", "Gols: ");
 						for (int a = 0; a < qtdadeGols; a++ ) {
-							System.out.println((a+1) + " - " + this.tabelaDePartidas.get(b).getMarcadores().get(a).getNome());	
+							System.out.printf("%s. ", this.tabelaDePartidas.get(b).getMarcadores().get(a).getNome());	
 						}
+
 					}
 				} else if (this.tabelaDePartidas.get(b).getStatus().equals("REALIZADA")){
-					System.out.println("Não foram marcados gols na partida!");
+					System.out.printf("%33s", "Gols: -----------------------");
+
 				}
+				System.out.println();
 			}
 		}
 		
 		
-		public void ordenarCLassificacao() {
+		public void imprimirCLassificacao() {
 
 			
 			Collections.sort(this.getTimes(), new ComparatorClassificacao());
@@ -337,11 +341,23 @@ public class Campeonato {
 			
 		}
 		
-		public void ordenarArtilharia() {
+		public void imprimirArtilharia() {
+	
+			ArrayList<Jogador> artilheiros = new ArrayList<Jogador>();
+
+			for (int b = 0; b < this.times.size(); b++) {
+				for (int c = 0; c < this.times.get(b).getJogadores().size(); c++) {
+					
+					if (this.times.get(b).getJogadores().get(c).getGols() > 0) {
+						artilheiros.add(this.times.get(b).getJogadores().get(c));
+					}
+				}
+			}
+			
 
 			
-			Collections.sort(this.getJogadores());
-
+			Collections.sort(artilheiros);
+			
 			System.out.printf("%s %-20s %-20s %5s %s ", "|", "--------------------", "--------------------", "-----", "|");
 			System.out.println();
 			System.out.printf("%s %-20s %-20s %5s %s ", "|", "Jogador", "Time", "Gols", "|");
@@ -349,16 +365,11 @@ public class Campeonato {
 			System.out.printf("%s %-20s %-20s %5s %s ", "|", "--------------------", "--------------------", "-----", "|");
 			System.out.println();
 			
-			for (int a = 0; a < this.jogadores.size(); a++) {
-				if (jogadores.get(a).getGols() > 0) {
-					System.out.printf("%s %-20s %-20s %5d %s", "|", jogadores.get(a).getNome(), jogadores.get(a).getTime(), jogadores.get(a).getGols(), "|");
-					System.out.println();
-				}
-
-			}
-			System.out.printf("%s %-20s %-20s %5s %s ", "|", "--------------------", "--------------------", "-----", "|");
-			System.out.println();
-			
-		}
+			for (int d = 0; d < artilheiros.size(); d++) {
+				System.out.printf("%s %-20s %-20s %5d %s", "|", artilheiros.get(d).getNome(), artilheiros.get(d).getTime(), artilheiros.get(d).getGols(), "|");
+				System.out.println();
+					}
+				
+	}
 		
 }

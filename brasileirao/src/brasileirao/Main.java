@@ -1,6 +1,7 @@
 package brasileirao;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Main {
 	
@@ -12,15 +13,21 @@ public class Main {
 		brasileirao.carregarDados(caminhoElencos, caminhoPartidas);
 		
 	
-		//brasileirao.apresentarTime();
+		//brasileirao.apresentarTime(17);
+		
+		
 		
 
 		
-		brasileirao.apresentarPartidas();
+		//brasileirao.apresentarPartidas();
+		
+		//brasileirao.imprimirCLassificacao();
+		//brasileirao.imprimirArtilharia();
 		
 
+		
 
-
+		
 	}
 	
 	

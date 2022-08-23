@@ -1,6 +1,8 @@
 package brasileiraoView;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,14 +12,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-public class PartidaView {
+public class PartidaView implements ActionListener {
 
 	JFrame framePartida;
 	JLabel labelTitulo, labelTime1, labelTime2, labelGols1, labelGols2;
 	JList<String> listaTimes1, listaTimes2;
 	JScrollPane scrollList1, scrollList2;
 	JTextField fieldGols1, fieldGols2;
-	JButton buttonCriar, buttonMostrar;
+	JButton buttonCriar, buttonMostrar, buttonArtilheiro;
 
 	String times1[] = { "Flamengo", "São paulo", "Fluminense", "Vasco da gama", "Salvador", "Palmeiras", "Juventude",
 			"Flamengo", "São paulo", "Fluminense", "Vasco da gama", "Salvador", "Palmeiras", "Juventude" };
@@ -68,9 +70,15 @@ public class PartidaView {
 
 		buttonCriar = new JButton("Criar partida");
 		buttonCriar.setBounds(400, 225, 150, 30);
+		buttonCriar.addActionListener(this);
+
+		buttonArtilheiro = new JButton("Definir artilheiro");
+		buttonArtilheiro.setBounds(400, 275, 150, 30);
+		buttonArtilheiro.addActionListener(this);
 
 		buttonMostrar = new JButton("Lista de partidas");
-		buttonMostrar.setBounds(400, 275, 150, 30);
+		buttonMostrar.setBounds(400, 325, 150, 30);
+		buttonMostrar.addActionListener(this);
 
 		framePartida.add(scrollList1);
 		framePartida.add(scrollList2);
@@ -82,9 +90,21 @@ public class PartidaView {
 		framePartida.add(fieldGols1);
 		framePartida.add(fieldGols2);
 		framePartida.add(buttonCriar);
+		framePartida.add(buttonArtilheiro);
 		framePartida.add(buttonMostrar);
 
 		framePartida.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent f) {
+		Object src = f.getSource();
+
+		if (src == buttonMostrar)
+			new ListaPartidaView();
+
+		if (src == buttonArtilheiro)
+			new ArtilheiroView();
 	}
 
 	public static void main(String args[]) {

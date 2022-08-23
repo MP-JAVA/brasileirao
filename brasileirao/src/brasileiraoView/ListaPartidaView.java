@@ -1,32 +1,37 @@
 package brasileiraoView;
 
-import java.awt.Font;
+import java.awt.GridLayout;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class ListaPartidaView {
-	JFrame lpv;
-	JLabel tituloLista;
-	ImageIcon image2;
+	JFrame tabelaPartidas;
+	JPanel painelPartidas;
+	JTable tabelaJogos;
+	JScrollPane tabelaRolagem;
+
+	Object[][] dados = { { "1", "Palmeiras", "48", "x", "45", "flamengo" },
+			{ "2", "corinthias", "48", "x", "45", "vasco" }, { "3", "vasco da gama", "48", "x", "45", "atletico" }, };
+
+	String[] colunas = { "rodada", "time mandante", "gols", "x", "gols", "time visitante" };
 
 	public ListaPartidaView() {
-		lpv = new JFrame("Lista de partidas");
-		tituloLista = new JLabel("Lista de partidas");
+		tabelaPartidas = new JFrame("Lista de partidas");
 
-		lpv.setSize(600, 400);
-		lpv.setLayout(null);
-		lpv.setVisible(true);
-		lpv.setResizable(false);
+		painelPartidas = new JPanel();
+		painelPartidas.setLayout(new GridLayout(1, 1));
 
-		tituloLista.setBounds(50, 50, 250, 30);
-		tituloLista.setFont(new Font("fira code", Font.BOLD, 20)); // Estilização da fonte
+		tabelaJogos = new JTable(dados, colunas);
+		tabelaRolagem = new JScrollPane(tabelaJogos);
+		painelPartidas.add(tabelaRolagem);
 
-		image2 = new ImageIcon("bola.png");
-		lpv.setIconImage(image2.getImage());
+		tabelaPartidas.getContentPane().add(painelPartidas);
+		tabelaPartidas.setSize(600, 300);
+		tabelaPartidas.setVisible(true);
 
-		lpv.add(tituloLista);
 	}
 
 	public static void main(String[] args) {

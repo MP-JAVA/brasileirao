@@ -1,85 +1,93 @@
 package brasileiraoView;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
-public class PartidaView implements ActionListener {
+public class PartidaView {
 
-	JFrame telaPart;
-	JLabel title;
-	ImageIcon image2;
-	JButton criarPartida;
-	static JButton mostrarPartida;
-	DefaultListModel<String> l1;
-	JList<String> list;
+	JFrame framePartida;
+	JLabel labelTitulo, labelTime1, labelTime2, labelGols1, labelGols2;
+	JList<String> listaTimes1, listaTimes2;
+	JScrollPane scrollList1, scrollList2;
+	JTextField fieldGols1, fieldGols2;
+	JButton buttonCriar, buttonMostrar;
+
+	String times1[] = { "Flamengo", "São paulo", "Fluminense", "Vasco da gama", "Salvador", "Palmeiras", "Juventude",
+			"Flamengo", "São paulo", "Fluminense", "Vasco da gama", "Salvador", "Palmeiras", "Juventude" };
+
+	String times2[] = { "Flamengo", "São paulo", "Fluminense", "Vasco da gama", "Salvador", "Palmeiras", "Juventude",
+			"Flamengo", "São paulo", "Fluminense", "Vasco da gama", "Salvador", "Palmeiras", "Juventude" };
 
 	public PartidaView() {
-		telaPart = new JFrame("Partida");
-		title = new JLabel("Criar partida");
-		l1 = new DefaultListModel<>();
-		list = new JList<>(l1);
-		criarPartida = new JButton("Criar");
-		mostrarPartida = new JButton("Ver lista de partidas");
+		framePartida = new JFrame("Criar partida");
 
-		telaPart.setSize(600, 400);
-		telaPart.setLayout(null);
-		telaPart.setVisible(true);
-		telaPart.setResizable(false);
+		framePartida.setLayout(null);
+		framePartida.setSize(600, 400);
+		framePartida.setResizable(false);
 
-		l1.addElement("Flamengo");
-		l1.addElement("São paulo");
-		l1.addElement("Fluminense");
-		l1.addElement("Vasco da gama");
-		l1.addElement("Salvador");
-		l1.addElement("Palmeiras");
-		l1.addElement("Juventude");
-		l1.addElement("Flamengo");
-		l1.addElement("São paulo");
-		l1.addElement("Fluminense");
-		l1.addElement("Vasco da gama");
-		l1.addElement("Salvador");
-		l1.addElement("Palmeiras");
-		l1.addElement("Juventude");
+		labelTitulo = new JLabel("Criar partida");
+		labelTitulo.setBounds(25, 25, 200, 50);
+		labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
 
-		list.setBounds(100, 100, 125, 125);
+		labelTime1 = new JLabel("Time 1:");
+		labelTime1.setBounds(75, 80, 100, 25);
 
-		criarPartida.setBounds(100, 300, 150, 40);
-		mostrarPartida.setBounds(260, 300, 150, 40);
+		labelTime2 = new JLabel("Time 2:");
+		labelTime2.setBounds(250, 80, 100, 25);
 
-		title.setBounds(25, 25, 250, 30);
-		title.setFont(new Font("fira code", Font.BOLD, 20)); // Estilização da fonte
+		labelGols1 = new JLabel("Gols time 1:");
+		labelGols1.setBounds(75, 250, 100, 25);
 
-		image2 = new ImageIcon("bola.png");
-		telaPart.setIconImage(image2.getImage());
+		labelGols2 = new JLabel("Gols time 2:");
+		labelGols2.setBounds(250, 250, 100, 25);
 
-		telaPart.add(title);
-		telaPart.add(list);
-		telaPart.add(criarPartida);
-		telaPart.add(mostrarPartida);
+		listaTimes1 = new JList<String>(times1);
+		listaTimes1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+		listaTimes2 = new JList<String>(times2);
+		listaTimes2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		scrollList1 = new JScrollPane(listaTimes1);
+		scrollList1.setBounds(75, 100, 120, 140);
+
+		scrollList2 = new JScrollPane(listaTimes2);
+		scrollList2.setBounds(250, 100, 120, 140);
+
+		fieldGols1 = new JTextField();
+		fieldGols1.setBounds(75, 275, 100, 25);
+
+		fieldGols2 = new JTextField();
+		fieldGols2.setBounds(250, 275, 100, 25);
+
+		buttonCriar = new JButton("Criar partida");
+		buttonCriar.setBounds(400, 225, 150, 30);
+
+		buttonMostrar = new JButton("Lista de partidas");
+		buttonMostrar.setBounds(400, 275, 150, 30);
+
+		framePartida.add(scrollList1);
+		framePartida.add(scrollList2);
+		framePartida.add(labelTitulo);
+		framePartida.add(labelTime1);
+		framePartida.add(labelTime2);
+		framePartida.add(labelGols1);
+		framePartida.add(labelGols2);
+		framePartida.add(fieldGols1);
+		framePartida.add(fieldGols2);
+		framePartida.add(buttonCriar);
+		framePartida.add(buttonMostrar);
+
+		framePartida.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		PartidaView partida = new PartidaView();
-
-		mostrarPartida.addActionListener(partida);
-
+	public static void main(String args[]) {
+		new PartidaView();
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object src = e.getSource();
-
-		if (src == mostrarPartida)
-			new ListaPartidaView();
-	}
-
 }

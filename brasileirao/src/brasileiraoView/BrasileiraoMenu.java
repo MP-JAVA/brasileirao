@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 public class BrasileiraoMenu implements ActionListener {
 	// Criação dos componentes da interface
 
-	private static JFrame brasi = new JFrame("Brasileirão");
-	private static JButton classificacao = new JButton("Classificação");
+	private static JFrame brasi = new JFrame("Brasileirao");
+	private static JButton classificacao = new JButton("Classificacao");
 	private static JButton partida = new JButton("Partida");
 	private static JLabel menu = new JLabel("Menu");
 	private static ImageIcon image2 = new ImageIcon("bola.png");
@@ -26,12 +26,12 @@ public class BrasileiraoMenu implements ActionListener {
 		brasi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fecha o programa ao apertar o "X"
 		brasi.setResizable(false); // não deixa você expandir a janela
 
-		menu.setBounds(200, 50, 100, 30);
-		menu.setFont(new Font("fira code", Font.BOLD, 40)); // Estilização da fonte
+		menu.setBounds(195, 40, 150, 100);
+		menu.setFont(new Font("Arial", Font.BOLD, 40)); // Estilização da fonte
 
 		// Definindo a posição dos compoenetes
-		classificacao.setBounds(175, 150, 150, 40);
-		partida.setBounds(175, 200, 150, 40);
+		classificacao.setBounds(170, 150, 150, 40);
+		partida.setBounds(170, 200, 150, 40);
 
 		// Adicionando os componentes na interface
 		brasi.add(classificacao);

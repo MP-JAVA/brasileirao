@@ -19,10 +19,10 @@ public class ClassificacaoView {
 	Object[][] dados = { { "1", "Palmeiras", "48", "22", "14", "6", "2" },
 			{ "2", "Flamengo", "47", "22", "14", "6", "2" }, { "3", "Corinthians", "46", "22", "14", "6", "2" }, };
 
-	String[] colunas = { "Classificação", "Time", "p", "j", "v", "e", "d" };
+	String[] colunas = { "Classificacao", "Time", "p", "j", "v", "e", "d" };
 
 	public ClassificacaoView() {
-		tabelaClassificacao = new JFrame("Classificação");
+		tabelaClassificacao = new JFrame("Classificacao");
 		painelFundo = new JPanel();
 		painelFundo.setLayout(new GridLayout(1, 1));
 		tabela = new JTable(dados, colunas);

@@ -15,8 +15,11 @@ public class BrasileiraoMenu implements ActionListener {
 
 	private static JFrame brasi = new JFrame("Brasileirao");
 	private static JButton classificacao = new JButton("Classificacao");
-	private static JButton partida = new JButton("Partida");
-	private static JLabel menu = new JLabel("Menu");
+	private static JButton artilharia = new JButton("Artilharia");
+	private static JButton tabPartidas = new JButton("Tabela de partidas");
+	private static JButton insResultados = new JButton("Inserir resultados");
+	private static JButton relatorio = new JButton("Resultados");
+	private static JLabel menu = new JLabel("Brasileirao 2022");
 	private static ImageIcon image2 = new ImageIcon("bola.png");
 
 	public BrasileiraoMenu() {
@@ -26,16 +29,22 @@ public class BrasileiraoMenu implements ActionListener {
 		brasi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fecha o programa ao apertar o "X"
 		brasi.setResizable(false); // não deixa você expandir a janela
 
-		menu.setBounds(195, 40, 150, 100);
-		menu.setFont(new Font("Arial", Font.BOLD, 40)); // Estilização da fonte
+		menu.setBounds(130, 10, 300, 90);
+		menu.setFont(new Font("Arial", Font.BOLD, 30)); // Estilização da fonte
 
 		// Definindo a posição dos compoenetes
-		classificacao.setBounds(170, 150, 150, 40);
-		partida.setBounds(170, 200, 150, 40);
+		classificacao.setBounds(170, 100, 150, 40);
+		artilharia.setBounds(170, 150, 150, 40);
+		tabPartidas.setBounds(170, 200, 150, 40);
+		insResultados.setBounds(170, 250, 150, 40);
+		relatorio.setBounds(170, 300, 150, 40);
 
 		// Adicionando os componentes na interface
 		brasi.add(classificacao);
-		brasi.add(partida);
+		brasi.add(artilharia);
+		brasi.add(tabPartidas);
+		brasi.add(insResultados);
+		brasi.add(relatorio);
 		brasi.add(menu);
 
 		// Criação do icone de imagem
@@ -48,7 +57,7 @@ public class BrasileiraoMenu implements ActionListener {
 		BrasileiraoMenu menu = new BrasileiraoMenu();
 
 		classificacao.addActionListener(menu);
-		partida.addActionListener(menu);
+		artilharia.addActionListener(menu);
 
 	}
 
@@ -60,7 +69,7 @@ public class BrasileiraoMenu implements ActionListener {
 		if (src == classificacao)
 			new ClassificacaoView();
 
-		if (src == partida)
-			new PartidaView();
+		if (src == artilharia)
+			new ArtilheiroView();
 	}
 }

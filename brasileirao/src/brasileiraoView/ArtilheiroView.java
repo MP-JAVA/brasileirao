@@ -14,7 +14,7 @@ public class ArtilheiroView {
 	JPanel painelArt;
 	JTable tabela;
 	JScrollPane barraRolagem;
-	ImageIcon image;
+	ImageIcon image = new ImageIcon("brasileirao/src/arquivos/bola.png");
 
 	Object[][] dadosArt = { { "1", "Flamengo", "Gabriel Jesus", "30" }, { "1", "Flamengo", "Gabriel Jesus", "30" },
 			{ "1", "Flamengo", "Gabriel Jesus", "30" } };
@@ -33,7 +33,6 @@ public class ArtilheiroView {
 		tabelaArt.setSize(600, 300);
 		tabelaArt.setVisible(true);
 
-		image = new ImageIcon("bola.png");
 		tabelaArt.setIconImage(image.getImage());
 
 	}

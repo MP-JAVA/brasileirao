@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,7 +20,8 @@ public class PartidaView implements ActionListener {
 	JList<String> listaTimes1, listaTimes2;
 	JScrollPane scrollList1, scrollList2;
 	JTextField fieldGols1, fieldGols2;
-	JButton buttonCriar, buttonMostrar, buttonArtilheiro;
+	JButton buttonCriar, defMarcador;
+	ImageIcon image = new ImageIcon("brasileirao/src/arquivos/bola.png");
 
 	String times1[] = { "Flamengo", "São paulo", "Fluminense", "Vasco da gama", "Salvador", "Palmeiras", "Juventude",
 			"Flamengo", "São paulo", "Fluminense", "Vasco da gama", "Salvador", "Palmeiras", "Juventude" };
@@ -28,13 +30,13 @@ public class PartidaView implements ActionListener {
 			"Flamengo", "São paulo", "Fluminense", "Vasco da gama", "Salvador", "Palmeiras", "Juventude" };
 
 	public PartidaView() {
-		framePartida = new JFrame("Criar partida");
+		framePartida = new JFrame("Inserir resultado");
 
 		framePartida.setLayout(null);
 		framePartida.setSize(600, 400);
 		framePartida.setResizable(false);
 
-		labelTitulo = new JLabel("Criar partida");
+		labelTitulo = new JLabel("Inserir resultado");
 		labelTitulo.setBounds(25, 25, 200, 50);
 		labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
 
@@ -72,13 +74,9 @@ public class PartidaView implements ActionListener {
 		buttonCriar.setBounds(400, 225, 150, 30);
 		buttonCriar.addActionListener(this);
 
-		buttonArtilheiro = new JButton("Definir artilheiro");
-		buttonArtilheiro.setBounds(400, 275, 150, 30);
-		buttonArtilheiro.addActionListener(this);
-
-		buttonMostrar = new JButton("Lista de partidas");
-		buttonMostrar.setBounds(400, 325, 150, 30);
-		buttonMostrar.addActionListener(this);
+		defMarcador = new JButton("Inserir Marcadores");
+		defMarcador.setBounds(400, 275, 150, 30);
+		defMarcador.addActionListener(this);
 
 		framePartida.add(scrollList1);
 		framePartida.add(scrollList2);
@@ -90,21 +88,19 @@ public class PartidaView implements ActionListener {
 		framePartida.add(fieldGols1);
 		framePartida.add(fieldGols2);
 		framePartida.add(buttonCriar);
-		framePartida.add(buttonArtilheiro);
-		framePartida.add(buttonMostrar);
+		framePartida.add(defMarcador);
 
 		framePartida.setVisible(true);
+
+		framePartida.setIconImage(image.getImage());
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent f) {
 		Object src = f.getSource();
 
-		if (src == buttonMostrar)
-			new ListaPartidaView();
-
-		if (src == buttonArtilheiro)
-			new ArtilheiroView();
+		if (src == defMarcador)
+			new MarcadoresView();
 	}
 
 	public static void main(String args[]) {

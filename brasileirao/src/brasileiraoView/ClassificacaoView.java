@@ -14,7 +14,7 @@ public class ClassificacaoView {
 	JPanel painelFundo;
 	JTable tabela;
 	JScrollPane barraRolagem;
-	ImageIcon image2;
+	ImageIcon image = new ImageIcon("brasileirao/src/arquivos/bola.png");
 
 	Object[][] dados = { { "1", "Palmeiras", "48", "22", "14", "6", "2" },
 			{ "2", "Flamengo", "47", "22", "14", "6", "2" }, { "3", "Corinthians", "46", "22", "14", "6", "2" }, };
@@ -33,8 +33,7 @@ public class ClassificacaoView {
 		tabelaClassificacao.setSize(600, 300);
 		tabelaClassificacao.setVisible(true);
 
-		image2 = new ImageIcon("bola.png");
-		tabelaClassificacao.setIconImage(image2.getImage());
+		tabelaClassificacao.setIconImage(image.getImage());
 	}
 
 	public static void main(String[] args) {

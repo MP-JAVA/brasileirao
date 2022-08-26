@@ -2,6 +2,7 @@ package brasileiraoView;
 
 import java.awt.GridLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,6 +13,7 @@ public class ListaPartidaView {
 	JPanel painelPartidas;
 	JTable tabelaJogos;
 	JScrollPane tabelaRolagem;
+	ImageIcon image = new ImageIcon("brasileirao/src/arquivos/bola.png");
 
 	Object[][] dados = { { "1", "Palmeiras", "48", "x", "45", "flamengo" },
 			{ "2", "corinthias", "48", "x", "45", "vasco" }, { "3", "vasco da gama", "48", "x", "45", "atletico" }, };
@@ -31,6 +33,8 @@ public class ListaPartidaView {
 		tabelaPartidas.getContentPane().add(painelPartidas);
 		tabelaPartidas.setSize(600, 300);
 		tabelaPartidas.setVisible(true);
+
+		tabelaPartidas.setIconImage(image.getImage());
 
 	}
 

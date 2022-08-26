@@ -18,9 +18,9 @@ public class BrasileiraoMenu implements ActionListener {
 	private static JButton artilharia = new JButton("Artilharia");
 	private static JButton tabPartidas = new JButton("Tabela de partidas");
 	private static JButton insResultados = new JButton("Inserir resultados");
-	private static JButton relatorio = new JButton("Resultados");
+	private static JButton relatorio = new JButton("Relatorios");
 	private static JLabel menu = new JLabel("Brasileirao 2022");
-	private static ImageIcon image2 = new ImageIcon("bola.png");
+	private static ImageIcon image = new ImageIcon("brasileirao/src/arquivos/bola.png");
 
 	public BrasileiraoMenu() {
 		brasi.setSize(500, 400); // definindo a largura e altura
@@ -48,7 +48,7 @@ public class BrasileiraoMenu implements ActionListener {
 		brasi.add(menu);
 
 		// Criação do icone de imagem
-		brasi.setIconImage(image2.getImage());
+		brasi.setIconImage(image.getImage());
 
 	}
 
@@ -58,6 +58,9 @@ public class BrasileiraoMenu implements ActionListener {
 
 		classificacao.addActionListener(menu);
 		artilharia.addActionListener(menu);
+		tabPartidas.addActionListener(menu);
+		insResultados.addActionListener(menu);
+		relatorio.addActionListener(menu);
 
 	}
 
@@ -71,5 +74,14 @@ public class BrasileiraoMenu implements ActionListener {
 
 		if (src == artilharia)
 			new ArtilheiroView();
+
+		if (src == tabPartidas)
+			new ListaPartidaView();
+
+		if (src == insResultados)
+			new PartidaView();
+
+		if (src == relatorio)
+			new RelatorioView();
 	}
 }

@@ -1,9 +1,9 @@
-package brasileirao;
+package brasileirao.model;
 
 import java.util.ArrayList;
 
 public class Partida {
-	
+
 	private static int idGeral = 0;
 	private int idPartida;
 	private String status;
@@ -13,17 +13,14 @@ public class Partida {
 	private int golsVisitante;
 	private ArrayList<Jogador> marcadores;
 
-
 	public Partida(String timeMandante, String timeVisitante) {
 		this.idPartida = Partida.idGeral++;
 		this.status = "PENDENTE";
 		this.timeMandante = timeMandante;
 		this.timeVisitante = timeVisitante;
-		this.golsMandante = golsMandante;
-		this.golsVisitante = golsVisitante;
 		this.marcadores = new ArrayList<>();
 	}
-	
+
 	public static int getIdGeral() {
 		return idGeral;
 	}
@@ -39,7 +36,7 @@ public class Partida {
 	public void setIdPartida(int idPartida) {
 		this.idPartida = idPartida;
 	}
-	
+
 	public String getStatus() {
 		return status;
 	}
@@ -88,10 +85,9 @@ public class Partida {
 		this.marcadores = marcadores;
 	}
 
-	public void cadastrarMarcador(Jogador jogador, int gols) { //Temos que desenvolver uma lógica para o retorno.
+	public void cadastrarMarcador(Jogador jogador, int gols) { // Temos que desenvolver uma lógica para o retorno.
 		for (int a = 0; a < gols; a++) {
 			this.marcadores.add(jogador);
 		}
 	}
 }
-

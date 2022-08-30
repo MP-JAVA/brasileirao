@@ -1,43 +1,48 @@
-package brasileirao;
+package brasileirao.model;
 
-public class Jogador extends Funcionario implements Comparable<Jogador>{
-	private String posicao;
-	private int gols;
+public abstract class Funcionario {
+
+	private static int idGeral = 0;
+	private int idFunc;
+	private int idTime;
+	private String nome;
 	private String time;
-	
-	public Jogador(String nome, String posicao) {
-		super(nome);
-		this.posicao = posicao;
-		this.gols = 0;
-		this.time = time;
+
+	public Funcionario(String nome) {
+		this.nome = nome;
+		this.idFunc = Funcionario.idGeral++;
 	}
-	
+
+	public static int getIdGeral() {
+		return idGeral;
+	}
+
+	public static void setIdGeral(int idGeral) {
+		Funcionario.idGeral = idGeral;
+	}
+
 	public int getIdFunc() {
-		return super.getIdFunc();
+		return idFunc;
 	}
+
+	public void setIdFunc(int idFunc) {
+		this.idFunc = idFunc;
+	}
+
+	public int getIdTime() {
+		return idTime;
+	}
+
+	public void setIdTime(int idTime) {
+		this.idTime = idTime;
+	}
+
 	public String getNome() {
-		return super.getNome();
+		return nome;
 	}
 
-	public String getPosicao() {
-		return posicao;
-	}
-
-	public void setPosicao(String posicao) {
-		this.posicao = posicao;
-	}
-
-	public int getGols() {
-		return gols;
-	}
-
-	public void somaGols() {
-		this.gols++;
-	}
-
-	@Override
-	public int compareTo(Jogador a) {
-		return (a.getGols() - this.gols);
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getTime() {
@@ -87,6 +92,5 @@ public class Jogador extends Funcionario implements Comparable<Jogador>{
 			this.time = "Goiás";
 		}
 	}
-	
 
 }

@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import brasileirao.model.Jogador;
 import brasileirao.model.Partida;
@@ -16,18 +15,13 @@ import brasileirao.model.Treinador;
 public class Campeonato {
 	private ArrayList<Partida> tabelaDePartidas;
 	private ArrayList<Time> times;
-	private final String Elencos;
-	private final String Partidas;
 
-	public Campeonato(String PathElencos, String PathPartidas) {
+	public Campeonato() {
 		this.tabelaDePartidas = new ArrayList<>();
 		this.times = new ArrayList<>();
-		this.Elencos = PathElencos;
-		this.Partidas = PathPartidas;
-		carregarDados();
 	}
 
-	// Getters and Setters ----------------------------------------------------------------------------------------
+// Getters and Setters ----------------------------------------------------------------------------------------
 	public ArrayList<Partida> getTabelaDePartidas() {
 		return tabelaDePartidas;
 	}
@@ -44,21 +38,17 @@ public class Campeonato {
 		this.times = times;
 	}
 
-	public void update(){
-		carregarDados();
-	}
-
 // Carregamento de dados dos arquivos --------------------------------------------------------------------------
 
 	// Instancia todos times e jogadores envolvidos no campeonato a partir de dados
 	// contidos em um arquivo CSV.
-	public void carregarDadosElencos() {
-		File arquivo = new File(Elencos);
+	public void carregarDadosElencos(String caminho) {
+		File arquivo = new File(caminho);
 		if (arquivo.exists()) {
 			if (arquivo.isFile() && (arquivo.length() > 0)) {
 				BufferedReader leitor = null;
 				try {
-					leitor = new BufferedReader(new FileReader(Elencos));
+					leitor = new BufferedReader(new FileReader(caminho));
 					String linha;
 					linha = leitor.readLine();
 					linha = leitor.readLine();
@@ -82,13 +72,13 @@ public class Campeonato {
 	}
 
 	// Instancia todas as partidas do campeonato a partir de um arquivo CSV.
-	public void carregarPartidas() {
-		File arquivo = new File(Partidas);
+	public void carregarPartidas(String caminho) {
+		File arquivo = new File(caminho);
 		if (arquivo.exists()) {
 			if (arquivo.isFile() && (arquivo.length() > 0)) {
 				BufferedReader leitor = null;
 				try {
-					leitor = new BufferedReader(new FileReader(Partidas));
+					leitor = new BufferedReader(new FileReader(caminho));
 					String linha = leitor.readLine();
 					int contador = 0;
 					while (linha != null) {
@@ -122,12 +112,12 @@ public class Campeonato {
 		}
 	}
 
-	public void carregarDados() {
-		this.carregarDadosElencos();
-		this.carregarPartidas();
+	public void carregarDados(String caminhoElenco, String caminhoPartidas) {
+		this.carregarDadosElencos(caminhoElenco);
+		this.carregarPartidas(caminhoPartidas);
 	}
 
-// mï¿½todos de organizaï¿½ï¿½o do programa --------------------------------------------------------------------------
+// métodos de organização do programa --------------------------------------------------------------------------
 
 	// Instancia um Time e o insere na ArrayList do campeonato.
 	private void cadastrarTime(String nome) {
@@ -161,8 +151,8 @@ public class Campeonato {
 		this.tabelaDePartidas.add(partida);
 	}
 
-	// Carrega todos os resultados constantes de um arquivo CSV relacionados ï¿½s
-	// partidas jï¿½ realizadas.
+	// Carrega todos os resultados constantes de um arquivo CSV relacionados às
+	// partidas já realizadas.
 	public void carregarResultadoDoArquivo(int[] dadosPartida) {
 		int id, gMandante, gVisitante;
 
@@ -218,8 +208,8 @@ public class Campeonato {
 		}
 	}
 
-	// Permite que o usuï¿½rio carregue os resultados relacionados ï¿½s partidas que
-	// ainda serï¿½o realizadas.
+	// Permite que o usuário carregue os resultados relacionados às partidas que
+	// ainda serão realizadas.
 	public void carregarResultadoPeloUsuario(int[] dadosPartida) {
 		int id, gMandante, gVisitante;
 
@@ -271,20 +261,21 @@ public class Campeonato {
 					}
 
 				} else {
-					System.out.println("Nï¿½o ï¿½ permitida a alteraï¿½ï¿½o de partidas que jï¿½ ocorreram.");
+					System.out.println("Não é permitida a alteração de partidas que já ocorreram.");
 				}
 
 			}
 		}
 	}
 
-	// Permite que o usuï¿½rio carregue os marcadores das partidas que ainda serï¿½o
+	// Permite que o usuário carregue os marcadores das partidas que ainda serão
 	// realizadas.
-	public void carregarMarcadores(List<Integer> idMarcadores) {
+	public void carregarMarcadores(ArrayList<Integer> idMarcadores) {
 		int qtdadeMarcadores = (idMarcadores.size() - 1);
 
 		if (qtdadeMarcadores > 0) {
 			int idPartida = idMarcadores.get(0);
+
 			for (int d = 0; d < this.tabelaDePartidas.size(); d++) {
 
 				if (this.tabelaDePartidas.get(d).getIdPartida() == idPartida) {
@@ -336,67 +327,71 @@ public class Campeonato {
 		System.out.println();
 	}
 
-	// Imprime os dados de todas as partidas por meio de uma sequï¿½ncia de printf e
+	// Imprime os dados de todas as partidas por meio de uma sequência de printf e
 	// println
-	public Object[][] apresentarPartidas() {
-		ArrayList<Object[]> Partidas = new ArrayList<>();
-		for(Partida Item:this.tabelaDePartidas){
+	public void apresentarPartidas() {
+		for (int b = 0; b < this.tabelaDePartidas.size(); b++) {
+			System.out.printf("%3d - %-10s %-13s %2d x %2d %13s", this.tabelaDePartidas.get(b).getIdPartida(),
+					this.tabelaDePartidas.get(b).getStatus(), this.tabelaDePartidas.get(b).getTimeMandante(),
+					this.tabelaDePartidas.get(b).getGolsMandante(), this.tabelaDePartidas.get(b).getGolsVisitante(),
+					this.tabelaDePartidas.get(b).getTimeVisitante());
 
-			StringBuilder Marcadores = new StringBuilder();
-			int Gols = Item.getGolsMandante() + Item.getGolsVisitante();
-			if (Gols > 0) {
-				if (Item.getMarcadores().isEmpty()) {
-					Marcadores.append("Os marcadores ainda nï¿½o foram cadastrados!");
-				}else{
-					for(Jogador Gol:Item.getMarcadores()){
-						Marcadores.append(String.format("%s - %s ",Gol.getNome(),Gol.getTime()));
+			int qtdadeGols = (this.tabelaDePartidas.get(b).getGolsMandante()
+					+ this.tabelaDePartidas.get(b).getGolsVisitante());
+			if (qtdadeGols > 0) {
+				if (this.tabelaDePartidas.get(b).getMarcadores().isEmpty()) {
+					System.out.printf("%45s", "Os marcadores ainda não foram cadastrados!");
+
+				} else {
+					System.out.printf("%10s", "Gols: ");
+					for (int a = 0; a < qtdadeGols; a++) {
+						System.out.printf("%s. ", this.tabelaDePartidas.get(b).getMarcadores().get(a).getNome());
 					}
-				}
-			} else if(Item.getStatus().equals("REALIZADA")) {
-				Marcadores.append("Nï¿½o houve gols nesta partida.");
-			}
 
-			Partidas.add(new Object[]{String.valueOf(Item.getIdPartida()),
-			                          Item.getStatus(),
-									  Item.getTimeMandante(),
-			                          Item.getTimeVisitante(),
-			                          String.format("%s %s x %s %s",Item.getTimeMandante(),Item.getGolsMandante(),
-											                       Item.getGolsVisitante(),Item.getTimeVisitante()),
-			                          Marcadores});
+				}
+			} else if (this.tabelaDePartidas.get(b).getStatus().equals("REALIZADA")) {
+				System.out.printf("%33s", "Gols: -----------------------");
+
+			}
+			System.out.println();
 		}
-		Object[][] Retorno = new Object[Partidas.size()][];
-		for(int i=0;i<Partidas.size();i++){
-			Retorno[i] = Partidas.get(i);
-		}
-		return Retorno;
 	}
 
 	// Ordena a ArrayList de Times de acordo com o desempenho e
-	// imprime a classificaï¿½ï¿½o por meio de uma sequï¿½ncia de printf e println
-	public Object[][] imprimirCLassificacao() {
-		ArrayList<Object[]> Classificacao = new ArrayList<>();
-		Collections.sort(this.getTimes(), new ComparatorClassificacao());
-		for (int i=0;i<this.times.size();i++) {
-		
-			float percentual = (float) this.times.get(i).getPontos()
-					/ ((this.times.get(i).getVitorias() + this.times.get(i).getEmpates() + this.times.get(i).getDerrotas()) * 3) * 100;
+	// imprime a classificação por meio de uma sequência de printf e println
+	public void imprimirCLassificacao() {
 
-			Classificacao.add(new Object[]{String.valueOf(i+1),this.times.get(i).getNome(), String.valueOf(((this.times.get(i).getVitorias() * 3 + this.times.get(i).getEmpates()))),
-					String.valueOf(this.times.get(i).getVitorias()), String.valueOf(this.times.get(i).getEmpates()),
-					String.valueOf(this.times.get(i).getDerrotas()), String.valueOf(this.times.get(i).getGolsPara()), String.valueOf(this.times.get(i).getGolsContra()),
-					String.valueOf((this.times.get(i).getGolsPara() - this.times.get(i).getGolsContra())), String.format("%.2f", percentual)});
-			
+		Collections.sort(this.getTimes(), new ComparatorClassificacao());
+
+		System.out.printf("%s %15s %5s %5s %5s %5s %5s %5s %5s %5s %s", "|", "---------------", "-----", "-----",
+				"-----", "-----", "-----", "-----", "-----", "-------", "|");
+		System.out.println();
+		System.out.printf("%s %-15s %5s %5s %5s %5s %5s %5s %5s %5s %3s", "|", "Time", "P", "V", "E", "D", "GP", "GC",
+				"SG", "%", "|");
+		System.out.println();
+		System.out.printf("%s %15s %5s %5s %5s %5s %5s %5s %5s %5s %s", "|", "---------------", "-----", "-----",
+				"-----", "-----", "-----", "-----", "-----", "-------", "|");
+		System.out.println();
+		for (int a = 0; a < this.times.size(); a++) {
+
+			float percentual = (float) times.get(a).getPontos()
+					/ ((times.get(a).getVitorias() + times.get(a).getEmpates() + times.get(a).getDerrotas()) * 3) * 100;
+
+			System.out.printf("%s %-15s %5d %5d %5d %5d %5d %5d %5d %7.1f %s", "|", times.get(a).getNome(),
+					times.get(a).getPontos(), times.get(a).getVitorias(), times.get(a).getEmpates(),
+					times.get(a).getDerrotas(), times.get(a).getGolsPara(), times.get(a).getGolsContra(),
+					(times.get(a).getGolsPara() - times.get(a).getGolsContra()), percentual, "|");
+			System.out.println();
 		}
-		Object[][] Retorno = new Object[Classificacao.size()][];
-		for(int i=0;i<Classificacao.size();i++){
-			Retorno[i] = Classificacao.get(i);
-		}
-		return Retorno;
+		System.out.printf("%s %15s %5s %5s %5s %5s %5s %5s %5s %5s %s", "|", "---------------", "-----", "-----",
+				"-----", "-----", "-----", "-----", "-----", "-------", "|");
+		System.out.println();
+
 	}
 
 	// Retorna uma ArrayList de string em que cada elemento corresponde a um time e
 	// o seu desempenho.
-	// A ideia ï¿½ usar cada um desses elementos para a classificaï¿½ï¿½o na
+	// A ideia é usar cada um desses elementos para imprimir a classificação na
 	// interface.
 	public ArrayList<String> imprimirCLassificacaoInterface() {
 
@@ -423,9 +418,11 @@ public class Campeonato {
 	}
 
 	// Ordena os jogadores pelos gols feitos e imprime a artilharia por meio de uma
-	// sequï¿½ncia de printf e println
-	public ArrayList<Jogador> artilheiros(){
-		ArrayList<Jogador> artilheiros = new ArrayList<>();
+	// sequência de printf e println
+	public void imprimirArtilharia() {
+
+		ArrayList<Jogador> artilheiros = new ArrayList<Jogador>();
+
 		for (int b = 0; b < this.times.size(); b++) {
 			for (int c = 0; c < this.times.get(b).getJogadores().size(); c++) {
 
@@ -434,21 +431,22 @@ public class Campeonato {
 				}
 			}
 		}
-		return artilheiros;
-	}
 
-	public Object[][] imprimirArtilharia() {
-		ArrayList<Jogador> Tabela = artilheiros();
-		ArrayList<Object[]> Artilheiros = new ArrayList<>();
-		Collections.sort(Tabela);
-		for(Jogador Item:Tabela){
-			Artilheiros.add(new Object[]{Item.getNome(),Item.getTime(),Item.getGols()});
+		Collections.sort(artilheiros);
+
+		System.out.printf("%s %-20s %-20s %5s %s ", "|", "--------------------", "--------------------", "-----", "|");
+		System.out.println();
+		System.out.printf("%s %-20s %-20s %5s %s ", "|", "Jogador", "Time", "Gols", "|");
+		System.out.println();
+		System.out.printf("%s %-20s %-20s %5s %s ", "|", "--------------------", "--------------------", "-----", "|");
+		System.out.println();
+
+		for (int d = 0; d < artilheiros.size(); d++) {
+			System.out.printf("%s %-20s %-20s %5d %s", "|", artilheiros.get(d).getNome(), artilheiros.get(d).getTime(),
+					artilheiros.get(d).getGols(), "|");
+			System.out.println();
 		}
-		Object[][] Retorno = new Object[Artilheiros.size()][];
-		for(int i=0;i<Artilheiros.size();i++){
-			Retorno[i] = Artilheiros.get(i);
-		}
-		return Retorno;
+
 	}
 
 }

@@ -6,9 +6,10 @@ public class Main {
 
 	public static void main(String args[]) {
 
-		String caminhoElencos = "./arq_backup/cadastro.csv";
-		String caminhoPartidas = "./arq_backup/partidas.csv";
-		Campeonato brasileirao = new Campeonato(caminhoElencos,caminhoPartidas);
+		Campeonato brasileirao = new Campeonato();
+		String caminhoElencos = "C:\\Users\\Leo\\git\\brasileirao\\brasileirao\\src\\brasileirao\\model\\arquivos\\cadastro.csv";
+		String caminhoPartidas = "C:\\Users\\Leo\\git\\brasileirao\\brasileirao\\src\\brasileirao\\model\\arquivos\\partidas.csv";
+		brasileirao.carregarDados(caminhoElencos, caminhoPartidas);
 
 		// new BrasileiraoMenu();
 
@@ -16,7 +17,7 @@ public class Main {
 		 * int opcao; String menu = "\n1 - Classificacao"; menu += "\n2 - Artilharia";
 		 * menu += "\n3 - Tabela de partidas"; menu += "\n4 - Inserir resultados"; menu
 		 * += "\n5 - Relatorios"; menu += "\n6 - Sair"; menu +=
-		 * "\n\nDigite a opï¿½ï¿½o desejada:\n"; while (true) { opcao =
+		 * "\n\nDigite a opção desejada:\n"; while (true) { opcao =
 		 * Integer.parseInt(JOptionPane.showInputDialog(menu)); if (opcao == 6) { break;
 		 * } switch (opcao) { case 1: // Imprimir classificacao
 		 * JOptionPane.showMessageDialog(null,
@@ -28,9 +29,9 @@ public class Main {
 		 * int idPartida =
 		 * Integer.parseInt(JOptionPane.showInputDialog("Digite o id da partida:")); int
 		 * golsMandante = Integer .parseInt(JOptionPane.
-		 * showInputDialog("Digite o nï¿½mero de gols marcados pelo time mandante:")); int
+		 * showInputDialog("Digite o número de gols marcados pelo time mandante:")); int
 		 * golsVisitante = Integer .parseInt(JOptionPane.
-		 * showInputDialog("Digite o nï¿½mero de gols marcados pelo time visitante:"));
+		 * showInputDialog("Digite o número de gols marcados pelo time visitante:"));
 		 * int totalGols = golsMandante + golsVisitante; int[] dadosDaPartida = {
 		 * idPartida, golsMandante, golsVisitante };
 		 * brasileirao.carregarResultadoPeloUsuario(dadosDaPartida);
@@ -43,22 +44,19 @@ public class Main {
 		 * 
 		 * brasileirao.carregarMarcadores(idMarcadores);
 		 * 
-		 * break; case 5: // Relatorios System.out.println("Relatï¿½rios em construï¿½ï¿½o");
+		 * break; case 5: // Relatorios System.out.println("Relatórios em construção");
 		 * break; default: System.out.println("Opcao invalida"); break; }
 		 * 
 		 * }
 		 * 
 		 */
 
-//		brasileirao.apresentarTime(17);
+		// brasileirao.apresentarTime(17);
 
-//		brasileirao.apresentarPartidas();
+		// brasileirao.apresentarPartidas();
 
-//		for(Object[] italo:brasileirao.imprimirCLassificacao()){
-//			System.out.println(italo.toString());
-//		}
-
-//		brasileirao.imprimirArtilharia();
+		// brasileirao.imprimirCLassificacao();
+		// brasileirao.imprimirArtilharia();
 
 	}
 

@@ -63,7 +63,6 @@ public class Menu{
         Artilharia.addActionListener(e -> new Artilharia());
         Tabela.addActionListener(e -> new Partidas());
         Classificacao.addActionListener(e -> new Classificacao());
-        Relatorios.addActionListener(e -> new RelatorioView());
         Inserir.addActionListener(e -> new Inserir());
     }
 

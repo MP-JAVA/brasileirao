@@ -346,7 +346,7 @@ public class Campeonato {
 			int Gols = Item.getGolsMandante() + Item.getGolsVisitante();
 			if (Gols > 0) {
 				if (Item.getMarcadores().isEmpty()) {
-					Marcadores.append("Os marcadores ainda n�o foram cadastrados!");
+					Marcadores.append("Os marcadores ainda nao foram cadastrados!");
 				}else{
 					for(Jogador Gol:Item.getMarcadores()){
 						Marcadores.append(String.format("%s - %s ",Gol.getNome(),Gol.getTime()));

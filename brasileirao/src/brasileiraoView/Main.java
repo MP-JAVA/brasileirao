@@ -50,16 +50,14 @@ public class Main {
 		 * 
 		 */
 
-//		brasileirao.apresentarTime(17);
 
-//		brasileirao.apresentarPartidas();
+		//brasileirao.apresentarPartidas();
 
-//		for(Object[] italo:brasileirao.imprimirCLassificacao()){
-//			System.out.println(italo.toString());
-//		}
 
-//		brasileirao.imprimirArtilharia();
+		//brasileirao.imprimirArtilharia();
 
 	}
+	
+	
 
 }

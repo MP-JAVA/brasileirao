@@ -2,6 +2,8 @@ package brasileiraoView;
 
 import brasileirao.controll.Campeonato;
 import brasileirao.model.Partida;
+import brasileiraoView.CRUD.HUBCRUD;
+import brasileiraoView.CRUD.Jogadores;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,8 +20,8 @@ public class Menu{
     private static final JButton Tabela = new JButton("Tabela de partidas");
     private static final JButton Inserir = new JButton("Inserir resultados");
     private static final JButton Relatorios = new JButton("Relatorios");
+    private static final JButton HUBCRUD = new JButton("HUB CRUD");
     public static Campeonato brasileirao;
-
 
     public static JPanel titulo(){
         JPanel Titulo = new JPanel();
@@ -31,12 +33,13 @@ public class Menu{
     }
 
     public static JPanel botoes(){
-        JPanel Botoes = new JPanel(new GridLayout(5, 1, 0, 15));
+        JPanel Botoes = new JPanel(new GridLayout(6, 1, 0, 15));
         Botoes.add(Classificacao);
         Botoes.add(Artilharia);
         Botoes.add(Tabela);
         Botoes.add(Inserir);
         Botoes.add(Relatorios);
+        Botoes.add(HUBCRUD);
         Botoes.setAlignmentY(Component.CENTER_ALIGNMENT);
         return Botoes;
     }
@@ -64,6 +67,8 @@ public class Menu{
         Tabela.addActionListener(e -> new Partidas());
         Classificacao.addActionListener(e -> new Classificacao());
         Inserir.addActionListener(e -> new Inserir());
+        Relatorios.addActionListener(e-> new RelatorioView());
+        HUBCRUD.addActionListener(e-> new HUBCRUD());
     }
 
 }

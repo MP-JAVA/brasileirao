@@ -1,7 +1,7 @@
 package brasileirao.model;
 
 public class Jogador extends Funcionario implements Comparable<Jogador> {
-	private static int idGeralJog = 0;
+	public static int idGeralJog = 0;
 	private int idJog;
 	private String posicao;
 	private int gols;

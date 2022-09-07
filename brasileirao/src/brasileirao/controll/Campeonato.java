@@ -4,24 +4,24 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.IntStream;
 
 import brasileirao.model.Jogador;
 import brasileirao.model.Partida;
 import brasileirao.model.Time;
 import brasileirao.model.Treinador;
+import brasileiraoView.CRUD.Jogadores;
 
 public class Campeonato {
 	private ArrayList<Partida> tabelaDePartidas;
-	private ArrayList<Time> times;
+	public static ArrayList<Time> times;
 	private final String Elencos;
 	private final String Partidas;
 
 	public Campeonato(String PathElencos, String PathPartidas) {
 		this.tabelaDePartidas = new ArrayList<>();
-		this.times = new ArrayList<>();
+		times = new ArrayList<>();
 		this.Elencos = PathElencos;
 		this.Partidas = PathPartidas;
 		carregarDados();
@@ -218,6 +218,10 @@ public class Campeonato {
 		}
 	}
 
+	public int getTimeByName(String Nome){
+		return times.stream().filter(Item->Nome.equals(Item.getNome())).findFirst().orElse(null).getIdTime();
+	}
+
 	// Permite que o usu�rio carregue os resultados relacionados �s partidas que
 	// ainda ser�o realizadas.
 	public void carregarResultadoPeloUsuario(int[] dadosPartida) {
@@ -349,7 +353,7 @@ public class Campeonato {
 					Marcadores.append("Os marcadores ainda nao foram cadastrados!");
 				}else{
 					for(Jogador Gol:Item.getMarcadores()){
-						Marcadores.append(String.format("%s - %s ",Gol.getNome(),Gol.getTime()));
+						Marcadores.append(String.format("%s ",Gol.getNome()));
 					}
 				}
 			} else if(Item.getStatus().equals("REALIZADA")) {
@@ -422,6 +426,14 @@ public class Campeonato {
 
 	}
 
+	public ArrayList<Jogador> getJogadores(){
+		ArrayList<Jogador> Jogadores = new ArrayList<>();
+		for(Time Item:this.times) {
+			Jogadores.addAll(Item.getJogadores());
+		}
+		return Jogadores;
+	}
+
 	// Ordena os jogadores pelos gols feitos e imprime a artilharia por meio de uma
 	// sequ�ncia de printf e println
 	public ArrayList<Jogador> artilheiros(){
@@ -449,6 +461,21 @@ public class Campeonato {
 			Retorno[i] = Artilheiros.get(i);
 		}
 		return Retorno;
+	}
+
+	public Map.Entry<String,Object[][]> tabela_times(String time) {
+		Time Selecionado = times.stream().filter(Item->Item.getNome().equals(time))
+				.findFirst().orElse(null);
+		ArrayList<Jogador> Tabela = Selecionado.getJogadores();
+		ArrayList<Object[]> Time = new ArrayList<>();
+		for(Jogador Item:Tabela){
+			Time.add(new Object[]{Item.getNome(),Item.getGols(),Item.getPosicao()});
+		}
+		Object[][] Retorno = new Object[Time.size()][];
+		for(int i=0;i<Time.size();i++){
+			Retorno[i] = Time.get(i);
+		}
+		return new AbstractMap.SimpleEntry(Selecionado.getTreinador().getNome(),Retorno);
 	}
 
 }

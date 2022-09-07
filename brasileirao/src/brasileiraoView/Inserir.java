@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.List;
 
+import static config.configuracoes.layoytconstr;
 import static java.util.stream.Collectors.toList;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 
@@ -137,19 +138,6 @@ public class Inserir {
         for(Component Item: com){
             Item.setEnabled(isEnable);
         }
-    }
-
-    private GridBagConstraints layoytconstr(int fill, int weightx, int weighty, int gridx, int gridy, int gridwidth, int gridheight){
-        GridBagConstraints Constraints = new GridBagConstraints();
-        Constraints.gridheight = gridheight;
-        Constraints.weightx = weightx;
-        Constraints.gridwidth = gridwidth;
-        Constraints.insets = new Insets(5,5,5,5);
-        Constraints.gridx = gridx;
-        Constraints.gridy = gridy;
-        Constraints.weighty = weighty;
-        Constraints.fill = fill;
-        return Constraints;
     }
 
     private void acoes(){

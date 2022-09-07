@@ -2,7 +2,7 @@ package brasileirao.model;
 
 public class Treinador extends Funcionario {
 
-	private static int idGeralTrei = 0;
+	public static int idGeralTrei = 0;
 	private int idTrei;
 
 	public Treinador(String nome) {

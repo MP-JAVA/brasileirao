@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
  */
 
 class Testes {
+    String caminhoElencos = "./arq_backup/cadastro.csv";
+    String caminhoPartidas = "./arq_backup/partidas.csv";
+    Campeonato brasileirao = new Campeonato(caminhoElencos,caminhoPartidas);
 
 	/**
 	 * Metodo para verificar se o metodo cadastrarTime está funcionando da maneira
@@ -58,11 +61,11 @@ class Testes {
 	 */
 
 	@Test
-	void buscarIdTime() {
-		int idTimeCerto = 23;
-		int idTimeErrado = -54;
+	public void testBuscarIdTime() {
 
-		assertTrue(Campeonato.buscarIdTime(idTimeCerto));
-		assertFalse(Campeonato.buscarIdTime(idTimeErrado));
+        
+		int idTimeEsperado = 0;
+		int resultado = brasileirao.buscarIdTime(3);
+		assertTrue(resultado == idTimeEsperado);
 	}
 }

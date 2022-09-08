@@ -129,7 +129,7 @@ public class Campeonato {
 // metodos de organanizacao do programa
 	
 	// Instancia um Time e o insere na ArrayList do campeonato.
-	private void cadastrarTime(String nome) {
+	public void cadastrarTime(String nome) {
 		Time time = new Time(nome);
 		this.times.add(time);
 	}
@@ -215,6 +215,10 @@ public class Campeonato {
 
 			}
 		}
+	}
+
+	public int getIndexTimeByID(int ID){
+		return IntStream.range(0, times.size()).filter(i -> ID == times.get(i).getIdTime()).findFirst().orElse(0);
 	}
 
 	public int getTimeByName(String Nome){
@@ -336,8 +340,9 @@ public class Campeonato {
 				if (Item.getMarcadores().isEmpty()) {
 					Marcadores.append("Os marcadores ainda nao foram cadastrados!");
 				}else{
-					for(Jogador Gol:Item.getMarcadores()){
-						Marcadores.append(String.format("%s.  ",Gol.getNome()));
+					for(int i=0;i<Item.getMarcadores().size();i++){
+						Jogador Selecionado = Item.getMarcadores().get(i);
+						Marcadores.append(String.format("%s - %s  ",i+1,Selecionado.getNome()));
 					}
 				}
 			} else if(Item.getStatus().equals("REALIZADA")) {

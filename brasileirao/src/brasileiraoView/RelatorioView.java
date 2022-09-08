@@ -4,6 +4,7 @@ import brasileirao.controll.Campeonato;
 import brasileirao.model.Time;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.swing.*;
@@ -27,7 +28,9 @@ public class RelatorioView {
 	}
 
 	private void inicar_metodos(){
-		Times.setModel(new DefaultComboBoxModel(Campeonato.times.stream().map(Time::getNome).toArray()));
+		Object[] Modelo = Menu.brasileirao.getTimes().stream().map(Time::getNome).toArray();
+		Arrays.sort(Modelo);
+		Times.setModel(new DefaultComboBoxModel(Modelo));
 		Tabela = new JTable(new DefaultTableModel(new Object[][]{}, new Object[]{"Jogador", "Gols", "Posicao"})){
 			public boolean editCellAt(int row, int column, java.util.EventObject e) {
 				return false;
@@ -39,7 +42,7 @@ public class RelatorioView {
 	}
 
 	public RelatorioView(){
-		JFrame frame = new JFrame("Relatório");
+		JFrame frame = new JFrame("Relatorio");
 		JPanel panel = new JPanel(new BorderLayout());
 		iniciar_componentes();
 		acoes();

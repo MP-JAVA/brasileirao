@@ -2,6 +2,7 @@ package brasileiraoView.CRUD;
 
 import brasileirao.controll.Campeonato;
 import brasileirao.controll.ComparatorClassificacao;
+import brasileirao.model.Funcionario;
 import brasileirao.model.Jogador;
 import brasileirao.model.Time;
 import brasileiraoView.Menu;
@@ -12,7 +13,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 import static config.configuracoes.indexByID;
 import static config.configuracoes.layoytconstr;
@@ -59,21 +62,20 @@ public class Jogadores {
     }
 
     private void metodos() {
-        ListaJogadores =  Menu.brasileirao.getJogadores();
-//        Collections.sort(ListaJogadores, (left, right) -> left.getIdJog() - right.getIdJog());
+        ArrayList<String> Posicoes = new ArrayList<>();
         DefaultListModel model = (DefaultListModel) ViewJogadores.getModel();
         model.removeAllElements();
-        ArrayList<Object> Posicoes = new ArrayList<>();
+        ListaJogadores =  Menu.brasileirao.getJogadores();
+        ListaJogadores.sort(Comparator.comparing(Funcionario::getTime));
         for(Jogador item: ListaJogadores){
-            try{
-                Posicoes.add(item.getPosicao());
-                model.addElement(String.format("%s | %s | %s",item.getIdJog(),item.getNome(),item.getTime()));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            Posicoes.add(item.getPosicao());
+            model.addElement(String.format("%s - %s",item.getNome(),item.getTime()));
         }
-        Posicao.setModel(new javax.swing.DefaultComboBoxModel(Posicoes.stream().distinct().toArray()));
-        ID.setText("");
+        Object[] Times = Campeonato.times.stream().map(Time::getNome).toArray();
+        Arrays.sort(Times);
+        Clube.setModel(new DefaultComboBoxModel(Times));
+        Posicao.setModel(new DefaultComboBoxModel(Posicoes.stream().distinct().toArray()));
+        ID.setText(String.valueOf(Index));
         Nome.setText("");
         Clube.setSelectedIndex(0);
         Posicao.setSelectedIndex(0);
@@ -140,13 +142,14 @@ public class Jogadores {
             Posicao.setSelectedIndex(0);
         });
         Finalizar.addActionListener(e->{
-            if(!Nome.getText().equals("")){
+        	if(!Nome.getText().equals("")){
                 int idTime = Menu.brasileirao.getTimeByName(Clube.getSelectedItem().toString());
+                int idTimeInList = Menu.brasileirao.getIndexTimeByID(idTime);
                 if(ID.getText().equals(String.valueOf(Index))){
                     Jogador Novo = new Jogador(Nome.getText(),Posicao.getSelectedItem().toString());
                     Novo.setIdTime(idTime);
                     Novo.setTime();
-                    Campeonato.times.get(idTime).getJogadores().add(Novo);
+                    Campeonato.times.get(idTimeInList).getJogadores().add(Novo);
                     Index = Jogador.idGeralJog;
                     JOptionPane.showMessageDialog(Frame,
                             "Cadastro de jogador realizado com sucesso.");
@@ -157,14 +160,15 @@ public class Jogadores {
                     Update.setPosicao(Posicao.getSelectedItem().toString());
                     Update.setNome(Nome.getText());
                     if(lastTime!=idTime){
-                        int indexInLastTime = indexByID(ID.getText(),Campeonato.times.get(lastTime).getJogadores());
                         Update.setIdTime(idTime);
                         Update.setTime();
-                        Campeonato.times.get(idTime).getJogadores().add(Update);
-                        Campeonato.times.get(lastTime).getJogadores().remove(indexInLastTime);
+                        Campeonato.times.get(idTimeInList).getJogadores().add(Update);
+                        int indexInLastTime = indexByID(ID.getText(),
+                                Campeonato.times.get(Menu.brasileirao.getIndexTimeByID(lastTime)).getJogadores());
+                        Campeonato.times.get(Menu.brasileirao.getIndexTimeByID(lastTime)).getJogadores().remove(indexInLastTime);
                     }else{
-                        int idIndexTime = indexByID(ID.getText(),Campeonato.times.get(idTime).getJogadores());
-                        Campeonato.times.get(idTime).getJogadores().set(idIndexTime,Update);
+                        int idIndexTime = indexByID(ID.getText(),Campeonato.times.get(idTimeInList).getJogadores());
+                        Campeonato.times.get(idTimeInList).getJogadores().set(idIndexTime,Update);
                     }
                     JOptionPane.showMessageDialog(Frame,
                             "Jogador atualizado com sucesso.");
@@ -176,9 +180,10 @@ public class Jogadores {
             }
         });
         Deletar.addActionListener(e->{
-            Jogador Update = ListaJogadores.get(indexByID(ID.getText(),ListaJogadores));
+        	Jogador Update = ListaJogadores.get(indexByID(ID.getText(),ListaJogadores));
+            int idTimeInList = Menu.brasileirao.getIndexTimeByID(Update.getIdTime());
             int indexInLastTime = indexByID(ID.getText(),Campeonato.times.get(Update.getIdTime()).getJogadores());
-            Campeonato.times.get(Update.getIdTime()).getJogadores().remove(indexInLastTime);
+            Campeonato.times.get(idTimeInList).getJogadores().remove(indexInLastTime);
             JOptionPane.showMessageDialog(Frame,
                     "Jogador excluido com sucesso.");
             metodos();

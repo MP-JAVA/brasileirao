@@ -46,7 +46,8 @@ public class Inserir {
     }
 
     public void iniciarcomponentes(){
-        Object[] Modelo = Menu.brasileirao.getTimes().stream().map(Time::getNome).toArray();
+    	Object[] Modelo = Menu.brasileirao.getTimes().stream().map(Time::getNome).toArray();
+        Arrays.sort(Modelo);
         GolsMan = new JTextField();
         GolsVis = new JTextField();
         Computar = new JButton("Computar");

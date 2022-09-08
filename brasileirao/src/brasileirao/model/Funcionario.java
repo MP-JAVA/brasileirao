@@ -51,11 +51,11 @@ public abstract class Funcionario {
 
 	public void setTime() {
 		if (this.getIdTime() == 0) {
-			this.time = "Atlético-MG";
+			this.time = "Atletico-MG";
 		} else if (this.getIdTime() == 1) {
 			this.time = "Fluminense";
 		} else if (this.getIdTime() == 2) {
-			this.time = "São Paulo";
+			this.time = "Sao Paulo";
 		} else if (this.getIdTime() == 3) {
 			this.time = "Palmeiras";
 		} else if (this.getIdTime() == 4) {
@@ -65,9 +65,9 @@ public abstract class Funcionario {
 		} else if (this.getIdTime() == 6) {
 			this.time = "Fortaleza";
 		} else if (this.getIdTime() == 7) {
-			this.time = "Atlético-GO";
+			this.time = "Atletico-GO";
 		} else if (this.getIdTime() == 8) {
-			this.time = "Avaí";
+			this.time = "Avai";
 		} else if (this.getIdTime() == 9) {
 			this.time = "Coritiba";
 		} else if (this.getIdTime() == 10) {
@@ -77,19 +77,19 @@ public abstract class Funcionario {
 		} else if (this.getIdTime() == 12) {
 			this.time = "Athletico-PR";
 		} else if (this.getIdTime() == 13) {
-			this.time = "Ceará";
+			this.time = "Ceara";
 		} else if (this.getIdTime() == 14) {
 			this.time = "Corinthians";
 		} else if (this.getIdTime() == 15) {
 			this.time = "Bragantino";
 		} else if (this.getIdTime() == 16) {
-			this.time = "Cuiabá";
+			this.time = "Cuiaba";
 		} else if (this.getIdTime() == 17) {
 			this.time = "Flamengo";
 		} else if (this.getIdTime() == 18) {
-			this.time = "América-MG";
+			this.time = "America-MG";
 		} else if (this.getIdTime() == 19) {
-			this.time = "Goiás";
+			this.time = "Goias";
 		}
 	}
 

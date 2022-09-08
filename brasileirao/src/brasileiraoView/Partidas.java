@@ -22,7 +22,7 @@ public class Partidas {
     public JPanel titulo(){
         JPanel Titulo = new JPanel();
         Titulo.setBorder(new EmptyBorder(15, 15, 15, 15));
-        JLabel Frase = new JLabel("Classificacao");
+        JLabel Frase = new JLabel("Tabela de partidas");
         Frase.setFont(new Font("Arial", Font.PLAIN, 25));
         Titulo.add(Frase);
         return Titulo;

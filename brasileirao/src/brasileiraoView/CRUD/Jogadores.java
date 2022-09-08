@@ -80,7 +80,7 @@ public class Jogadores {
     public JPanel titulo(){
         JPanel Titulo = new JPanel();
         Titulo.setBorder(new EmptyBorder(15, 15, 15, 15));
-        JLabel Frase = new JLabel("Artilharia");
+        JLabel Frase = new JLabel("Jogadores");
         Frase.setFont(new Font("Arial", Font.PLAIN, 25));
         Titulo.add(Frase);
         return Titulo;

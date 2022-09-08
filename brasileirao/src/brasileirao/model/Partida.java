@@ -85,7 +85,7 @@ public class Partida {
 		this.marcadores = marcadores;
 	}
 
-	public void cadastrarMarcador(Jogador jogador, int gols) { // Temos que desenvolver uma lógica para o retorno.
+	public void cadastrarMarcador(Jogador jogador, int gols) {
 		for (int a = 0; a < gols; a++) {
 			this.marcadores.add(jogador);
 		}

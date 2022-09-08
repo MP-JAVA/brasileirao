@@ -27,7 +27,7 @@ public class Campeonato {
 		carregarDados();
 	}
 
-	// Getters and Setters ----------------------------------------------------------------------------------------
+	// Getters and Setters
 	public ArrayList<Partida> getTabelaDePartidas() {
 		return tabelaDePartidas;
 	}
@@ -50,8 +50,7 @@ public class Campeonato {
 
 // Carregamento de dados dos arquivos --------------------------------------------------------------------------
 
-	// Instancia todos times e jogadores envolvidos no campeonato a partir de dados
-	// contidos em um arquivo CSV.
+	// Instancia todos times e jogadores envolvidos no campeonato a partir do arquivo CSV.
 	public void carregarDadosElencos() {
 		File arquivo = new File(Elencos);
 		if (arquivo.exists()) {
@@ -81,7 +80,7 @@ public class Campeonato {
 		}
 	}
 
-	// Instancia todas as partidas do campeonato a partir de um arquivo CSV.
+	// Instancia todas as partidas do campeonato a partir do arquivo CSV.
 	public void carregarPartidas() {
 		File arquivo = new File(Partidas);
 		if (arquivo.exists()) {
@@ -127,8 +126,8 @@ public class Campeonato {
 		this.carregarPartidas();
 	}
 
-// m�todos de organiza��o do programa --------------------------------------------------------------------------
-
+// metodos de organanizacao do programa
+	
 	// Instancia um Time e o insere na ArrayList do campeonato.
 	private void cadastrarTime(String nome) {
 		Time time = new Time(nome);
@@ -161,8 +160,8 @@ public class Campeonato {
 		this.tabelaDePartidas.add(partida);
 	}
 
-	// Carrega todos os resultados constantes de um arquivo CSV relacionados �s
-	// partidas j� realizadas.
+	// Carrega todos os resultados constantes do arquivo CSV relacionados as partidas ja ocorridas
+	
 	public void carregarResultadoDoArquivo(int[] dadosPartida) {
 		int id, gMandante, gVisitante;
 
@@ -222,8 +221,7 @@ public class Campeonato {
 		return times.stream().filter(Item->Nome.equals(Item.getNome())).findFirst().orElse(null).getIdTime();
 	}
 
-	// Permite que o usu�rio carregue os resultados relacionados �s partidas que
-	// ainda ser�o realizadas.
+	// Carregamento pelo usuario dos resultados das partidas que ainda serao realizadas.
 	public void carregarResultadoPeloUsuario(int[] dadosPartida) {
 		int id, gMandante, gVisitante;
 
@@ -275,15 +273,14 @@ public class Campeonato {
 					}
 
 				} else {
-					System.out.println("N�o � permitida a altera��o de partidas que j� ocorreram.");
+					System.out.println("Nao e permitida a alteracao de partidas que ja ocorreram.");
 				}
 
 			}
 		}
 	}
 
-	// Permite que o usu�rio carregue os marcadores das partidas que ainda ser�o
-	// realizadas.
+	// Carregamento dos marcadores das partidas que ainda serao realizadas.
 	public void carregarMarcadores(List<Integer> idMarcadores) {
 		int qtdadeMarcadores = (idMarcadores.size() - 1);
 
@@ -328,8 +325,7 @@ public class Campeonato {
 
 //Funcionalidades do programa
 
-	// Apresenta o id/nome do time e id/nome/gols do treinador e de cada um dos seus
-	// jogadores.
+	// Apresenta o id/nome do time e id/nome/gols do treinador e de cada um dos seus jogadores.
 	public void apresentarTime(int idTime) {
 		System.out.printf("Time: %-15s (id: %d)", this.times.get(idTime).getNome(), idTime);
 		System.out.println();
@@ -340,8 +336,7 @@ public class Campeonato {
 		System.out.println();
 	}
 
-	// Imprime os dados de todas as partidas por meio de uma sequ�ncia de printf e
-	// println
+	// Imprime os dados de todas as partidas por meio de uma sequencia de printf e println
 	public Object[][] apresentarPartidas() {
 		ArrayList<Object[]> Partidas = new ArrayList<>();
 		for(Partida Item:this.tabelaDePartidas){
@@ -353,11 +348,11 @@ public class Campeonato {
 					Marcadores.append("Os marcadores ainda nao foram cadastrados!");
 				}else{
 					for(Jogador Gol:Item.getMarcadores()){
-						Marcadores.append(String.format("%s ",Gol.getNome()));
+						Marcadores.append(String.format("%s.  ",Gol.getNome()));
 					}
 				}
 			} else if(Item.getStatus().equals("REALIZADA")) {
-				Marcadores.append("N�o houve gols nesta partida.");
+				Marcadores.append("");
 			}
 
 			Partidas.add(new Object[]{String.valueOf(Item.getIdPartida()),
@@ -375,8 +370,7 @@ public class Campeonato {
 		return Retorno;
 	}
 
-	// Ordena a ArrayList de Times de acordo com o desempenho e
-	// imprime a classifica��o por meio de uma sequ�ncia de printf e println
+	// Ordena a ArrayList de Times e imprime a classificacao por meio de printf e println
 	public Object[][] imprimirCLassificacao() {
 		ArrayList<Object[]> Classificacao = new ArrayList<>();
 		Collections.sort(this.getTimes(), new ComparatorClassificacao());
@@ -398,10 +392,8 @@ public class Campeonato {
 		return Retorno;
 	}
 
-	// Retorna uma ArrayList de string em que cada elemento corresponde a um time e
-	// o seu desempenho.
-	// A ideia � usar cada um desses elementos para a classifica��o na
-	// interface.
+	// Retorna uma ArrayList de string em que cada elemento corresponde a um time e o seu desempenho.
+	// A ideia e usar cada um desses elementos para a classificacao na interface.
 	public ArrayList<String> imprimirCLassificacaoInterface() {
 
 		Collections.sort(this.getTimes(), new ComparatorClassificacao());
@@ -434,8 +426,7 @@ public class Campeonato {
 		return Jogadores;
 	}
 
-	// Ordena os jogadores pelos gols feitos e imprime a artilharia por meio de uma
-	// sequ�ncia de printf e println
+	// Ordena os jogadores pelos gols feitos e imprime a artilharia por meio de printf e println
 	public ArrayList<Jogador> artilheiros(){
 		ArrayList<Jogador> artilheiros = new ArrayList<>();
 		for (int b = 0; b < this.times.size(); b++) {

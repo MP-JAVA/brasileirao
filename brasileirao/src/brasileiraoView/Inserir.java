@@ -30,7 +30,7 @@ public class Inserir {
     private JList ListMarcadores;
 
     public Inserir(){
-        Frame = new JFrame("Inserir dados");
+        Frame = new JFrame("Inserir resultados");
         iniciarcomponentes();
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -72,7 +72,7 @@ public class Inserir {
     public JPanel titulo(){
         JPanel Titulo = new JPanel();
         Titulo.setBorder(new EmptyBorder(15, 15, 15, 15));
-        JLabel Frase = new JLabel("Inserir dados");
+        JLabel Frase = new JLabel("Inserir resultados");
         Frase.setFont(new Font("Arial", Font.PLAIN, 25));
         Titulo.add(Frase);
         return Titulo;
@@ -167,7 +167,7 @@ public class Inserir {
                     }
                 }else{
                     JOptionPane.showMessageDialog(Frame,
-                            "Esta partida nao existe ou já foi realizada.");
+                            "Esta partida nao existe ou ja foi realizada.");
                     return;
                 }
             }else{

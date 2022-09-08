@@ -1,6 +1,7 @@
 package brasileiraoView.CRUD;
 
 import brasileirao.controll.Campeonato;
+import brasileirao.controll.ComparatorClassificacao;
 import brasileirao.model.Jogador;
 import brasileirao.model.Time;
 import brasileiraoView.Menu;
@@ -11,6 +12,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static config.configuracoes.indexByID;
 import static config.configuracoes.layoytconstr;
@@ -58,6 +60,7 @@ public class Jogadores {
 
     private void metodos() {
         ListaJogadores =  Menu.brasileirao.getJogadores();
+//        Collections.sort(ListaJogadores, (left, right) -> left.getIdJog() - right.getIdJog());
         DefaultListModel model = (DefaultListModel) ViewJogadores.getModel();
         model.removeAllElements();
         ArrayList<Object> Posicoes = new ArrayList<>();

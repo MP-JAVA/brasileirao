@@ -325,17 +325,6 @@ public class Campeonato {
 
 //Funcionalidades do programa
 
-	// Apresenta o id/nome do time e id/nome/gols do treinador e de cada um dos seus jogadores.
-	public void apresentarTime(int idTime) {
-		System.out.printf("Time: %-15s (id: %d)", this.times.get(idTime).getNome(), idTime);
-		System.out.println();
-		System.out.printf("Treinador: %-15s (id: %d)", this.times.get(idTime).getTreinador().getNome(),
-				this.times.get(idTime).getTreinador().getIdTrei());
-		System.out.println();
-		this.times.get(idTime).apresentarJogadores();
-		System.out.println();
-	}
-
 	// Imprime os dados de todas as partidas por meio de uma sequencia de printf e println
 	public Object[][] apresentarPartidas() {
 		ArrayList<Object[]> Partidas = new ArrayList<>();
@@ -370,7 +359,7 @@ public class Campeonato {
 		return Retorno;
 	}
 
-	// Ordena a ArrayList de Times e imprime a classificacao por meio de printf e println
+	// Ordena a ArrayList de Times, passa ela para a array classificacao e retorna um vetor com o vetor de cada time
 	public Object[][] imprimirCLassificacao() {
 		ArrayList<Object[]> Classificacao = new ArrayList<>();
 		Collections.sort(this.getTimes(), new ComparatorClassificacao());
@@ -392,32 +381,6 @@ public class Campeonato {
 		return Retorno;
 	}
 
-	// Retorna uma ArrayList de string em que cada elemento corresponde a um time e o seu desempenho.
-	// A ideia e usar cada um desses elementos para a classificacao na interface.
-	public ArrayList<String> imprimirCLassificacaoInterface() {
-
-		Collections.sort(this.getTimes(), new ComparatorClassificacao());
-
-		String resposta = "";
-		ArrayList<String> dadosTimes = new ArrayList<String>();
-
-		for (int a = 0; a < this.times.size(); a++) {
-
-			float percentual = (float) times.get(a).getPontos()
-					/ ((times.get(a).getVitorias() + times.get(a).getEmpates() + times.get(a).getDerrotas()) * 3) * 100;
-
-			resposta = String.format("%-15s %5d %5d %5d %5d %5d %5d %5d %7.1f \n", times.get(a).getNome(),
-					times.get(a).getPontos(), times.get(a).getVitorias(), times.get(a).getEmpates(),
-					times.get(a).getDerrotas(), times.get(a).getGolsPara(), times.get(a).getGolsContra(),
-					(times.get(a).getGolsPara() - times.get(a).getGolsContra()), percentual);
-			dadosTimes.add(resposta);
-
-		}
-
-		return dadosTimes;
-
-	}
-
 	public ArrayList<Jogador> getJogadores(){
 		ArrayList<Jogador> Jogadores = new ArrayList<>();
 		for(Time Item:this.times) {
@@ -426,7 +389,7 @@ public class Campeonato {
 		return Jogadores;
 	}
 
-	// Ordena os jogadores pelos gols feitos e imprime a artilharia por meio de printf e println
+	// Mesma ideia da classificacao (esse método, o precedente e o subsequente)
 	public ArrayList<Jogador> artilheiros(){
 		ArrayList<Jogador> artilheiros = new ArrayList<>();
 		for (int b = 0; b < this.times.size(); b++) {

@@ -33,13 +33,13 @@ public class Classificacao {
     }
 
     public JScrollPane botoes(){
-        JTable Teste = new JTable(Menu.brasileirao.imprimirCLassificacao(),
-                new String[]{"Classificacao", "Time", "P", "V", "E", "D", "GP", "GC", "SG", "%"}){
+        JTable tabelaDeClassificacao = new JTable(Menu.brasileirao.imprimirCLassificacao(),
+                new String[]{"Posicao", "Time", "Pontos", "Vitoria", "Empate", "Derrota", "Gols Para", "Gols Contra", "Saldo", "Aproveitamento"}){
             public boolean editCellAt(int row, int column, java.util.EventObject e) {
                 return false;
             }
         };
-        JScrollPane barraRolagem = new JScrollPane(Teste);
+        JScrollPane barraRolagem = new JScrollPane(tabelaDeClassificacao);
         return barraRolagem;
     }
 

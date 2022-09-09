@@ -110,6 +110,10 @@ public class Time {
 	public void somaGolsContra(int golsContra) {
 		this.golsContra += golsContra;
 	}
+	
+	public int getSaldoDeGols() {
+		return this.golsPara - this.golsContra;
+	}
 
 	public int getClassificacao() {
 		return classificacao;

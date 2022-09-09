@@ -134,7 +134,7 @@ public class Campeonato {
 		this.times.add(time);
 	}
 
-	// Instancia um jogador.
+	// Instancia um jogador e o insere na ArrayList de jogadores do Time.
 	public void cadastrarJogador(String nome, String posicao, String id) {
 		Jogador jogador = new Jogador(nome, posicao);
 		int idTime = Integer.parseInt(id);
@@ -144,7 +144,7 @@ public class Campeonato {
 		this.times.get(idTime).cadastrarJogador(jogador);
 	}
 
-	// Instancia um treinador.
+	// Instancia um treinador e o insere no Time.
 	public void cadastrarTreinador(String nome, String id) {
 		Treinador treinador = new Treinador(nome);
 		int idTime = Integer.parseInt(id);
@@ -155,13 +155,12 @@ public class Campeonato {
 	}
 
 	// Instancia uma partida e a inclui na ArrayList tabelaDePartidas
-	private void cadastrarPartida(String timeMandante, String timeVisitante) {
+	public void cadastrarPartida(String timeMandante, String timeVisitante) {
 		Partida partida = new Partida(timeMandante, timeVisitante);
 		this.tabelaDePartidas.add(partida);
 	}
 
 	// Carrega todos os resultados constantes do arquivo CSV relacionados as partidas ja ocorridas
-	
 	public void carregarResultadoDoArquivo(int[] dadosPartida) {
 		int id, gMandante, gVisitante;
 
@@ -217,10 +216,12 @@ public class Campeonato {
 		}
 	}
 
+	// Busca a posicao do time na ArrayList times pelo id.
 	public int getIndexTimeByID(int ID){
 		return IntStream.range(0, times.size()).filter(i -> ID == times.get(i).getIdTime()).findFirst().orElse(0);
 	}
 
+	// Busca a posicao do time na ArrayList times pelo nome.
 	public int getTimeByName(String Nome){
 		return times.stream().filter(Item->Nome.equals(Item.getNome())).findFirst().orElse(null).getIdTime();
 	}
@@ -329,7 +330,11 @@ public class Campeonato {
 
 //Funcionalidades do programa
 
-	// Imprime os dados de todas as partidas por meio de uma sequencia de printf e println
+	// Retorna todos os dados de todas as partidas.
+	// Para cada partida, criou-se uma String com o índice de cada gol e o jogador que o marcou ("Marcadores").
+	// Para cada partida, criou-se um vetor de objetos em que se discriminou, em cada posicao, um dado da partida.
+	// Criou-se uma ArrayList (Partidas) com os objetos criados.
+	// Retorno: Vetor de vetores, contendo todas as partidas e, dentro delas, cada dado dessas partidas.
 	public Object[][] apresentarPartidas() {
 		ArrayList<Object[]> Partidas = new ArrayList<>();
 		for(Partida Item:this.tabelaDePartidas){
@@ -364,10 +369,14 @@ public class Campeonato {
 		return Retorno;
 	}
 
-	// Ordena a ArrayList de Times, passa ela para a array classificacao e retorna um vetor com o vetor de cada time
+	// Ordenou-se a ArrayList times.
+	// Criaram-se vetores com varios objetos contendo cada dado de cada time, já em ordem.
+	// Esses vetores foram armazenados em uma ArrayList de objetos (Classificacao).
+	// Retorno: Vetor de vetores, contendo todos os times ja ordenados e, dentro deles, cada dado desses times.
 	public Object[][] imprimirCLassificacao() {
 		ArrayList<Object[]> Classificacao = new ArrayList<>();
-		Collections.sort(this.getTimes(), new ComparatorClassificacao());
+		this.getTimes().sort(Comparator.comparingInt(Time::getPontos).thenComparing(Time::getVitorias).thenComparing(Time::getSaldoDeGols).thenComparing(Time::getGolsPara));
+		//Collections.sort(this.getTimes(), new ComparatorClassificacao());
 		for (int i=0;i<this.times.size();i++) {
 		
 			float percentual = (float) this.times.get(i).getPontos()
@@ -385,7 +394,8 @@ public class Campeonato {
 		}
 		return Retorno;
 	}
-
+	
+	// Retorna uma ArrayList com todos os jogadores cadastrados.
 	public ArrayList<Jogador> getJogadores(){
 		ArrayList<Jogador> Jogadores = new ArrayList<>();
 		for(Time Item:this.times) {
@@ -394,7 +404,7 @@ public class Campeonato {
 		return Jogadores;
 	}
 
-	// Mesma ideia da classificacao (esse método, o precedente e o subsequente)
+	// Retorna uma ArrayList com todos os jogadores que ja tenham marcado pelo menos um gol.
 	public ArrayList<Jogador> artilheiros(){
 		ArrayList<Jogador> artilheiros = new ArrayList<>();
 		for (int b = 0; b < this.times.size(); b++) {
@@ -407,12 +417,15 @@ public class Campeonato {
 		}
 		return artilheiros;
 	}
-
+	
+	// Foi criada e posta em ordem uma Arraylist (JogadoresComGols) com todos os jogadores que já tenham marcado gols.
+	// Para cada jogador, foi criada uma Arraylist de objetos contendo cada dado de cada jogador.
+	// Retorno: Vetor de vetores, contendo todos os jogadores ja ordenados e, dentro deles, cada dado desses jogadores.
 	public Object[][] imprimirArtilharia() {
-		ArrayList<Jogador> Tabela = artilheiros();
+		ArrayList<Jogador> jogadoresComGols = artilheiros();
 		ArrayList<Object[]> Artilheiros = new ArrayList<>();
-		Collections.sort(Tabela);
-		for(Jogador Item:Tabela){
+		Collections.sort(jogadoresComGols);
+		for(Jogador Item:jogadoresComGols){
 			Artilheiros.add(new Object[]{Item.getNome(),Item.getTime(),Item.getGols()});
 		}
 		Object[][] Retorno = new Object[Artilheiros.size()][];

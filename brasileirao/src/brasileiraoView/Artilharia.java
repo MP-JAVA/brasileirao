@@ -22,20 +22,19 @@ public class Artilharia {
     public JPanel titulo(){
         JPanel Titulo = new JPanel();
         Titulo.setBorder(new EmptyBorder(15, 15, 15, 15));
-        JLabel Frase = new JLabel("Artilharia");
+        JLabel Frase = new JLabel();
         Frase.setFont(new Font("Arial", Font.PLAIN, 25));
         Titulo.add(Frase);
         return Titulo;
     }
 
     public JScrollPane botoes(){
-        JTable Teste = new JTable(Menu.brasileirao.imprimirArtilharia(),
-                new String[]{"Jogador", "Time", "Gols"}){
+        JTable tabelaDeArtilheiros = new JTable(Menu.brasileirao.imprimirArtilharia(), new String[]{"Jogador", "Time", "Gols"}){
             public boolean editCellAt(int row, int column, java.util.EventObject e) {
                 return false;
             }
         };
-        JScrollPane barraRolagem = new JScrollPane(Teste);
+        JScrollPane barraRolagem = new JScrollPane(tabelaDeArtilheiros);
         return barraRolagem;
     }
 

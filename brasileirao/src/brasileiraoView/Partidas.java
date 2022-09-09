@@ -29,13 +29,13 @@ public class Partidas {
     }
 
     public JScrollPane botoes(){
-        JTable Teste = new JTable(Menu.brasileirao.apresentarPartidas(),
+        JTable tabelaDePartidas = new JTable(Menu.brasileirao.apresentarPartidas(),
                 new String[]{"ID", "Status", "Mandante", "Visitante", "Resultado", "Gols"}){
             public boolean editCellAt(int row, int column, java.util.EventObject e) {
                 return false;
             }
         };
-        JScrollPane barraRolagem = new JScrollPane(Teste);
+        JScrollPane barraRolagem = new JScrollPane(tabelaDePartidashb);
         return barraRolagem;
     }
 

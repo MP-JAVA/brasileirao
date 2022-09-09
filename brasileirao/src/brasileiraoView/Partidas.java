@@ -35,7 +35,7 @@ public class Partidas {
                 return false;
             }
         };
-        JScrollPane barraRolagem = new JScrollPane(tabelaDePartidashb);
+        JScrollPane barraRolagem = new JScrollPane(tabelaDePartidas);
         return barraRolagem;
     }
 

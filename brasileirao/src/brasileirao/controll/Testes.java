@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
+import brasileirao.model.Jogador;
+import brasileirao.model.Time;
+
 /**
  * Classe Testes que e responsavel pelos testes unitarios
  * 
@@ -14,58 +17,58 @@ import org.junit.jupiter.api.Test;
  */
 
 class Testes {
-    String caminhoElencos = "./arq_backup/cadastro.csv";
-    String caminhoPartidas = "./arq_backup/partidas.csv";
-    Campeonato brasileirao = new Campeonato(caminhoElencos,caminhoPartidas);
-
-	/**
-	 * Metodo para verificar se o metodo cadastrarTime está funcionando da maneira
-	 * desejada
-	 * 
-	 * @see Campeonato
-	 */
-
-	@Test
-	void testCadastrarTime() {
-		Campeonato c = new Campeonato(null, null);
-		assertTrue(c.cadastrarTime("Flamengo"));
-		assertFalse(c.cadastrarTime("22"));
+	
+	public Campeonato brasileirao;
+	
+	public Testes() {
+		if(brasileirao == null) {
+			String caminhoElencos = "./arq_backup/cadastro.csv";
+		    String caminhoPartidas = "./arq_backup/partidas.csv";
+		    brasileirao = new Campeonato(caminhoElencos,caminhoPartidas);
+		}
 	}
 
-	/**
-	 * Metodo para verificar se o metodo cadastrarJogador está funcionando da
-	 * maneira desejada
-	 * 
-	 * @see Campeonato
-	 */
-
 	@Test
-	void testCadastrarJogador() {
-		String nomeCerto = "Hulk";
-		String nomeErrado = "2345";
-		String posicaoCerta = "Atacante";
-		String posicaoErrada = "GabrielZagueiro";
-		String idCerto = "23";
-		String idErrado = "oi";
-
-		assertTrue(Campeonato.cadastrarJogador(nomeCerto, posicaoCerta, idCerto));
-		assertFalse(Campeonato.cadastrarJogador(nomeErrado, posicaoErrada, idErrado));
+	public void testgetTimeByName() {
+		
+		int Atletico = brasileirao.getTimeByName("Atletico-MG");
+		int Botafogo = brasileirao.getTimeByName("Botafogo");
+		int Internacional = brasileirao.getTimeByName("Internacional");
+		
+		boolean AM = brasileirao.times.get(brasileirao.getIndexTimeByID(Atletico)).getNome().equals("Atletico-MG");
+		boolean BF = brasileirao.times.get(brasileirao.getIndexTimeByID(Botafogo)).getNome().equals("Botafogo");
+		boolean INT = brasileirao.times.get(brasileirao.getIndexTimeByID(Internacional)).getNome().equals("Internacional");
+		
+		assertTrue(AM && BF & INT);
+	}
+	
+	@Test
+	public void testAddJogador() {
+		
+		long quantPre = brasileirao.times.get(0).getJogadores().stream().filter(Item->
+																				Item.getNome()=="Leonardo" &&
+																				Item.getPosicao() == "Atacante").count();
+		boolean resultado = brasileirao.addJogador(0, "Leonardo", "Atacante");
+		long quantPos = brasileirao.times.get(0).getJogadores().stream().filter(Item->
+																				Item.getNome()=="Leonardo" &&
+																				Item.getPosicao() == "Atacante").count();
+	
+		assertTrue(resultado && quantPre == quantPos - 1);
 
 	}
-
-	/**
-	 * Metodo para verificar se o metodo cadastrarJogador está funcionando da
-	 * maneira desejada
-	 * 
-	 * @see Campeonato
-	 */
-
+	
 	@Test
-	public void testBuscarIdTime() {
+	public void testDeleteJogador() {
+		
+		long quantPre = brasileirao.times.get(0).getJogadores().stream().filter(Item->
+																				Item.getNome().equals("Gabriel Delfim")).count();
+		boolean resultado = brasileirao.deleteJogador(0, 0);
+		
+		long quantPos = brasileirao.times.get(0).getJogadores().stream().filter(Item->
+																				Item.getNome().equals("Gabriel Delfim")).count();
+		
+		assertTrue(resultado && quantPre == quantPos + 1);
 
-        
-		int idTimeEsperado = 0;
-		int resultado = brasileirao.buscarIdTime(3);
-		assertTrue(resultado == idTimeEsperado);
 	}
 }
+

@@ -12,6 +12,7 @@ import brasileirao.model.Partida;
 import brasileirao.model.Time;
 import brasileirao.model.Treinador;
 import brasileiraoView.CRUD.Jogadores;
+import config.configuracoes;
 
 public class Campeonato {
 	private ArrayList<Partida> tabelaDePartidas;
@@ -215,13 +216,39 @@ public class Campeonato {
 			}
 		}
 	}
+	
+	
+	// Cria um jogador e incluí-lo na lista de jogadores.
+	public boolean addJogador(int TimeID, String Nome, String Posicao) {
+		try {
+			Jogador Adicionar = new Jogador(Nome, Posicao);
+			Adicionar.setIdTime(TimeID);
+			Adicionar.setTime();
+			int idTime = getIndexTimeByID(TimeID);
+			times.get(idTime).getJogadores().add(Adicionar);
+			return true;
+		} catch(Exception E) {
+			return false;
+		}
+	}
+	
+	public boolean deleteJogador(int IDTime, int IDJogador) {
+		try {
+			int idTime = getIndexTimeByID(IDTime);
+			int encontrarJogador = configuracoes.indexByID(String.valueOf(IDJogador), times.get(idTime).getJogadores());
+			times.get(idTime).getJogadores().remove(encontrarJogador);
+			return true;
+		} catch(Exception E) {
+			return false;
+		}
+	}
 
-	// Busca a posicao do time na ArrayList times pelo id.
+	// Busca a posicao do Time na ArrayList times pelo id do time.
 	public int getIndexTimeByID(int ID){
 		return IntStream.range(0, times.size()).filter(i -> ID == times.get(i).getIdTime()).findFirst().orElse(0);
 	}
 
-	// Busca a posicao do time na ArrayList times pelo nome.
+	// Busca o id do time na ArrayList times pelo nome.
 	public int getTimeByName(String Nome){
 		return times.stream().filter(Item->Nome.equals(Item.getNome())).findFirst().orElse(null).getIdTime();
 	}
@@ -316,7 +343,7 @@ public class Campeonato {
 	}
 
 	// Busca o id de um time a partir do id de um jogador.
-	public int buscarIdTime(int idJog) {
+	public int buscarIdTimePeloIdJogador(int idJog) {
 		int idTime = 0;
 		for (int a = 0; a < this.times.size(); a++) {
 			for (int b = 0; b < this.times.get(a).getJogadores().size(); b++) {
@@ -375,8 +402,15 @@ public class Campeonato {
 	// Retorno: Vetor de vetores, contendo todos os times ja ordenados e, dentro deles, cada dado desses times.
 	public Object[][] imprimirCLassificacao() {
 		ArrayList<Object[]> Classificacao = new ArrayList<>();
-		this.getTimes().sort(Comparator.comparingInt(Time::getPontos).thenComparing(Time::getVitorias).thenComparing(Time::getSaldoDeGols).thenComparing(Time::getGolsPara));
-		//Collections.sort(this.getTimes(), new ComparatorClassificacao());
+		//this.getTimes().sort(new ComparatorClassificacao()); - antiga forma 
+		
+				
+		Collections.sort(this.getTimes(),
+				Comparator.comparingInt(Time::getPontos)
+				.thenComparing(Time::getVitorias)
+				.thenComparing(Time::getSaldoDeGols)
+				.thenComparing(Time::getGolsPara));
+		Collections.reverse(this.getTimes());
 		for (int i=0;i<this.times.size();i++) {
 		
 			float percentual = (float) this.times.get(i).getPontos()

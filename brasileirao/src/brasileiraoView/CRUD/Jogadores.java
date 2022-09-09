@@ -146,13 +146,14 @@ public class Jogadores {
                 int idTime = Menu.brasileirao.getTimeByName(Clube.getSelectedItem().toString());
                 int idTimeInList = Menu.brasileirao.getIndexTimeByID(idTime);
                 if(ID.getText().equals(String.valueOf(Index))){
-                    Jogador Novo = new Jogador(Nome.getText(),Posicao.getSelectedItem().toString());
-                    Novo.setIdTime(idTime);
-                    Novo.setTime();
-                    Campeonato.times.get(idTimeInList).getJogadores().add(Novo);
-                    Index = Jogador.idGeralJog;
-                    JOptionPane.showMessageDialog(Frame,
-                            "Cadastro de jogador realizado com sucesso.");
+                	if(Menu.brasileirao.addJogador(idTime,Nome.getText(),Posicao.getSelectedItem().toString())){
+                        Index = Jogador.idGeralJog;
+                        JOptionPane.showMessageDialog(Frame,
+                                "Cadastro de jogador realizado com sucesso.");
+                    }else{
+                        JOptionPane.showMessageDialog(Frame,
+                                "Algo de errado aconteceu com o seu cadastro.");
+                    }
                 }else{
                     int idByList = indexByID(ID.getText(),ListaJogadores);
                     Jogador Update = ListaJogadores.get(idByList);
@@ -180,12 +181,16 @@ public class Jogadores {
             }
         });
         Deletar.addActionListener(e->{
-        	Jogador Update = ListaJogadores.get(indexByID(ID.getText(),ListaJogadores));
-            int idTimeInList = Menu.brasileirao.getIndexTimeByID(Update.getIdTime());
-            int indexInLastTime = indexByID(ID.getText(),Campeonato.times.get(Update.getIdTime()).getJogadores());
-            Campeonato.times.get(idTimeInList).getJogadores().remove(indexInLastTime);
-            JOptionPane.showMessageDialog(Frame,
-                    "Jogador excluido com sucesso.");
+        	Jogador Selecionado = ListaJogadores.get(indexByID(ID.getText(),ListaJogadores));
+            int idTimeInList = Menu.brasileirao.getIndexTimeByID(Selecionado.getIdTime());
+            if(Menu.brasileirao.deleteJogador(idTimeInList, Selecionado.getIdJog())) {
+            	 JOptionPane.showMessageDialog(Frame,
+                         "Jogador excluido com sucesso.");
+            }else {
+            	 JOptionPane.showMessageDialog(Frame,
+                         "Erro ao excluir jogador.");
+            }
+
             metodos();
         });
     }

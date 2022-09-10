@@ -18,16 +18,16 @@ import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 public class Inserir {
 
-    private JComboBox TimeMandante, TimeVisitante, ComboTimesSelecionados, ComboJogadores;
+    private JComboBox comboNomesTimeMandante, comboNomesTimeVisitante, comboNomesTimesSelecionados, comboNomeJogTimesSelecionados;
     private JButton Verificacao, Computar, Adicionar, Finalizar;
     private int ID,GolMan,GolVis;
     private JTextField GolsMan,GolsVis;
     private JFrame Frame;
     private JPanel PanelGols, PanelMarcadores;
     private ArrayList<Map.Entry<String,String>> Marcador;
-    private String Mandante,Visitante;
-    private JScrollPane ItensGols;
-    private JList ListMarcadores;
+    private String nomeMandante,nomeVisitante;
+    private JScrollPane scroll;
+    private JList marcadoresSelecionados;
 
     public Inserir(){
         Frame = new JFrame("Inserir resultados");
@@ -35,7 +35,7 @@ public class Inserir {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
         panel.add(titulo(), BorderLayout.NORTH);
-        panel.add(processo(), BorderLayout.CENTER);
+        panel.add(principal(), BorderLayout.CENTER);
         iniciarmetodos();
         acoes();
         Frame.setSize(1000,800);
@@ -45,30 +45,34 @@ public class Inserir {
         Frame.setVisible(true);
     }
 
+    //Metodos de inicializacao dos componentes da tela ---------------
     public void iniciarcomponentes(){
-    	Object[] Modelo = Menu.brasileirao.getTimes().stream().map(Time::getNome).toArray();
-        Arrays.sort(Modelo);
+    	Object[] nomesDosTimes = Menu.brasileirao.getTimes().stream().map(Time::getNome).toArray();
+        Arrays.sort(nomesDosTimes);
         GolsMan = new JTextField();
         GolsVis = new JTextField();
         Computar = new JButton("Computar");
-        ComboTimesSelecionados = new JComboBox();
-        ComboJogadores = new JComboBox();
+        comboNomesTimesSelecionados = new JComboBox();
+        comboNomeJogTimesSelecionados = new JComboBox();
         Adicionar = new JButton("Adicionar");
-        DefaultListModel<String> model = new DefaultListModel<>();
-        ListMarcadores = new JList(model);
+        DefaultListModel<String> marcadoresEscolhidos = new DefaultListModel<>();
+        marcadoresSelecionados = new JList(marcadoresEscolhidos);
         Finalizar = new JButton("Finalizar");
-        TimeMandante = new JComboBox(Modelo);
-        TimeVisitante = new JComboBox(Modelo);
+        comboNomesTimeMandante = new JComboBox(nomesDosTimes);
+        comboNomesTimeVisitante = new JComboBox(nomesDosTimes);
         Verificacao = new JButton("Verificacao");
-        ItensGols = new JScrollPane(ListMarcadores);
+        scroll = new JScrollPane(marcadoresSelecionados);
         PanelGols = gols();
         PanelMarcadores = marcadores();
+       
     }
 
     public void iniciarmetodos(){
         habilitar_componentes(PanelGols,false);
         habilitar_componentes(PanelMarcadores,false);
     }
+    
+  //Fim dos metodos de inicializacao dos componentes da tela ---------------
 
     public JPanel titulo(){
         JPanel Titulo = new JPanel();
@@ -98,32 +102,32 @@ public class Inserir {
         JPanel Insercao = new JPanel(new GridBagLayout());
         Insercao.add(new JLabel("Times",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,0,1,1));
-        Insercao.add(ComboTimesSelecionados, posComponentes(GridBagConstraints.HORIZONTAL,
+        Insercao.add(comboNomesTimesSelecionados, posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,1,1,1));
         Insercao.add(new JLabel("Jogadores",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,2,1,1));
-        Insercao.add(ComboJogadores, posComponentes(GridBagConstraints.HORIZONTAL,
+        Insercao.add(comboNomeJogTimesSelecionados, posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,3,1,1));
         Insercao.add(Adicionar, posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,4,1,1));
         Insercao.add(new JLabel("Selecionados",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 1,0,1,1));
-        Insercao.add(ItensGols, posComponentes(GridBagConstraints.BOTH,
+        Insercao.add(scroll, posComponentes(GridBagConstraints.BOTH,
                 1, 0, 1,1,1,4));
         Insercao.add(Finalizar, posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,5,2,1));
         return Insercao;
     }
 
-    public JPanel processo(){
+    public JPanel principal(){ //Abarca a selecao dos times e, em seguida, os outros dois panels (gols e marcadores)
         JPanel Insercao = new JPanel(new GridBagLayout());
         Insercao.add(new JLabel("Time mandante",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,0,1,1));
-        Insercao.add(TimeMandante, posComponentes(GridBagConstraints.HORIZONTAL,
+        Insercao.add(comboNomesTimeMandante, posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,1,1,1));
         Insercao.add(new JLabel("Time visitante",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,2,1,1));
-        Insercao.add(TimeVisitante, posComponentes(GridBagConstraints.HORIZONTAL,
+        Insercao.add(comboNomesTimeVisitante, posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,3,1,1));
         Insercao.add(Verificacao, posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,4,1,1));
@@ -134,7 +138,7 @@ public class Inserir {
         return Insercao;
     }
 
-    private void habilitar_componentes(JPanel Panel, boolean isEnable){
+    private void habilitar_componentes(JPanel Panel, boolean isEnable){ // (des)ativa os componentes do panel escolhido.
         Component[] com = Panel.getComponents();
         for(Component Item: com){
             Item.setEnabled(isEnable);
@@ -144,21 +148,22 @@ public class Inserir {
     private void acoes(){
         Verificacao.addActionListener(e->{
             if(Finalizar.isEnabled()){
-                ComboTimesSelecionados.removeAllItems();
+                comboNomesTimesSelecionados.removeAllItems();
                 habilitar_componentes(PanelMarcadores,false);
             }
-            ArrayList<Partida> IDs = new ArrayList<>();
+            ArrayList<Partida> idPartidas = new ArrayList<>();
+            //Adiciona em idPartida a partida entre o mandante e visitante que esteja pendente.
             for(Partida Item:Menu.brasileirao.getTabelaDePartidas()){
-                if(Item.getTimeVisitante().equals(TimeVisitante.getSelectedItem().toString())
-                        && Item.getTimeMandante().equals(TimeMandante.getSelectedItem().toString())){
+                if(Item.getTimeVisitante().equals(comboNomesTimeVisitante.getSelectedItem().toString())
+                        && Item.getTimeMandante().equals(comboNomesTimeMandante.getSelectedItem().toString())){
                     if(Item.getStatus().equals("PENDENTE")){
-                        IDs.add(Item);
+                        idPartidas.add(Item);
                     }
                 }
             }
-            if(IDs.size()!=1){
-                if(IDs.size()>1){
-                    Object[] Itens = (IDs.stream().map(Item->String.format("%s",Item.getIdPartida())).toArray());
+            if(idPartidas.size()!=1){
+                if(idPartidas.size()>1){ //Tratamento para diferentes partidas pendentes entre os mesmos times.
+                    Object[] Itens = (idPartidas.stream().map(Item->String.format("%s",Item.getIdPartida())).toArray());
                     Object Selecionado = JOptionPane.showInputDialog(null, "Escolha um item" , "Selecao de itens" ,
                             JOptionPane.PLAIN_MESSAGE , null ,Itens,"");
                     if(Selecionado!=null){
@@ -172,10 +177,10 @@ public class Inserir {
                     return;
                 }
             }else{
-                ID = IDs.get(0).getIdPartida();
+                ID = idPartidas.get(0).getIdPartida();
             }
-            Mandante = TimeMandante.getSelectedItem().toString();
-            Visitante = TimeVisitante.getSelectedItem().toString();
+            nomeMandante = comboNomesTimeMandante.getSelectedItem().toString();
+            nomeVisitante = comboNomesTimeVisitante.getSelectedItem().toString();
             GolsVis.setText("0");
             GolsMan.setText("0");
             habilitar_componentes(PanelGols,true);
@@ -187,23 +192,23 @@ public class Inserir {
                     GolMan = Integer.parseInt(GolsMan.getText());
                     if(GolVis != 0 || GolMan!=0){
                         Marcador = new ArrayList<>();
-                        ComboTimesSelecionados.addItem(TimeMandante.getSelectedItem().toString());
-                        ComboTimesSelecionados.addItem(TimeVisitante.getSelectedItem().toString());
+                        comboNomesTimesSelecionados.addItem(nomeMandante);
+                        comboNomesTimesSelecionados.addItem(nomeVisitante);
                         habilitar_componentes(PanelGols,false);
                         habilitar_componentes(PanelMarcadores,true);
                     }else{
-                        int Escolha = JOptionPane.showConfirmDialog(Frame,"Esta partida deu empate. Desja continuar?", "Atencao", YES_NO_OPTION );
+                        int Escolha = JOptionPane.showConfirmDialog(Frame,"Esta partida deu empate sem gols. Desja continuar?", "Atencao", YES_NO_OPTION );
                         if(Escolha!=1){
                             Menu.brasileirao.carregarResultadoPeloUsuario(new int[]{ID,GolMan,GolVis});
-                            ArrayList<Partida> Atualizada = Menu.brasileirao.getTabelaDePartidas();
-                            for(Partida Item:Atualizada){
+                            ArrayList<Partida> tabPartidasAtualizada = Menu.brasileirao.getTabelaDePartidas();
+                            for(Partida Item:tabPartidasAtualizada){
                                 if(Item.getIdPartida()==ID){
                                     Item.setGolsVisitante(0);
                                     Item.setGolsMandante(0);
                                     Item.setStatus("REALIZADA");
                                 }
                             }
-                            Menu.brasileirao.setTabelaDePartidas(Atualizada);
+                            Menu.brasileirao.setTabelaDePartidas(tabPartidasAtualizada);
                             JOptionPane.showMessageDialog(Frame,
                                     "Partida inserida com sucesso.");
                             Frame.dispose();
@@ -219,34 +224,35 @@ public class Inserir {
             }
         });
         Adicionar.addActionListener(e->{
-            DefaultListModel lm2 = (DefaultListModel) ListMarcadores.getModel();
-            Map.Entry<String,String> Add = new AbstractMap.SimpleEntry(ComboJogadores.getSelectedItem().toString(),
-                    ComboTimesSelecionados.getSelectedItem().toString());
+            DefaultListModel nomeJogSelecionado = (DefaultListModel) marcadoresSelecionados.getModel();
+            // salva em modo chave-valor o nome do time e do jogador.
+            Map.Entry<String,String> Add = new AbstractMap.SimpleEntry(comboNomeJogTimesSelecionados.getSelectedItem().toString(),
+                    comboNomesTimesSelecionados.getSelectedItem().toString());
             Marcador.add(Add);
-            lm2.addElement(Add.getKey());
+            nomeJogSelecionado.addElement(Add.getKey());
         });
-        ComboTimesSelecionados.addActionListener(arg0 -> {
-            ComboJogadores.removeAllItems();
+        comboNomesTimesSelecionados.addActionListener(arg0 -> { //Altera a comboBox de jog quando há nova selecao na de times.
+            comboNomeJogTimesSelecionados.removeAllItems();
             try{
-                String Valor = ComboTimesSelecionados.getSelectedItem().toString();
+                String Valor = comboNomesTimesSelecionados.getSelectedItem().toString();
                 Time Selecao = Menu.brasileirao.getTimes().stream().filter(Item->Item.getNome().equals(Valor))
                         .findFirst().orElse(null);
                 for(Jogador Jogadores:Selecao.getJogadores()){
-                    ComboJogadores.addItem(Jogadores.getNome());
+                    comboNomeJogTimesSelecionados.addItem(Jogadores.getNome());
                 }
             }catch (Exception Error){
                 System.out.println("Comando - Iniciar novamente processo.");
             }
         });
-        ListMarcadores.addMouseListener(new MouseAdapter() {
+        marcadoresSelecionados.addMouseListener(new MouseAdapter() { //Pergunta se quer excluir caso se clique em algum Jog.
             public void mouseClicked(MouseEvent evt) {
-                if(ItensGols.isEnabled()){
-                    DefaultListModel ModelList = (DefaultListModel) ListMarcadores.getModel();
-                    if(!ModelList.isEmpty()){
-                        int Escolha = JOptionPane.showConfirmDialog(Frame,"VocÃª deseja retirar esse marcador?", "Atencao", YES_NO_OPTION );
+                if(scroll.isEnabled()){
+                    DefaultListModel nomesJogDaLista = (DefaultListModel) marcadoresSelecionados.getModel();
+                    if(!nomesJogDaLista.isEmpty()){
+                        int Escolha = JOptionPane.showConfirmDialog(Frame,"Voce deseja retirar esse marcador?", "Atencao", YES_NO_OPTION );
                         if(Escolha!=1){
-                            int i = ListMarcadores.locationToIndex(evt.getPoint());
-                            ModelList.remove(i);
+                            int i = marcadoresSelecionados.locationToIndex(evt.getPoint());
+                            nomesJogDaLista.remove(i);
                             Marcador.remove(i);
                         }
                     }
@@ -255,12 +261,13 @@ public class Inserir {
         });
         Finalizar.addActionListener(e -> {
             ArrayList<Jogador> Finalizacao = new ArrayList<>();
-            long CheckGolV = Marcador.stream().filter(Item-> Objects.equals(Item.getValue(), Visitante)).count();
-            long CheckGolM = Marcador.stream().filter(Item-> Objects.equals(Item.getValue(), Mandante)).count();
-            if(CheckGolM == GolMan && CheckGolV == GolVis){
+            long contGolsVisitante = Marcador.stream().filter(Item-> Objects.equals(Item.getValue(), nomeVisitante)).count();
+            long contGolsMandante = Marcador.stream().filter(Item-> Objects.equals(Item.getValue(), nomeMandante)).count();
+            if(contGolsMandante == GolMan && contGolsVisitante == GolVis){
                 for(Time Times:Menu.brasileirao.getTimes()) {
-                    if (Times.getNome().equals(Mandante)){
-                        for (Map.Entry ItemJogador : Marcador.stream().filter(i -> i.getValue().equals(Mandante)).collect(toList())) {
+                    if (Times.getNome().equals(nomeMandante)){
+                        for (Map.Entry ItemJogador : Marcador.stream()
+                        		.filter(i -> i.getValue().equals(Times.getNome())).collect(toList())) {
                             for (Jogador Jogadores : Times.getJogadores()) {
                                 if (Jogadores.getNome().equals(ItemJogador.getKey())) {
                                     Finalizacao.add(Jogadores);
@@ -268,8 +275,9 @@ public class Inserir {
                             }
                         }
                     }
-                    else if(Times.getNome().equals(Visitante)){
-                            for (Map.Entry ItemJogador : Marcador.stream().filter(i -> i.getValue().equals(Visitante)).collect(toList())) {
+                    else if(Times.getNome().equals(nomeVisitante)){
+                            for (Map.Entry ItemJogador : Marcador.stream()
+                            		.filter(i -> i.getValue().equals(Times.getNome())).collect(toList())) {
                                 for (Jogador Jogadores : Times.getJogadores()) {
                                     if (Jogadores.getNome().equals(ItemJogador.getKey())) {
                                         Finalizacao.add(Jogadores);
@@ -283,12 +291,13 @@ public class Inserir {
                         "Os gols nao condizem com oque foi passado acima.");
                 return;
             }
-            List<Integer> Metodo = Finalizacao.stream().map(Jogador::getIdJog).collect(toList());
-            Metodo.add(0,ID);
+            //Cria uma nova ArrayList com os dados atualizados e sobrescreve a tabela de partidas principal.
+            List<Integer> idJogadores = Finalizacao.stream().map(Jogador::getIdJog).collect(toList());
+            idJogadores.add(0,ID); //Adiciona o id da partida no indice 0 para se adequar a funcao.
             Menu.brasileirao.carregarResultadoPeloUsuario(new int[]{ID,GolMan,GolVis});
-            Menu.brasileirao.carregarMarcadores(Metodo);
-            ArrayList<Partida> Atualizada = Menu.brasileirao.getTabelaDePartidas();
-            for(Partida Item:Atualizada){
+            Menu.brasileirao.carregarMarcadores(idJogadores);
+            ArrayList<Partida> tabPartidaAtualizada = Menu.brasileirao.getTabelaDePartidas();
+            for(Partida Item:tabPartidaAtualizada){
                 if(Item.getIdPartida()==ID){
                     Item.setGolsVisitante(Integer.parseInt(GolsVis.getText()));
                     Item.setGolsMandante(Integer.parseInt(GolsMan.getText()));
@@ -296,7 +305,7 @@ public class Inserir {
                     Item.setMarcadores(Finalizacao);
                 }
             }
-            Menu.brasileirao.setTabelaDePartidas(Atualizada);
+            Menu.brasileirao.setTabelaDePartidas(tabPartidaAtualizada);
             JOptionPane.showMessageDialog(Frame,
                     "Partida atualizada com sucesso!.");
             Frame.dispose();

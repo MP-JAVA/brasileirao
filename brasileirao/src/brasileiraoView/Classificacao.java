@@ -15,7 +15,7 @@ public class Classificacao {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
         panel.add(titulo(), BorderLayout.NORTH);
-        panel.add(botoes(), BorderLayout.CENTER);
+        panel.add(tabelaDoCampeonato(), BorderLayout.CENTER);
         frame.setSize(800,600);
         frame.setMinimumSize(new Dimension(300, 400));
         frame.setLocationRelativeTo(null);
@@ -32,7 +32,7 @@ public class Classificacao {
         return Titulo;
     }
 
-    public JScrollPane botoes(){
+    public JScrollPane tabelaDoCampeonato(){
         JTable tabelaDeClassificacao = new JTable(Menu.brasileirao.imprimirCLassificacao(),
                 new String[]{"Posicao", "Time", "Pontos", "Vitoria", "Empate", "Derrota", "Gols Para", "Gols Contra", "Saldo", "Aproveitamento"}){
             public boolean editCellAt(int row, int column, java.util.EventObject e) {

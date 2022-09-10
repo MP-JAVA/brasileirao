@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.List;
 
-import static config.configuracoes.layoytconstr;
+import static config.configuracoes.posComponentes;
 import static java.util.stream.Collectors.toList;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 
@@ -81,55 +81,55 @@ public class Inserir {
 
     public JPanel gols(){
         JPanel Insercao = new JPanel(new GridBagLayout());
-        Insercao.add(new JLabel("Gols do time mandante: "), layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(new JLabel("Gols do time mandante: "), posComponentes(GridBagConstraints.HORIZONTAL,
                 0, 0, 0,0,1,1));
-        Insercao.add(GolsMan, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(GolsMan, posComponentes(GridBagConstraints.HORIZONTAL,
                 2, 0, 1,0,1,1));
-        Insercao.add(new JLabel("Gols do time visitante: "), layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(new JLabel("Gols do time visitante: "), posComponentes(GridBagConstraints.HORIZONTAL,
                 0, 0, 0,1,1,1));
-        Insercao.add(GolsVis, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(GolsVis, posComponentes(GridBagConstraints.HORIZONTAL,
                 2, 0, 1,1,1,1));
-        Insercao.add(Computar, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(Computar, posComponentes(GridBagConstraints.HORIZONTAL,
                 2, 0, 0,2,2,1));
         return Insercao;
     }
 
     public JPanel marcadores(){
         JPanel Insercao = new JPanel(new GridBagLayout());
-        Insercao.add(new JLabel("Times",SwingConstants.CENTER), layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(new JLabel("Times",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,0,1,1));
-        Insercao.add(ComboTimesSelecionados, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(ComboTimesSelecionados, posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,1,1,1));
-        Insercao.add(new JLabel("Jogadores",SwingConstants.CENTER), layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(new JLabel("Jogadores",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,2,1,1));
-        Insercao.add(ComboJogadores, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(ComboJogadores, posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,3,1,1));
-        Insercao.add(Adicionar, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(Adicionar, posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,4,1,1));
-        Insercao.add(new JLabel("Selecionados",SwingConstants.CENTER), layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(new JLabel("Selecionados",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 1,0,1,1));
-        Insercao.add(ItensGols, layoytconstr(GridBagConstraints.BOTH,
+        Insercao.add(ItensGols, posComponentes(GridBagConstraints.BOTH,
                 1, 0, 1,1,1,4));
-        Insercao.add(Finalizar, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(Finalizar, posComponentes(GridBagConstraints.HORIZONTAL,
                 1, 0, 0,5,2,1));
         return Insercao;
     }
 
     public JPanel processo(){
         JPanel Insercao = new JPanel(new GridBagLayout());
-        Insercao.add(new JLabel("Time mandante",SwingConstants.CENTER), layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(new JLabel("Time mandante",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,0,1,1));
-        Insercao.add(TimeMandante, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(TimeMandante, posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,1,1,1));
-        Insercao.add(new JLabel("Time visitante",SwingConstants.CENTER), layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(new JLabel("Time visitante",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,2,1,1));
-        Insercao.add(TimeVisitante, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(TimeVisitante, posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,3,1,1));
-        Insercao.add(Verificacao, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(Verificacao, posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,4,1,1));
-        Insercao.add(PanelGols, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(PanelGols, posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,5,1,1));
-        Insercao.add(PanelMarcadores, layoytconstr(GridBagConstraints.HORIZONTAL,
+        Insercao.add(PanelMarcadores, posComponentes(GridBagConstraints.HORIZONTAL,
                 3, 0, 0,6,1,1));
         return Insercao;
     }

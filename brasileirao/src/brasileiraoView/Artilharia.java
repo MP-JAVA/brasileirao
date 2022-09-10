@@ -11,7 +11,7 @@ public class Artilharia {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
         panel.add(titulo(), BorderLayout.NORTH);
-        panel.add(botoes(), BorderLayout.CENTER);
+        panel.add(tabelaArtilharia(), BorderLayout.CENTER);
         frame.setSize(800,600);
         frame.setMinimumSize(new Dimension(300, 400));
         frame.setLocationRelativeTo(null);
@@ -22,16 +22,17 @@ public class Artilharia {
     public JPanel titulo(){
         JPanel Titulo = new JPanel();
         Titulo.setBorder(new EmptyBorder(15, 15, 15, 15));
-        JLabel Frase = new JLabel();
+        JLabel Frase = new JLabel("Artilharia");
         Frase.setFont(new Font("Arial", Font.PLAIN, 25));
         Titulo.add(Frase);
         return Titulo;
     }
 
-    public JScrollPane botoes(){
-        JTable tabelaDeArtilheiros = new JTable(Menu.brasileirao.imprimirArtilharia(), new String[]{"Jogador", "Time", "Gols"}){
+    public JScrollPane tabelaArtilharia(){
+        JTable tabelaDeArtilheiros = new JTable(Menu.brasileirao.imprimirArtilharia(),
+        		new String[]{"Jogador", "Time", "Gols"}){ //imprime uma tabela a partir de um vetor de vetores.
             public boolean editCellAt(int row, int column, java.util.EventObject e) {
-                return false;
+                return false; //impede que o usuario edite a tabela.
             }
         };
         JScrollPane barraRolagem = new JScrollPane(tabelaDeArtilheiros);

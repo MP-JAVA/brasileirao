@@ -31,13 +31,13 @@ class Testes {
 	@Test
 	public void testgetTimeByName() {
 		
-		int Atletico = brasileirao.getTimeByName("Atletico-MG");
-		int Botafogo = brasileirao.getTimeByName("Botafogo");
-		int Internacional = brasileirao.getTimeByName("Internacional");
+		int Atletico = brasileirao.idTimePeloNome("Atletico-MG");
+		int Botafogo = brasileirao.idTimePeloNome("Botafogo");
+		int Internacional = brasileirao.idTimePeloNome("Internacional");
 		
-		boolean AM = brasileirao.times.get(brasileirao.getIndexTimeByID(Atletico)).getNome().equals("Atletico-MG");
-		boolean BF = brasileirao.times.get(brasileirao.getIndexTimeByID(Botafogo)).getNome().equals("Botafogo");
-		boolean INT = brasileirao.times.get(brasileirao.getIndexTimeByID(Internacional)).getNome().equals("Internacional");
+		boolean AM = brasileirao.times.get(brasileirao.posTimeNaListaDeTimes(Atletico)).getNome().equals("Atletico-MG");
+		boolean BF = brasileirao.times.get(brasileirao.posTimeNaListaDeTimes(Botafogo)).getNome().equals("Botafogo");
+		boolean INT = brasileirao.times.get(brasileirao.posTimeNaListaDeTimes(Internacional)).getNome().equals("Internacional");
 		
 		assertTrue(AM && BF & INT);
 	}

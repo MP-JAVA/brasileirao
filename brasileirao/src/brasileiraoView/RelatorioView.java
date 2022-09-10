@@ -11,7 +11,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import static config.configuracoes.layoytconstr;
+import static config.configuracoes.posComponentes;
 
 public class RelatorioView {
 
@@ -75,17 +75,17 @@ public class RelatorioView {
 
 	public JPanel time_select(){
 		JPanel Insercao = new JPanel(new GridBagLayout());
-		Insercao.add(new JLabel("Times",SwingConstants.CENTER), layoytconstr(GridBagConstraints.HORIZONTAL,
+		Insercao.add(new JLabel("Times",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
 				1, 0, 0,0,2,1));
-		Insercao.add(Times, layoytconstr(GridBagConstraints.HORIZONTAL,
+		Insercao.add(Times, posComponentes(GridBagConstraints.HORIZONTAL,
 				1, 0, 0,1,2,1));
-		Insercao.add(Buscar, layoytconstr(GridBagConstraints.HORIZONTAL,
+		Insercao.add(Buscar, posComponentes(GridBagConstraints.HORIZONTAL,
 				1, 0, 0,2,2,1));
-		Insercao.add(new JLabel("Resultado",SwingConstants.CENTER), layoytconstr(GridBagConstraints.HORIZONTAL,
+		Insercao.add(new JLabel("Resultado",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
 				1, 0, 0,3,2,1));
-		Insercao.add(new JLabel("Tecnico: ",SwingConstants.CENTER), layoytconstr(GridBagConstraints.HORIZONTAL,
+		Insercao.add(new JLabel("Tecnico: ",SwingConstants.CENTER), posComponentes(GridBagConstraints.HORIZONTAL,
 				0, 0, 0,4,1,1));
-		Insercao.add(Tecnico, layoytconstr(GridBagConstraints.HORIZONTAL,
+		Insercao.add(Tecnico, posComponentes(GridBagConstraints.HORIZONTAL,
 				2, 0, 1,4,1,1));
 		return Insercao;
 	}

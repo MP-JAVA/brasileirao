@@ -11,7 +11,7 @@ import brasileirao.model.Jogador;
 import brasileirao.model.Partida;
 import brasileirao.model.Time;
 import brasileirao.model.Treinador;
-import brasileiraoView.CRUD.Jogadores;
+import brasileiraoView.Jogadores;
 import config.configuracoes;
 
 public class Campeonato {
@@ -221,11 +221,11 @@ public class Campeonato {
 	// Cria um jogador e incluí-lo na lista de jogadores.
 	public boolean addJogador(int TimeID, String Nome, String Posicao) {
 		try {
-			Jogador Adicionar = new Jogador(Nome, Posicao);
-			Adicionar.setIdTime(TimeID);
-			Adicionar.setTime();
-			int idTime = getIndexTimeByID(TimeID);
-			times.get(idTime).getJogadores().add(Adicionar);
+			Jogador novoJogador = new Jogador(Nome, Posicao);
+			novoJogador.setIdTime(TimeID);
+			novoJogador.setTime();
+			int idTime = posTimeNaListaDeTimes(TimeID);
+			times.get(idTime).getJogadores().add(novoJogador);
 			return true;
 		} catch(Exception E) {
 			return false;
@@ -234,8 +234,9 @@ public class Campeonato {
 	
 	public boolean deleteJogador(int IDTime, int IDJogador) {
 		try {
-			int idTime = getIndexTimeByID(IDTime);
-			int encontrarJogador = configuracoes.indexByID(String.valueOf(IDJogador), times.get(idTime).getJogadores());
+			int idTime = posTimeNaListaDeTimes(IDTime);
+			//retorna a posicao do jogador na lista de jogadores do time
+			int encontrarJogador = configuracoes.posJogEmUmaLista(String.valueOf(IDJogador), times.get(idTime).getJogadores());
 			times.get(idTime).getJogadores().remove(encontrarJogador);
 			return true;
 		} catch(Exception E) {
@@ -244,12 +245,12 @@ public class Campeonato {
 	}
 
 	// Busca a posicao do Time na ArrayList times pelo id do time.
-	public int getIndexTimeByID(int ID){
+	public int posTimeNaListaDeTimes(int ID){
 		return IntStream.range(0, times.size()).filter(i -> ID == times.get(i).getIdTime()).findFirst().orElse(0);
 	}
 
 	// Busca o id do time na ArrayList times pelo nome.
-	public int getTimeByName(String Nome){
+	public int idTimePeloNome(String Nome){
 		return times.stream().filter(Item->Nome.equals(Item.getNome())).findFirst().orElse(null).getIdTime();
 	}
 
@@ -401,10 +402,7 @@ public class Campeonato {
 	// Esses vetores foram armazenados em uma ArrayList de objetos (Classificacao).
 	// Retorno: Vetor de vetores, contendo todos os times ja ordenados e, dentro deles, cada dado desses times.
 	public Object[][] imprimirCLassificacao() {
-		ArrayList<Object[]> Classificacao = new ArrayList<>();
-		//this.getTimes().sort(new ComparatorClassificacao()); - antiga forma 
-		
-				
+		ArrayList<Object[]> Classificacao = new ArrayList<>();	
 		Collections.sort(this.getTimes(),
 				Comparator.comparingInt(Time::getPontos)
 				.thenComparing(Time::getVitorias)
@@ -470,18 +468,22 @@ public class Campeonato {
 	}
 
 	public Map.Entry<String,Object[][]> tabela_times(String time) {
-		Time Selecionado = times.stream().filter(Item->Item.getNome().equals(time))
+		//O stream funciona como uma espécie de for loop que passa por todos os Itens da ArrayList times. A parte do filter
+		//adiciona uma condição para a seleção (nome do time) e o findfirst limita a primeira ocorrencia. 
+		Time timeSelecionado = times.stream().filter(Item->Item.getNome().equals(time))
 				.findFirst().orElse(null);
-		ArrayList<Jogador> Tabela = Selecionado.getJogadores();
-		ArrayList<Object[]> Time = new ArrayList<>();
-		for(Jogador Item:Tabela){
-			Time.add(new Object[]{Item.getNome(),Item.getGols(),Item.getPosicao()});
+		ArrayList<Jogador> jogsDoTime = timeSelecionado.getJogadores();
+		ArrayList<Object[]> dadosDeCadaJog = new ArrayList<>();
+		for(Jogador Item:jogsDoTime){ //Cria objetos com dados dos jogadores que interessam ao relatorio.
+			dadosDeCadaJog.add(new Object[]{Item.getNome(),Item.getGols(),Item.getPosicao()});
 		}
-		Object[][] Retorno = new Object[Time.size()][];
-		for(int i=0;i<Time.size();i++){
-			Retorno[i] = Time.get(i);
+		Object[][] Retorno = new Object[dadosDeCadaJog.size()][]; //Cria um vetor com os vetores anteriores.
+		for(int i=0;i<dadosDeCadaJog.size();i++){
+			Retorno[i] = dadosDeCadaJog.get(i);
 		}
-		return new AbstractMap.SimpleEntry(Selecionado.getTreinador().getNome(),Retorno);
+		//retorna o tecnico e os dados dos jogadores em formato chave-valor.
+		//A chave e o nome do tecnico e o valor e o vetor de vetores com os dados dos jogadores.
+		return new AbstractMap.SimpleEntry(timeSelecionado.getTreinador().getNome(),Retorno); 
 	}
 
 }

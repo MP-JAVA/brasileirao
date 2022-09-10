@@ -11,7 +11,7 @@ public class Partidas {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
         panel.add(titulo(), BorderLayout.NORTH);
-        panel.add(botoes(), BorderLayout.CENTER);
+        panel.add(listagemDePartidas(), BorderLayout.CENTER);
         frame.setSize(800,600);
         frame.setMinimumSize(new Dimension(300, 400));
         frame.setLocationRelativeTo(null);
@@ -28,7 +28,7 @@ public class Partidas {
         return Titulo;
     }
 
-    public JScrollPane botoes(){
+    public JScrollPane listagemDePartidas(){
         JTable tabelaDePartidas = new JTable(Menu.brasileirao.apresentarPartidas(),
                 new String[]{"ID", "Status", "Mandante", "Visitante", "Resultado", "Gols"}){
             public boolean editCellAt(int row, int column, java.util.EventObject e) {

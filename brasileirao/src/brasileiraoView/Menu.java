@@ -2,9 +2,6 @@ package brasileiraoView;
 
 import brasileirao.controll.Campeonato;
 import brasileirao.model.Partida;
-import brasileiraoView.CRUD.HUBCRUD;
-import brasileiraoView.CRUD.Jogadores;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -20,8 +17,9 @@ public class Menu{
     private static final JButton Tabela = new JButton("Tabela de partidas");
     private static final JButton Inserir = new JButton("Inserir resultados");
     private static final JButton Relatorios = new JButton("Relatorios");
-    private static final JButton HUBCRUD = new JButton("HUB CRUD");
+    private static final JButton Jogadores = new JButton("Jogadores");
     public static Campeonato brasileirao;
+    
 
     public static JPanel titulo(){
         JPanel Titulo = new JPanel();
@@ -39,7 +37,7 @@ public class Menu{
         Botoes.add(Tabela);
         Botoes.add(Inserir);
         Botoes.add(Relatorios);
-        Botoes.add(HUBCRUD);
+        Botoes.add(Jogadores);
         Botoes.setAlignmentY(Component.CENTER_ALIGNMENT);
         return Botoes;
     }
@@ -51,14 +49,14 @@ public class Menu{
         acoes();
         JFrame frame = new JFrame("Brasileirao 2022");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel(new BorderLayout()); //panel principal config em N/S/L/O/C
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
-        panel.add(titulo(), BorderLayout.NORTH);
-        panel.add(botoes(), BorderLayout.CENTER);
+        panel.add(titulo(), BorderLayout.NORTH); // Cria e posiciona o titulo
+        panel.add(botoes(), BorderLayout.CENTER); //Cria e posiciona os botoes
         frame.setSize(800,600);
         frame.setMinimumSize(new Dimension(300, 400));
-        frame.setLocationRelativeTo(null);
-        frame.add(panel);
+        frame.setLocationRelativeTo(null); //Centraliza o frame (caixa)
+        frame.add(panel); // coloca o panel principal (com os demais panels nele incluidos) no frame.
         frame.setVisible(true);
     }
 
@@ -68,7 +66,7 @@ public class Menu{
         Classificacao.addActionListener(e -> new Classificacao());
         Inserir.addActionListener(e -> new Inserir());
         Relatorios.addActionListener(e-> new RelatorioView());
-        HUBCRUD.addActionListener(e-> new HUBCRUD());
+        Jogadores.addActionListener(e-> new Jogadores());
     }
 
 }

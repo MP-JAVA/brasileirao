@@ -1,5 +1,20 @@
 package brasileirao.model;
 
+/**
+ * Classe Jogador que herda de funcionario.
+ * 
+ * @author Leandro Souza da Silva
+ * @author Leonardo Passos
+ * @since 2022
+ * @version 1.1
+ */
+
+/**
+ * Comparable é uma interface que tem um metodo de comparacao, nesse caso vai
+ * comparar a quantidade de gols de cada jogador.
+ *
+ */
+
 public class Jogador extends Funcionario implements Comparable<Jogador> {
 	public static int idGeralJog = 0;
 	private int idJog;

@@ -4,15 +4,27 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 import brasileirao.model.Jogador;
 import brasileirao.model.Partida;
 import brasileirao.model.Time;
 import brasileirao.model.Treinador;
-import brasileiraoView.Jogadores;
 import config.configuracoes;
+
+/**
+ * Classe que conecta a model com a view.
+ * 
+ * @author Leonardo Passos
+ * @since 2022
+ * @version 1.1
+ */
 
 public class Campeonato {
 	private ArrayList<Partida> tabelaDePartidas;
@@ -28,7 +40,7 @@ public class Campeonato {
 		carregarDados();
 	}
 
-	// Getters and Setters
+	/** Getters and Setters */
 	public ArrayList<Partida> getTabelaDePartidas() {
 		return tabelaDePartidas;
 	}
@@ -45,13 +57,17 @@ public class Campeonato {
 		this.times = times;
 	}
 
-	public void update(){
+	public void update() {
 		carregarDados();
 	}
 
-// Carregamento de dados dos arquivos --------------------------------------------------------------------------
+	/**
+	 * Carregamento de dados dos arquivos
+	 * --------------------------------------------------------------------------
+	 * Instancia todos times e jogadores envolvidos no campeonato a partir do
+	 * arquivo CSV.
+	 */
 
-	// Instancia todos times e jogadores envolvidos no campeonato a partir do arquivo CSV.
 	public void carregarDadosElencos() {
 		File arquivo = new File(Elencos);
 		if (arquivo.exists()) {
@@ -81,7 +97,7 @@ public class Campeonato {
 		}
 	}
 
-	// Instancia todas as partidas do campeonato a partir do arquivo CSV.
+	/** Instancia todas as partidas do campeonato a partir do arquivo CSV. */
 	public void carregarPartidas() {
 		File arquivo = new File(Partidas);
 		if (arquivo.exists()) {
@@ -127,15 +143,15 @@ public class Campeonato {
 		this.carregarPartidas();
 	}
 
-// metodos de organanizacao do programa
-	
-	// Instancia um Time e o insere na ArrayList do campeonato.
+	/** metodos de organanizacao do programa */
+
+	/** Instancia um Time e o insere na ArrayList do campeonato. */
 	public void cadastrarTime(String nome) {
 		Time time = new Time(nome);
 		this.times.add(time);
 	}
 
-	// Instancia um jogador e o insere na ArrayList de jogadores do Time.
+	/** Instancia um jogador e o insere na ArrayList de jogadores do Time. */
 	public void cadastrarJogador(String nome, String posicao, String id) {
 		Jogador jogador = new Jogador(nome, posicao);
 		int idTime = Integer.parseInt(id);
@@ -145,7 +161,7 @@ public class Campeonato {
 		this.times.get(idTime).cadastrarJogador(jogador);
 	}
 
-	// Instancia um treinador e o insere no Time.
+	/** Instancia um treinador e o insere no Time. */
 	public void cadastrarTreinador(String nome, String id) {
 		Treinador treinador = new Treinador(nome);
 		int idTime = Integer.parseInt(id);
@@ -155,13 +171,16 @@ public class Campeonato {
 		this.times.get(idTime).setTreinador(treinador);
 	}
 
-	// Instancia uma partida e a inclui na ArrayList tabelaDePartidas
+	/** Instancia uma partida e a inclui na ArrayList tabelaDePartidas */
 	public void cadastrarPartida(String timeMandante, String timeVisitante) {
 		Partida partida = new Partida(timeMandante, timeVisitante);
 		this.tabelaDePartidas.add(partida);
 	}
 
-	// Carrega todos os resultados constantes do arquivo CSV relacionados as partidas ja ocorridas
+	/**
+	 * Carrega todos os resultados constantes do arquivo CSV relacionados as
+	 * partidas ja ocorridas
+	 */
 	public void carregarResultadoDoArquivo(int[] dadosPartida) {
 		int id, gMandante, gVisitante;
 
@@ -216,9 +235,8 @@ public class Campeonato {
 			}
 		}
 	}
-	
-	
-	// Cria um jogador e incluí-lo na lista de jogadores.
+
+	/** Cria um jogador e incluï¿½-lo na lista de jogadores. */
 	public boolean addJogador(int TimeID, String Nome, String Posicao) {
 		try {
 			Jogador novoJogador = new Jogador(Nome, Posicao);
@@ -227,34 +245,38 @@ public class Campeonato {
 			int idTime = posTimeNaListaDeTimes(TimeID);
 			times.get(idTime).getJogadores().add(novoJogador);
 			return true;
-		} catch(Exception E) {
+		} catch (Exception E) {
 			return false;
 		}
 	}
-	
+
 	public boolean deleteJogador(int IDTime, int IDJogador) {
 		try {
 			int idTime = posTimeNaListaDeTimes(IDTime);
-			//retorna a posicao do jogador na lista de jogadores do time
-			int encontrarJogador = configuracoes.posJogEmUmaLista(String.valueOf(IDJogador), times.get(idTime).getJogadores());
+			/** retorna a posicao do jogador na lista de jogadores do time */
+			int encontrarJogador = configuracoes.posJogEmUmaLista(String.valueOf(IDJogador),
+					times.get(idTime).getJogadores());
 			times.get(idTime).getJogadores().remove(encontrarJogador);
 			return true;
-		} catch(Exception E) {
+		} catch (Exception E) {
 			return false;
 		}
 	}
 
-	// Busca a posicao do Time na ArrayList times pelo id do time.
-	public int posTimeNaListaDeTimes(int ID){
+	/** Busca a posicao do Time na ArrayList times pelo id do time. */
+	public int posTimeNaListaDeTimes(int ID) {
 		return IntStream.range(0, times.size()).filter(i -> ID == times.get(i).getIdTime()).findFirst().orElse(0);
 	}
 
-	// Busca o id do time na ArrayList times pelo nome.
-	public int idTimePeloNome(String Nome){
-		return times.stream().filter(Item->Nome.equals(Item.getNome())).findFirst().orElse(null).getIdTime();
+	/** Busca o id do time na ArrayList times pelo nome. */
+	public int idTimePeloNome(String Nome) {
+		return times.stream().filter(Item -> Nome.equals(Item.getNome())).findFirst().orElse(null).getIdTime();
 	}
 
-	// Carregamento pelo usuario dos resultados das partidas que ainda serao realizadas.
+	/**
+	 * Carregamento pelo usuario dos resultados das partidas que ainda serao
+	 * realizadas.
+	 */
 	public void carregarResultadoPeloUsuario(int[] dadosPartida) {
 		int id, gMandante, gVisitante;
 
@@ -313,7 +335,7 @@ public class Campeonato {
 		}
 	}
 
-	// Carregamento dos marcadores das partidas que ainda serao realizadas.
+	/** Carregamento dos marcadores das partidas que ainda serao realizadas. */
 	public void carregarMarcadores(List<Integer> idMarcadores) {
 		int qtdadeMarcadores = (idMarcadores.size() - 1);
 
@@ -343,7 +365,7 @@ public class Campeonato {
 		}
 	}
 
-	// Busca o id de um time a partir do id de um jogador.
+	/** Busca o id de um time a partir do id de um jogador. */
 	public int buscarIdTimePeloIdJogador(int idJog) {
 		int idTime = 0;
 		for (int a = 0; a < this.times.size(); a++) {
@@ -356,88 +378,98 @@ public class Campeonato {
 		return idTime;
 	}
 
-//Funcionalidades do programa
+	/**
+	 * Funcionalidades do programa
+	 * 
+	 * Retorna todos os dados de todas as partidas. Para cada partida, criou-se uma
+	 * String com o ï¿½ndice de cada gol e o jogador que o marcou ("Marcadores"). Para
+	 * cada partida, criou-se um vetor de objetos em que se discriminou, em cada
+	 * posicao, um dado da partida. Criou-se uma ArrayList (Partidas) com os objetos
+	 * criados. Retorno: Vetor de vetores, contendo todas as partidas e, dentro
+	 * delas, cada dado dessas partidas.
+	 * 
+	 */
 
-	// Retorna todos os dados de todas as partidas.
-	// Para cada partida, criou-se uma String com o índice de cada gol e o jogador que o marcou ("Marcadores").
-	// Para cada partida, criou-se um vetor de objetos em que se discriminou, em cada posicao, um dado da partida.
-	// Criou-se uma ArrayList (Partidas) com os objetos criados.
-	// Retorno: Vetor de vetores, contendo todas as partidas e, dentro delas, cada dado dessas partidas.
 	public Object[][] apresentarPartidas() {
 		ArrayList<Object[]> Partidas = new ArrayList<>();
-		for(Partida Item:this.tabelaDePartidas){
+		for (Partida Item : this.tabelaDePartidas) {
 
 			StringBuilder Marcadores = new StringBuilder();
 			int Gols = Item.getGolsMandante() + Item.getGolsVisitante();
 			if (Gols > 0) {
 				if (Item.getMarcadores().isEmpty()) {
 					Marcadores.append("Os marcadores ainda nao foram cadastrados!");
-				}else{
-					for(int i=0;i<Item.getMarcadores().size();i++){
+				} else {
+					for (int i = 0; i < Item.getMarcadores().size(); i++) {
 						Jogador Selecionado = Item.getMarcadores().get(i);
-						Marcadores.append(String.format("%s - %s  ",i+1,Selecionado.getNome()));
+						Marcadores.append(String.format("%s - %s  ", i + 1, Selecionado.getNome()));
 					}
 				}
-			} else if(Item.getStatus().equals("REALIZADA")) {
+			} else if (Item.getStatus().equals("REALIZADA")) {
 				Marcadores.append("");
 			}
 
-			Partidas.add(new Object[]{String.valueOf(Item.getIdPartida()),
-			                          Item.getStatus(),
-									  Item.getTimeMandante(),
-			                          Item.getTimeVisitante(),
-			                          String.format("%s %s x %s %s",Item.getTimeMandante(),Item.getGolsMandante(),
-											                       Item.getGolsVisitante(),Item.getTimeVisitante()),
-			                          Marcadores});
+			Partidas.add(
+					new Object[] { String.valueOf(Item.getIdPartida()), Item.getStatus(), Item.getTimeMandante(),
+							Item.getTimeVisitante(), String.format("%s %s x %s %s", Item.getTimeMandante(),
+									Item.getGolsMandante(), Item.getGolsVisitante(), Item.getTimeVisitante()),
+							Marcadores });
 		}
 		Object[][] Retorno = new Object[Partidas.size()][];
-		for(int i=0;i<Partidas.size();i++){
+		for (int i = 0; i < Partidas.size(); i++) {
 			Retorno[i] = Partidas.get(i);
 		}
 		return Retorno;
 	}
 
-	// Ordenou-se a ArrayList times.
-	// Criaram-se vetores com varios objetos contendo cada dado de cada time, já em ordem.
-	// Esses vetores foram armazenados em uma ArrayList de objetos (Classificacao).
-	// Retorno: Vetor de vetores, contendo todos os times ja ordenados e, dentro deles, cada dado desses times.
-	public Object[][] imprimirCLassificacao() {
-		ArrayList<Object[]> Classificacao = new ArrayList<>();	
-		Collections.sort(this.getTimes(),
-				Comparator.comparingInt(Time::getPontos)
-				.thenComparing(Time::getVitorias)
-				.thenComparing(Time::getSaldoDeGols)
-				.thenComparing(Time::getGolsPara));
-		Collections.reverse(this.getTimes());
-		for (int i=0;i<this.times.size();i++) {
-		
-			float percentual = (float) this.times.get(i).getPontos()
-					/ ((this.times.get(i).getVitorias() + this.times.get(i).getEmpates() + this.times.get(i).getDerrotas()) * 3) * 100;
+	/**
+	 * Ordenou-se a ArrayList times. Criaram-se vetores com varios objetos contendo
+	 * cada dado de cada time, jï¿½ em ordem. Esses vetores foram armazenados em uma
+	 * ArrayList de objetos (Classificacao). Retorno: Vetor de vetores, contendo
+	 * todos os times ja ordenados e, dentro deles, cada dado desses times.
+	 * 
+	 */
 
-			Classificacao.add(new Object[]{String.valueOf(i+1),this.times.get(i).getNome(), String.valueOf(((this.times.get(i).getVitorias() * 3 + this.times.get(i).getEmpates()))),
+	public Object[][] imprimirCLassificacao() {
+		ArrayList<Object[]> Classificacao = new ArrayList<>();
+		Collections.sort(this.getTimes(), Comparator.comparingInt(Time::getPontos).thenComparing(Time::getVitorias)
+				.thenComparing(Time::getSaldoDeGols).thenComparing(Time::getGolsPara));
+		Collections.reverse(this.getTimes());
+		for (int i = 0; i < this.times.size(); i++) {
+
+			float percentual = (float) this.times.get(i).getPontos() / ((this.times.get(i).getVitorias()
+					+ this.times.get(i).getEmpates() + this.times.get(i).getDerrotas()) * 3) * 100;
+
+			Classificacao.add(new Object[] { String.valueOf(i + 1), this.times.get(i).getNome(),
+					String.valueOf(((this.times.get(i).getVitorias() * 3 + this.times.get(i).getEmpates()))),
 					String.valueOf(this.times.get(i).getVitorias()), String.valueOf(this.times.get(i).getEmpates()),
-					String.valueOf(this.times.get(i).getDerrotas()), String.valueOf(this.times.get(i).getGolsPara()), String.valueOf(this.times.get(i).getGolsContra()),
-					String.valueOf((this.times.get(i).getGolsPara() - this.times.get(i).getGolsContra())), String.format("%.2f", percentual)});
-			
+					String.valueOf(this.times.get(i).getDerrotas()), String.valueOf(this.times.get(i).getGolsPara()),
+					String.valueOf(this.times.get(i).getGolsContra()),
+					String.valueOf((this.times.get(i).getGolsPara() - this.times.get(i).getGolsContra())),
+					String.format("%.2f", percentual) });
+
 		}
 		Object[][] Retorno = new Object[Classificacao.size()][];
-		for(int i=0;i<Classificacao.size();i++){
+		for (int i = 0; i < Classificacao.size(); i++) {
 			Retorno[i] = Classificacao.get(i);
 		}
 		return Retorno;
 	}
-	
-	// Retorna uma ArrayList com todos os jogadores cadastrados.
-	public ArrayList<Jogador> getJogadores(){
+
+	/** Retorna uma ArrayList com todos os jogadores cadastrados. */
+	public ArrayList<Jogador> getJogadores() {
 		ArrayList<Jogador> Jogadores = new ArrayList<>();
-		for(Time Item:this.times) {
+		for (Time Item : this.times) {
 			Jogadores.addAll(Item.getJogadores());
 		}
 		return Jogadores;
 	}
 
-	// Retorna uma ArrayList com todos os jogadores que ja tenham marcado pelo menos um gol.
-	public ArrayList<Jogador> artilheiros(){
+	/**
+	 * Retorna uma ArrayList com todos os jogadores que ja tenham marcado pelo menos
+	 * um gol.
+	 */
+	public ArrayList<Jogador> artilheiros() {
 		ArrayList<Jogador> artilheiros = new ArrayList<>();
 		for (int b = 0; b < this.times.size(); b++) {
 			for (int c = 0; c < this.times.get(b).getJogadores().size(); c++) {
@@ -449,41 +481,52 @@ public class Campeonato {
 		}
 		return artilheiros;
 	}
-	
-	// Foi criada e posta em ordem uma Arraylist (JogadoresComGols) com todos os jogadores que já tenham marcado gols.
-	// Para cada jogador, foi criada uma Arraylist de objetos contendo cada dado de cada jogador.
-	// Retorno: Vetor de vetores, contendo todos os jogadores ja ordenados e, dentro deles, cada dado desses jogadores.
+
+	/**
+	 * Foi criada e posta em ordem uma Arraylist (JogadoresComGols) com todos os
+	 * jogadores que jï¿½ tenham marcado gols. Para cada jogador, foi criada uma
+	 * Arraylist de objetos contendo cada dado de cada jogador. Retorno: Vetor de
+	 * vetores, contendo todos os jogadores ja ordenados e, dentro deles, cada dado
+	 * desses jogadores.
+	 * 
+	 */
 	public Object[][] imprimirArtilharia() {
 		ArrayList<Jogador> jogadoresComGols = artilheiros();
 		ArrayList<Object[]> Artilheiros = new ArrayList<>();
 		Collections.sort(jogadoresComGols);
-		for(Jogador Item:jogadoresComGols){
-			Artilheiros.add(new Object[]{Item.getNome(),Item.getTime(),Item.getGols()});
+		for (Jogador Item : jogadoresComGols) {
+			Artilheiros.add(new Object[] { Item.getNome(), Item.getTime(), Item.getGols() });
 		}
 		Object[][] Retorno = new Object[Artilheiros.size()][];
-		for(int i=0;i<Artilheiros.size();i++){
+		for (int i = 0; i < Artilheiros.size(); i++) {
 			Retorno[i] = Artilheiros.get(i);
 		}
 		return Retorno;
 	}
 
-	public Map.Entry<String,Object[][]> tabela_times(String time) {
-		//O stream funciona como uma espécie de for loop que passa por todos os Itens da ArrayList times. A parte do filter
-		//adiciona uma condição para a seleção (nome do time) e o findfirst limita a primeira ocorrencia. 
-		Time timeSelecionado = times.stream().filter(Item->Item.getNome().equals(time))
-				.findFirst().orElse(null);
+	public Map.Entry<String, Object[][]> tabela_times(String time) {
+		/**
+		 * O stream funciona como uma espï¿½cie de for loop que passa por todos os Itens
+		 * da ArrayList times. A parte do filter adiciona uma condiï¿½ï¿½o para a seleï¿½ï¿½o
+		 * (nome do time) e o findfirst limita a primeira ocorrencia.
+		 */
+
+		Time timeSelecionado = times.stream().filter(Item -> Item.getNome().equals(time)).findFirst().orElse(null);
 		ArrayList<Jogador> jogsDoTime = timeSelecionado.getJogadores();
 		ArrayList<Object[]> dadosDeCadaJog = new ArrayList<>();
-		for(Jogador Item:jogsDoTime){ //Cria objetos com dados dos jogadores que interessam ao relatorio.
-			dadosDeCadaJog.add(new Object[]{Item.getNome(),Item.getGols(),Item.getPosicao()});
+		for (Jogador Item : jogsDoTime) { /** Cria objetos com dados dos jogadores que interessam ao relatorio. */
+			dadosDeCadaJog.add(new Object[] { Item.getNome(), Item.getGols(), Item.getPosicao() });
 		}
-		Object[][] Retorno = new Object[dadosDeCadaJog.size()][]; //Cria um vetor com os vetores anteriores.
-		for(int i=0;i<dadosDeCadaJog.size();i++){
+		Object[][] Retorno = new Object[dadosDeCadaJog.size()][];
+		/** Cria um vetor com os vetores anteriores. */
+		for (int i = 0; i < dadosDeCadaJog.size(); i++) {
 			Retorno[i] = dadosDeCadaJog.get(i);
 		}
-		//retorna o tecnico e os dados dos jogadores em formato chave-valor.
-		//A chave e o nome do tecnico e o valor e o vetor de vetores com os dados dos jogadores.
-		return new AbstractMap.SimpleEntry(timeSelecionado.getTreinador().getNome(),Retorno); 
+		/**
+		 * retorna o tecnico e os dados dos jogadores em formato chave-valor. A chave e
+		 * o nome do tecnico e o valor e o vetor de vetores com os dados dos jogadores.
+		 */
+		return new AbstractMap.SimpleEntry(timeSelecionado.getTreinador().getNome(), Retorno);
 	}
 
 }

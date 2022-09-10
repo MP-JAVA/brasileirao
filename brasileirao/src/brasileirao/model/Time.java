@@ -2,6 +2,15 @@ package brasileirao.model;
 
 import java.util.ArrayList;
 
+/**
+ * Classe Time.
+ * 
+ * @author Leandro Souza da Silva
+ * @author Leonardo Passos
+ * @since 2022
+ * @version 1.1
+ */
+
 public class Time {
 	private static int idGeral = 0;
 	private int idTime;
@@ -73,6 +82,10 @@ public class Time {
 		return vitorias;
 	}
 
+	/**
+	 * Metodos para somar as vitorias, empates, derrotas, golscontra, etc.
+	 */
+
 	public void somaVitorias(int vitorias) {
 		this.vitorias++;
 		this.pontos = (this.pontos + 3);
@@ -110,7 +123,7 @@ public class Time {
 	public void somaGolsContra(int golsContra) {
 		this.golsContra += golsContra;
 	}
-	
+
 	public int getSaldoDeGols() {
 		return this.golsPara - this.golsContra;
 	}

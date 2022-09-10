@@ -2,6 +2,15 @@ package brasileirao.model;
 
 import java.util.ArrayList;
 
+/**
+ * Classe Partida.
+ * 
+ * @author Leandro Souza da Silva
+ * @author Leonardo Passos
+ * @since 2022
+ * @version 1.1
+ */
+
 public class Partida {
 
 	private static int idGeral = 0;

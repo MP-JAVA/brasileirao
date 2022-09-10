@@ -1,5 +1,14 @@
 package brasileirao.model;
 
+/**
+ * Classe abstrata Funcionario que representa um Jogador ou Tecnico.
+ * 
+ * @author Leandro Souza da Silva
+ * @author Leonardo Passos
+ * @since 2022
+ * @version 1.1
+ */
+
 public abstract class Funcionario {
 
 	private static int idGeral = 0;
@@ -49,6 +58,10 @@ public abstract class Funcionario {
 		return time;
 	}
 
+	/**
+	 * Defini os 20 times que participam do brasileirao
+	 * 
+	 */
 	public void setTime() {
 		if (this.getIdTime() == 0) {
 			this.time = "Atletico-MG";

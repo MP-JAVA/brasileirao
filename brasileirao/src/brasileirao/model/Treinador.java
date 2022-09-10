@@ -1,5 +1,14 @@
 package brasileirao.model;
 
+/**
+ * Classe Treinador que herda de Funcionario.
+ * 
+ * @author Leandro Souza da Silva
+ * @author Leonardo Passos
+ * @since 2022
+ * @version 1.1
+ */
+
 public class Treinador extends Funcionario {
 
 	public static int idGeralTrei = 0;
